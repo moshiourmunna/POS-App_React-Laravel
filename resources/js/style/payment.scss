@@ -1,0 +1,129 @@
+@import "variables";
+
+
+.modalContainer {
+  background: $body-bg1;
+  border-radius: 240px;
+}
+
+.payment {
+  width: 80vw;
+  height: fit-content;
+  background: $body-bg1;
+
+  h1{
+    margin-left: -8px;
+    color: $appWhite;
+    font-weight: 400;
+    font-size: 27px;
+  }
+  p{
+    margin-left: -8px;
+    font-size: 15px;
+    color: $offWhite;
+  }
+}
+
+
+
+
+.billingInfo {
+  font-weight: 400;
+  padding: 30px;
+  width: 400px;
+  border-left-style: solid;
+  border-color: #2D303E;
+
+  .billingHeader {
+    height: 8.5vh;
+    padding-left: 10px;
+
+    h2 {
+      color: $appWhite;
+      font-size: 23px;
+      font-weight: 400;
+    }
+
+    p {
+      color: $offWhite;
+      font-size: 13px;
+    }
+  }
+
+  .billingContainer {
+    h2 {
+      padding: 20px 0px 0px 10px;
+      color: $appWhite;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .paymentIcons {
+      padding: 20px 10px 10px 10px;
+      display: flex;
+      justify-content: space-between;
+      max-width: 50%;
+
+      .payIcon {
+        cursor: pointer;
+        list-style: none;
+        padding: 8px 18px 8px 18px;
+        border-radius: 8px;
+        border-style: solid;
+        border-width: thin;
+        border-color: $offWhite;
+        background: $body-bg1;
+      }
+
+      .activePayIcon {
+        cursor: pointer;
+        list-style: none;
+        padding: 8px 18px 8px 18px;
+        border-radius: 8px;
+        border-style: solid;
+        border-width: thin;
+        border-color: $offWhite;
+        background: $body-bg2;
+      }
+    }
+  }
+}
+
+.cardPay {
+  hr {
+    width: 105%;
+    margin-left: 10px;
+    color: #414141;
+  }
+
+  p {
+    padding: 10px 10px 5px 10px;
+    color: $appWhite;
+    font-size: 13px;
+  }
+
+  input {
+    margin: 5px;
+    border-style: none;
+    width: 100%;
+    padding: 11px;
+    border-radius: 8px;
+    color: $offWhite;
+    background: $body-bg2;
+  }
+
+  .flex-columnPay {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .confirmPay {
+    width: 100%;
+    display: flex;
+
+    .button {
+      min-width: 50%;
+      margin-left: 10px;
+    }
+  }
+}

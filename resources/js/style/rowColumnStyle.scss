@@ -1,0 +1,40 @@
+@import "variables";
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto ;
+  grid-gap: 20px;
+  padding: 30px 50px 10px 10px;
+  width: 100%;
+}
+.grid-container-admin{
+  display: grid;
+  grid-template-columns: auto auto auto ;
+  grid-gap: 20px;
+  margin-top: 6%;
+  padding: 0 10px 10px 10px;
+  max-height: 53vh;
+  overflow-y: scroll;
+  scrollbar-width:none;
+  }
+.grid-container-admin::-webkit-scrollbar {
+  display: none;
+}
+  .addDish{
+    margin: 5%;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: dashed;
+    border-color: $darkTheme;
+    cursor: pointer;
+    :hover{
+      color: $appWhite;
+      font-size: 103%;
+    }
+  }
+@media screen and (max-width: 800px) {
+  .grid-container{
+    grid-template-columns: auto ;
+  }
+}
+
+

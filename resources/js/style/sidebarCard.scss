@@ -1,0 +1,23 @@
+@import "variables";
+
+.sidebarActiveColor{
+  background: $body-bg2;
+  width: 92px;
+  //border-radius: 8px;
+  //background: linear-gradient(45deg,$body-bg2 50%,#666666 50%);
+}
+.sidebarInactiveColor{
+  background: $body-bg1;
+  width: 92px;}
+
+.inActiveIcon{
+  background: $theme;
+  padding: 9px;
+  margin: 20%;
+  border-radius: 8px;
+}
+.activeIcon{
+  background: inherit;
+  padding: 10px;
+  margin: 15%;
+}

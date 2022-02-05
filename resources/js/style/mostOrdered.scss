@@ -1,0 +1,32 @@
+@import "variables";
+
+.mostOrdered {
+  width: 300px;
+  padding: 4px;
+  background: inherit;
+  display: flex;
+  text-align: left;
+
+  img {
+    padding: 5px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .flex-column {
+    margin: -8px 0 0 5px;
+    display: flex;
+    flex-direction: column;
+
+    h4 {
+      color: $appWhite;
+      font-size: 13px;
+    }
+
+    p {
+      margin-top: -10px;
+      font-size: 12px;
+      color: $offWhite;
+    }
+  }
+}

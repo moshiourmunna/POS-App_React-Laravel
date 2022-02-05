@@ -1,0 +1,11 @@
+@import "../style/variables";
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: $body-bg1;
+  width: fit-content;
+  position: absolute;
+  top: 0;
+}

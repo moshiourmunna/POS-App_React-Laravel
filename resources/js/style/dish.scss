@@ -1,0 +1,142 @@
+@import "variables";
+
+.dish {
+  padding: 10px;
+  cursor: pointer;
+
+  .adminDesign {
+    width: 200px;
+    height: fit-content;
+    z-index: 0;
+    position: relative;
+    background: $body-bg1;
+    border-radius: 10px;
+    padding-top: 10px;
+    line-height: 3;
+    border-style: solid;
+    border-width: thin;
+    border-color: $borderColor;
+  }
+
+  .userDesign {
+    margin-bottom: 40px;
+    position: relative;
+    width: 16vw;
+    height: fit-content;
+    z-index: 0;
+    line-height: 3;
+  }
+
+  img {
+    width: 60%;
+    height: 60%;
+  }
+
+  .container {
+    z-index: -1;
+    position: relative;
+    margin-top: -55%;
+    background: $body-bg1;
+    padding: 52% 10% 10% 5%;
+    border-radius: 10px;
+
+    h3 {
+      font-weight: 500;
+      color: $appWhite;
+      width: auto;
+      line-height: 1;
+
+    }
+
+    h4 {
+      color: $appWhite;
+      font-size: 90%;
+      font-weight: 400;
+    }
+
+    h5 {
+      color: $offWhite;
+      font-size: 90%;
+      font-weight: 400;
+    }
+  }
+
+  .editDish {
+    width: auto;
+    background: $darkTheme;
+    padding: 2px;
+    margin-top: -10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    :hover{
+      color: $theme;
+      opacity: .9;
+    }
+
+    button {
+      background: inherit;
+      color: $appWhite;
+      opacity: .7;
+      cursor: pointer;
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+
+  .dish {
+    .adminDesign {
+    }
+    .userDesign {
+      margin-bottom: 0;
+      width: 100%;
+      line-height: 2.5;
+      position: relative;
+      z-index: 1;
+    }
+
+    img {
+      width: 60%;
+      height: 60%;
+    }
+
+    .container {
+      border-radius: 5px;
+      h3 {
+        font-size: 80%;
+
+      }
+      h4 {
+        font-size: 70%;
+      }
+
+      h5 {
+        font-size: 70%;
+      }
+    }
+
+    .editDish {
+      width: auto;
+      background: #503532;
+      padding: 10px;
+      margin-top: -10px;
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+
+      button {
+        background: inherit;
+        color: $appWhite;
+        opacity: .7;
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+  }
+}
+
