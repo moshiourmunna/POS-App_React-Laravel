@@ -3,9 +3,10 @@ import '../../style/businessSummary.scss';
 import CoinIcon from "../../assets/icons/coinIcon";
 import ArrowUpIcon from "../../assets/icons/ArrowUpIcon";
 import ArrowDownIcon from "../../assets/icons/ArrowDownIcon";
+import PropTypes from "prop-types";
 
 
-const businessSummary = (props) => {
+const BusinessSummary = (props) => {
     props.data[0].revenue = 10230.56;
     return (
         <div className='summary'>
@@ -24,7 +25,7 @@ const businessSummary = (props) => {
                             <p className='positive'>
                                 +{props.data[0].stock}%
                             </p>
-                            <div className='iconBackgroundSmall'>
+                            <div className='iconBackgroundSmallPositive'>
                                 <ArrowUpIcon
                                     width={16}
                                     height={30}
@@ -37,7 +38,7 @@ const businessSummary = (props) => {
                             <p className='negative'>
                                 -{props.data[0].stock}%
                             </p>
-                            <div className='iconBackgroundSmall'>
+                            <div className='iconBackgroundSmallNegative'>
                                 <ArrowDownIcon
                                     width={25}
                                     height={21}
@@ -58,4 +59,9 @@ const businessSummary = (props) => {
     )
 }
 
-export default businessSummary
+export default BusinessSummary
+
+BusinessSummary.propTypes={
+    data:PropTypes.abort,
+    title:PropTypes.string.isRequired
+}

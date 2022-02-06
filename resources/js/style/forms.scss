@@ -1,35 +1,35 @@
 @import "../style/variables";
 
 .dineIn {
-  select {
-    width: auto;
-    height: fit-content;
-    box-sizing: border-box;
-    border-radius: 8px;
-    background: $body-bg1;
-    padding: 10px;
-    color: $appWhite;
-    margin-left: -30%;
-    font-size: 14px;
-    border-style: solid;
-    border-color: $body-bg2;
-    text-align: left;
+    select {
+        width: auto;
+        height: fit-content;
+        box-sizing: border-box;
+        border-radius: 8px;
+        background: $body-bg1;
+        padding: 10px;
+        color: $appWhite;
+        margin-left: -30%;
+        font-size: 14px;
+        border-style: solid;
+        border-color: $borderColor;
+        text-align: left;
 
 
-    option {
-      width: auto;
+        option {
+            width: auto;
+        }
     }
-  }
 }
 
 @media screen and (max-width: 800px) {
-  .dineIn {
-    select {
-      width: 105px;
-      border-radius: 5px;
-      padding: 5px;
-      margin-left: -150%;
-      font-size: 10px;
+    .dineIn {
+        select {
+            width: 105px;
+            border-radius: 5px;
+            padding: 5px;
+            margin-left: -150%;
+            font-size: 10px;
+        }
     }
-  }
 }

@@ -5,6 +5,9 @@
   grid-gap: 20px;
   padding: 30px 50px 10px 10px;
   width: 100%;
+    @media screen and (max-width: $bp-mobile) {
+        grid-template-columns: auto ;
+    }
 }
 .grid-container-admin{
   display: grid;
@@ -15,6 +18,9 @@
   max-height: 53vh;
   overflow-y: scroll;
   scrollbar-width:none;
+    @media screen and (max-width: $bp-mobile) {
+        grid-template-columns: auto;
+    }
   }
 .grid-container-admin::-webkit-scrollbar {
   display: none;
@@ -31,10 +37,4 @@
       font-size: 103%;
     }
   }
-@media screen and (max-width: 800px) {
-  .grid-container{
-    grid-template-columns: auto ;
-  }
-}
-
 

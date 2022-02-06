@@ -6,6 +6,7 @@ import Sidebar from "./views/home/partial/sidebar";
 import Category from "./views/categories/userCategory";
 import Settings from "./views/settings";
 import CategoryAdmin from "./views/categories/adminCategory";
+import Dashboard from "./views/dashboard";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/settings/categories/:key" element={<CategoryAdmin/>}/>
                     <Route path="/Settings" element={<Settings page={'home'} data={[]}/>}/>
                     <Route path="/payment/:key" element={<Home/>}/>
+                    <Route path="/Dashboard" element={<Dashboard/>}/>
                 </Routes>
             </Router>
 

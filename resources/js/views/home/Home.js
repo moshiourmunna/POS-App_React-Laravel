@@ -31,7 +31,7 @@ const Home = (props) => {
                 <hr/>
                 <div className='flex-split'>
                     <h2>Choose Dishes</h2>
-                    <li><SelectOption/></li>
+                    <li><SelectOption admin={false}/></li>
                 </div>
                 {
                     (props.page === 'home') ?
