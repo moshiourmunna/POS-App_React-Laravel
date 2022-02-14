@@ -24,7 +24,6 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
-        'gender',
         'address',
         'email',
         'role',
@@ -74,26 +73,26 @@ class User extends Authenticatable
         return $type;
     }
 
-    public function getAuthIdentifier()
-    {
-        return $this->getKey();
-    }
+//    public function getAuthIdentifier()
+//    {
+//        return $this->getKey();
+//    }
+//
+//    public function getAuthPassword(): string
+//    {
+//        return $this->attributes['password'];
+//    }
+//
+//    protected $appends = ['name'];
+//
 
-    public function getAuthPassword(): string
-    {
-        return $this->attributes['password'];
-    }
-
-    protected $appends = ['name'];
-
-
-    public function getNameAttribute(): string
-    {
-        return $this->getTitleAttribute() . ' ' . $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
-    }
-
-    public function getTitleAttribute(): string
-    {
-        return $this->attributes['gender'] == 'm' ? 'Mr.' : 'Mrs.';
-    }
+//    public function getNameAttribute(): string
+//    {
+//        return $this->getTitleAttribute() . ' ' . $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+//    }
+//
+//    public function getTitleAttribute(): string
+//    {
+//        return $this->attributes['gender'] == 'm' ? 'Mr.' : 'Mrs.';
+//    }
 }

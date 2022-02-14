@@ -3,7 +3,7 @@ import '../../style/settings.scss';
 import RecipeData from "../../data/Recipe";
 import CentralData from "../home/partial/centralData";
 import '../../style/rowColumnStyle.scss';
-import TopSection from "../home/partial/topSection";
+import TopSection from "../../components/topSection";
 import PropTypes from "prop-types";
 import SettingsOptions from "./partial/settingsOptions";
 import Button from "../../components/button/Button";

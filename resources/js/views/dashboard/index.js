@@ -14,11 +14,11 @@ const Dashboard = () => {
 
     return (
         <div className='dashboardContainer'>
-            <div style={{marginLeft: '4%'}}>
+            <div style={{marginLeft: '3.5%'}}>
                 <h2>Dashboard</h2>
                 <h3>{date}</h3>
                 <br/>
-                <hr width='58.5%' color='#595959' style={{height: '.1px'}}/>
+                <hr width='63.5%' color='#595959' style={{height: '.1px'}}/>
             </div>
             <div className='dashboardFlex'>
                 <div className='dashboardLeft'>

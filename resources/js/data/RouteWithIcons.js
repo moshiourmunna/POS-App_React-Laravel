@@ -9,12 +9,6 @@ import MessageIcon from "../assets/icons/sidebar/MessageIcon";
 
 const Routes = [
     {
-        id:0,
-        icon: <RestaurantIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
-        path: '/Restaurant',
-        activeIcon: <RestaurantIcon color={'white'} width={'30'} height={'25'}/>
-    },
-    {
         id:1,
         icon:<HomeIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
         activeIcon: <HomeIcon color={'white'} width={'30'} height={'25'}/>,
@@ -49,12 +43,6 @@ const Routes = [
         icon: <SettingsIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
         path: '/Settings',
         activeIcon: <SettingsIcon color={'white'} width={'30'} height={'25'}/>,
-    },
-    {
-        id:7,
-        icon: <LogOutIcon color={'#EA7C69'} width={'40'} height={'25'}/>,
-        path: '/LogOut',
-        activeIcon: <LogOutIcon color={'white'} width={'40'} height={'25'}/>,
     },
 ];
 

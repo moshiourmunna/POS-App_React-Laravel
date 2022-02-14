@@ -23,7 +23,7 @@
             width: 48%;
 
             h5 {
-                margin-top: 14%;
+                margin-top: 10%;
                 margin-left: auto;
                 font-size: 2vh;
                 background: $body-bg2;
@@ -35,7 +35,7 @@
             }
 
             h2 {
-                margin-top: 15%;
+                margin-top: 10%;
                 padding: 1vw;
                 font-size: 2vh;
                 min-width: 15px;
@@ -44,9 +44,8 @@
         }
 
         .left {
-
             p {
-                padding: 1vw;
+                padding: .4vh 1vw 1vh 1vw;
                 font-size: 2vh;
                 min-width: 12vw;
                 max-width: 12vw;
@@ -55,6 +54,7 @@
 
             h1 {
                 padding-left: 1vw;
+                padding-top: -.5vh;
                 font-size: 1.4vh;
                 color: $offWhite;
             }

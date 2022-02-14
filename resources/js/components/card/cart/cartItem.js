@@ -30,7 +30,6 @@ const CartItem = (props) => {
                             <h1>${props.data.price.toFixed(2)}</h1>
                         </div>
                     </div>
-
                 </div>
 
                 <div className='flex-sum-row-right'>

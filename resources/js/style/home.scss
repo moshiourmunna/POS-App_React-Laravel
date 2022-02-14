@@ -188,8 +188,9 @@
             background: #2D303E;
             padding: 10px;
             border-radius: 8px;
-            border-style: outset;
-            border-color: #2D303E;
+            border-style: solid;
+            border-width: 1px;
+            border-color: #676767;
             color: $appWhite;
         }
     }

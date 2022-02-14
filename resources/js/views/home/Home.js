@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import '../../style/home.scss';
-import TopSection from "./partial/topSection";
+import TopSection from "../../components/topSection";
 import SelectOption from "../../components/forms/selectOption";
 import {useStateValue} from "../../states/StateProvider";
 import CentralData from "./partial/centralData";

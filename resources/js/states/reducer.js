@@ -26,7 +26,6 @@ const reducer = (state, action) => {
                     ...item,
                     quantity: action.value
                 } : item),
-                cart: state.cart.map(item => item.productId === action.id ? {...item, quantity: action.value} : item)
             };
 
         case 'EMPTY_BASKET':
