@@ -12,37 +12,43 @@ const Routes = [
         id:1,
         icon:<HomeIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
         activeIcon: <HomeIcon color={'white'} width={'30'} height={'25'}/>,
-        path: '/POS'
+        path: '/POS',
+        pathName:'Home'
     },
     {
         id:2,
         icon: <DiscountIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
         path: '/discount',
         activeIcon: <DiscountIcon color={'white'} width={'30'} height={'25'}/>,
+        pathName:'Discount'
     },
     {
         id:3,
         icon: <DashboardIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
-        path: '/Dashboard',
+        path: '/dashboard',
         activeIcon:<DashboardIcon color={'white'} width={'30'} height={'25'}/>,
+        pathName:'Dashboard'
     },
     {
         id:4,
         icon: <MessageIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
         path: '/Message',
-        activeIcon: <MessageIcon color={'white'} width={'30'} height={'25'}/>
+        activeIcon: <MessageIcon color={'white'} width={'30'} height={'25'}/>,
+        pathName:'Message'
     },
     {
         id:5,
         icon: <NotificationIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
         path: '/Notification',
         activeIcon: <NotificationIcon color={'white'} width={'30'} height={'25'}/>,
+        pathName:'Notification',
     },
     {
         id:6,
         icon: <SettingsIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
-        path: '/Settings',
+        path: '/settings',
         activeIcon: <SettingsIcon color={'white'} width={'30'} height={'25'}/>,
+        pathName:'Settings'
     },
 ];
 

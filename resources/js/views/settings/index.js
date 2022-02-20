@@ -21,9 +21,10 @@ const Settings = (props) => {
         <div className='settingsContainer'>
             <h2>Settings</h2>
             <div className='settings'>
-                <div className='settingsOptions'>
+                <div style={{background:'#1F1D2BFF', borderRadius:'10px'}}>
                     <SettingsOptions/>
                 </div>
+
                 <div className='settingsRightSide'>
                     <TopSection admin={true}/>
                     {
@@ -37,6 +38,7 @@ const Settings = (props) => {
                         <Button name={'Save Changes'} cancel={true} admin={true}/>
                     </div>
                 </div>
+
             </div>
         </div>
     )

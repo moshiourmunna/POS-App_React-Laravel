@@ -1,92 +1,105 @@
 @import "variables";
 
 .settingsContainer {
-  margin-left: 92px;
-  background: $body-bg2;
-  min-height: 100vh;
+    margin-left: 92px;
+    background: $body-bg2;
+    min-height: 100vh;
 
-  h2 {
-    position: absolute;
-    top: 2%;
-    left: 10%;
-    color: $appWhite;
-    font-weight: 600;
-  }
-
-  .settings {
-    background: #2D303E;
-    flex: 1;
-    padding: 5% 2% 0 3%;
-    display: flex;
-    min-height: 87vh;
-
-    .settingsOptions {
-      padding: 40px 0 0 0;
-      width: 22vw;
-      border-radius: 10px;
-      background: $body-bg1;
-
-      a {
-        text-decoration: none;
-
-        :hover {
-          background: $darkTheme;
-        }
-      }
-    }
-
-    .settingsRightSide {
-      border-radius: 10px;
-      background: $body-bg1;
-      margin: 0 0 0 5%;
-      padding-left: 5%;
-      padding-right: 5%;
-      min-height: fit-content;
-
-      .adminButtons {
-        display: flex;
-        padding: 20px;
-        justify-content: space-between;
-        text-align: left;
-        max-width:22vw;
-
-        .button {
-          margin-right: 10px;
-
-          button {
-            min-width: 200%;
-          }
-        }
-      }
-    }
-
-    .flex-settingsOptions {
-      display: flex;
-      text-align: left;
-      padding: 20px;
-      border-radius: 10px;
-
-      h3 {
-        padding-left: 5px;
+    h2 {
+        position: absolute;
+        top: 2%;
+        left: 10%;
         color: $appWhite;
-        font-weight: 500;
-      }
-
-      p {
-        padding-left: 5px;
-        font-size: 12px;
-        color: $offWhite;
-        font-weight: 400;
-      }
+        font-weight: 600;
     }
-  }
+
+    .settings {
+        background: #2D303E;
+        flex: 1;
+        padding: 7% 2% 0 3%;
+        display: flex;
+
+        .settingsOptions {
+            width: 22vw;
+            background: $body-bg1;
+
+            a {
+                text-decoration: none;
+
+                :hover {
+                    background: $darkTheme;
+                }
+            }
+        }
+
+        .settingsOptionsActive {
+            width: 22vw;
+            background: $darkTheme;
+            a {
+                text-decoration: none;
+            }
+        }
+        .settingsOptionsActive:before{
+            content: "";
+            float: right;
+            color:$theme;
+            border-right: 4px solid $theme;
+            font-size: 10px;
+            min-height: 50px;
+            margin-top: 8%;
+        }
+
+        .settingsRightSide {
+            border-radius: 10px;
+            background: $body-bg1;
+            margin: 0 0 0 5%;
+            padding-left: 5%;
+            padding-right: 5%;
+            min-height: fit-content;
+
+            .adminButtons {
+                display: flex;
+                padding: 20px;
+                justify-content: space-between;
+                text-align: left;
+                max-width: 22vw;
+
+                .button {
+                    margin-right: 10px;
+
+                    button {
+                        min-width: 200%;
+                    }
+                }
+            }
+        }
+
+        .flex-settingsOptions {
+            display: flex;
+            text-align: left;
+            padding: 20px;
+
+            h3 {
+                padding-left: 5px;
+                color: $appWhite;
+                font-weight: 500;
+            }
+
+            p {
+                padding-left: 5px;
+                font-size: 12px;
+                color: $offWhite;
+                font-weight: 400;
+            }
+        }
+    }
 
 }
 
 @media screen and (max-width: 800px) {
-  .settingsOptions {
-    display: none;
-  }
+    .settingsOptions {
+        display: none;
+    }
 }
 
 

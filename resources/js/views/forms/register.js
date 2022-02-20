@@ -29,7 +29,7 @@ const Register = () => {
             console.log(response.data)
             window.localStorage.setItem('user', JSON.stringify(response.data));
             // navigate('/home')
-            window.location.set('/login')
+            window.location.replace('/login')
 
         }).catch((e) => {
             console.log('errors:', e.response.data.errors)
@@ -40,8 +40,6 @@ const Register = () => {
 
     return (
         <div className='login'>
-            {/*<h2>POS Registration</h2>*/}
-            {/*<hr/>*/}
             <div className='login-box'>
                 <input type='text'
                        name='firstName'

@@ -4,7 +4,7 @@ import {AdminPanelSettings} from "../../../data/adminPanelSettings";
 
 const settingsOptions = () => {
     return (
-        <div>
+        <div >
             {
                 AdminPanelSettings.map((settings)=>(
                     <SettingsOptionsCard key={settings.id} header={settings.header} title={settings.title} route={settings.route}/>

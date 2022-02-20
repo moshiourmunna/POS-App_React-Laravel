@@ -102,6 +102,9 @@
             border-radius: 1vh;
             background: $body-bg1;
             margin: 3%;
+            h1{
+                padding-top: 5%;
+            }
         }
 
         .orderTypesCard {
@@ -109,6 +112,9 @@
             padding: 7%;
             margin: 3%;
             border-radius: 1vh;
+            h1{
+                padding-top: 5%;
+            }
         }
     }
 }
