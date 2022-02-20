@@ -3,8 +3,11 @@ import Modal from "react-modal";
 import {useStateValue} from "../../states/StateProvider";
 import PaymentPopUp from "./payment";
 import {MdKeyboardBackspace} from "react-icons/md";
+import PropTypes from "prop-types";
+import Home from "../../views/home/Home";
+import AddProducts from "./addProducts";
 
-const ModalContent = () => {
+const ModalContent = (props) => {
 
     const [{modal}, dispatch] = useStateValue();
 
@@ -39,11 +42,21 @@ const ModalContent = () => {
                 <div style={{cursor: 'pointer', marginLeft: '30px'}}>
                     <MdKeyboardBackspace onClick={closeModal} color='white' size='25px'/>
                 </div>
-                <PaymentPopUp/>
+                {
+                    (props.admin) ?
+                        <AddProducts/>
+                        :
+                        <PaymentPopUp/>
+                }
             </Modal>
         </div>
     )
 }
 
 export default ModalContent
+
+ModalContent.propTypes = {
+    admin: PropTypes.bool
+}
+
 

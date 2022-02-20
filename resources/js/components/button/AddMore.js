@@ -11,7 +11,6 @@ const AddMore = (props) => {
         <div className='addButton'>
             <button
                 style={{ background:props.background, color:props.color}}
-                onClick={()=>navigate('/addProduct')}
             ><VscAdd size='25px'/></button>
             <p>{props.name}</p>
         </div>

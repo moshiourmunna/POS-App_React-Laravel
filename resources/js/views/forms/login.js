@@ -1,7 +1,6 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState} from 'react'
 import {useNavigate} from 'react-router'
 import '../../style/registration.scss'
-import {useStateValue} from "../../states/StateProvider"
 
 const Login = () => {
 
@@ -9,15 +8,8 @@ const Login = () => {
     const [password, setPassword] = useState();
     const navigate = useNavigate();
     const api=process.env.MIX_API;
-    const admin=process.env.MIX_ADMIN;
-    const [{user,basket}, dispatch] = useStateValue();
     const [errors, setErrors] = useState([]);
     const [notFound, setNotFound] = useState('');
-
-    useEffect(() => {
-        const url = location.pathname
-        console.log(url)
-    }, []);
 
     const login = async () => {
         let userdata = {email, password};
@@ -31,7 +23,6 @@ const Login = () => {
         })
         API = await (await API).json();
         window.localStorage.setItem('user', JSON.stringify(API));
-        console.log('here is login response:',user);
 
         let user = JSON.parse(window.localStorage.getItem('user'))
         if (user?.message) {

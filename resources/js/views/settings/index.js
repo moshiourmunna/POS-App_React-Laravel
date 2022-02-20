@@ -7,6 +7,7 @@ import TopSection from "../../components/topSection";
 import PropTypes from "prop-types";
 import SettingsOptions from "./partial/settingsOptions";
 import Button from "../../components/button/Button";
+import ModalContent from "../../components/modal";
 
 const Settings = (props) => {
 
@@ -38,7 +39,7 @@ const Settings = (props) => {
                         <Button name={'Save Changes'} cancel={true} admin={true}/>
                     </div>
                 </div>
-
+                <ModalContent admin={true}/>
             </div>
         </div>
     )
