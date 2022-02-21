@@ -5,12 +5,15 @@ import Categories from "./card/categories";
 import {IoIosArrowDropdownCircle} from 'react-icons/io';
 import PropTypes from "prop-types";
 import {RiListSettingsLine} from 'react-icons/ri'
+import ModalContent from "./modal";
+import {useStateValue} from "../states/StateProvider";
 
 const TopSection = (props) => {
 
     const rawDate = new Date();
     const date = rawDate.toDateString()
     const [toggle, setToggle] = useState(false);
+    const [{modal}, dispatch] = useStateValue();
 
     return (
         <div className='topSection'>
@@ -26,9 +29,15 @@ const TopSection = (props) => {
                     :
                     <div>
                         <div className='rightSide'>
-                            <button><span style={{margin:'5px'}}><RiListSettingsLine/></span>Manage Categories</button>
+                            <button onClick={() =>
+                                dispatch({
+                                    type: "SetAddCategoryModal",
+                                    item: true
+                                })}><span style={{margin: '5px'}}><RiListSettingsLine/></span>Manage Categories
+                            </button>
                         </div>
                         <h3>Products Management</h3>
+                        <ModalContent addCategory={true}/>
                     </div>
             }
             <div className='header'>

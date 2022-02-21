@@ -99,7 +99,6 @@ const AddProducts = () => {
 
 
     return (
-        <div>
             <div className='add-page'>
                 <h1>Add a new product</h1>
                 <hr/>
@@ -252,7 +251,6 @@ const AddProducts = () => {
                         ''
                 }
             </div>
-        </div>
     );
 };
 

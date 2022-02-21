@@ -39,7 +39,7 @@ const Settings = (props) => {
                         <Button name={'Save Changes'} cancel={true} admin={true}/>
                     </div>
                 </div>
-                <ModalContent admin={true}/>
+                <ModalContent addProducts={true}/>
             </div>
         </div>
     )

@@ -14,6 +14,12 @@
         display: grid;
         grid-template-columns: auto auto;
         grid-gap: 20px;
+        textarea{
+            resize: none;
+            font-size: 17px;
+            min-height: 100px;
+            overflow-y: scroll;
+        }
 
         .select {
             width: 30.5vw;

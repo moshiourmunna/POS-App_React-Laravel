@@ -9,21 +9,29 @@ import AddProducts from "./addProducts";
 
 const ModalContent = (props) => {
 
-    const [{modal}, dispatch] = useStateValue();
+    const [{modal,AddCategoryModal,AddProductModal}, dispatch] = useStateValue();
 
     function closeModal() {
         dispatch({
             type: "SetModal",
             item: false
         })
+        dispatch({
+            type: "setAddCategoryModal",
+            item: false
+        })
+        dispatch({
+            type: "setAddProductModal",
+            item: false
+        })
     }
 
     const customStyles = {
         content: {
-            top: '56%',
+            top: '50%',
             left: '67%',
             right: 'auto',
-            bottom: '-70%',
+            bottom: '-50%',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             backgroundColor: '#1F1D2BFF',
@@ -34,7 +42,7 @@ const ModalContent = (props) => {
     return (
         <div className='modalContainer'>
             <Modal
-                isOpen={modal}
+                isOpen={(props.addProducts)?AddProductModal:(props.addCategory)?AddCategoryModal:modal}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Example Modal"
@@ -43,10 +51,14 @@ const ModalContent = (props) => {
                     <MdKeyboardBackspace onClick={closeModal} color='white' size='25px'/>
                 </div>
                 {
-                    (props.admin) ?
+                    (props.addProducts) ?
                         <AddProducts/>
                         :
-                        <PaymentPopUp/>
+                        (props.addCategory) ?
+                         <PaymentPopUp/>
+                         :
+                         <PaymentPopUp/>
+
                 }
             </Modal>
         </div>
