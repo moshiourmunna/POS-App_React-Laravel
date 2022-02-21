@@ -3,7 +3,6 @@ import TextareaAutosize from 'react-textarea-autosize'
 import axios from "axios"
 import '../../../style/addProduct.scss'
 import {BsImage} from "react-icons/bs";
-import Button from "../../button/Button";
 
 const AddProducts = () => {
 
@@ -13,17 +12,19 @@ const AddProducts = () => {
     const [stock, setStock] = useState('')
     const [discount, setDiscount] = useState('')
     const [status, setStatus] = useState(0)
-    const [file, setFile] = useState('');
+    const [File, setFile] = useState('');
     const [res, setResponse] = useState('');
+    const [Url, setUrl] = useState('');
     const [ready, setReady] = useState(false);
     const [errors, setErrors] = useState([]);
     const api = process.env.MIX_API;
     const ref = useRef();
     const disabled = '';
+    const url = process.env.MIX_URL;
 
     async function upload() {
         const Data = new FormData();
-        Data.append('file', file);
+        Data.append('file', File);
         Data.append('title', title);
         Data.append('discount', discount);
         Data.append('stock', stock);
@@ -41,6 +42,7 @@ const AddProducts = () => {
                 setPrice('')
                 setDescription('')
                 setFile('')
+                setUrl('')
             }
         }).catch((e) => {
             setErrors(e.response.data.errors)
@@ -72,16 +74,28 @@ const AddProducts = () => {
         errors.discount = ''
     }
 
-    const fileHandler = (e) => {
-        setFile(e.target.files[0])
-        errors.file = ''
+    const fileHandler = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            let reader = new FileReader();
+
+            await setFile(file);
+            reader.onloadend = () => {
+                setUrl(reader.result);
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            setFile(null);
+            errors.file = ''
+        }
     }
 
     useEffect(() => {
-       if(file && title && price && description && discount && stock){
+       if(File && title && price && description && discount && stock){
            setReady(true)
        }
-    }, [file,title,price,description,discount,stock]);
+    }, [File,title,price,description,discount,stock]);
 
 
     return (
@@ -179,7 +193,6 @@ const AddProducts = () => {
                             ''
                         }
                         onChange={(e) => priceHandler(e)}/>
-
                     <label className={(errors?.file) ? 'input_red' : 'input'} ref={ref} htmlFor="fileInput">
                         <BsImage
                             size={20}
@@ -220,6 +233,8 @@ const AddProducts = () => {
                         minRows={3}
                         maxRows={20}
                     />
+                    <img src={Url} width='60%' style={{maxHeight:'150px', marginLeft:'20%'}}/>
+                    <br/>
                 </form>
                 <div className='button'>
                     <button

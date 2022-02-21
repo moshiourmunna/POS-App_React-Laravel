@@ -20,7 +20,7 @@ class ProductsRepository implements ProductsInterface
     public function save(Request $request)
     {
         $validator = $request->validate([
-            'title' => 'required|string|max:50',
+            'title' => 'required|string|unique:products,title|max:50',
             'discount' => 'required|numeric|max:40',
             'stock' => 'required|numeric',
             'price' => 'required|numeric|regex:/^\d*(\.\d{2})?$/',

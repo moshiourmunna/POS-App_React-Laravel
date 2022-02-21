@@ -56,10 +56,11 @@
             color: red;
             border-color: red;
         }
+    }
 
-        .addedDoneMessage {
-            font-size: 20px;
-            color: $theme;
-        }
+    .addedDoneMessage {
+        margin-top: 20px;
+        font-size: 20px;
+        color: $theme;
     }
 }
