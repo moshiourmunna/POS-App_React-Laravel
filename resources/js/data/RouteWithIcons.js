@@ -22,6 +22,38 @@ const Routes = [
         activeIcon: <DiscountIcon color={'white'} width={'30'} height={'25'}/>,
         pathName:'Discount'
     },
+
+    {
+        id:4,
+        icon: <MessageIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
+        path: '/Message',
+        activeIcon: <MessageIcon color={'white'} width={'30'} height={'25'}/>,
+        pathName:'Message'
+    },
+    {
+        id:5,
+        icon: <NotificationIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
+        path: '/Notification',
+        activeIcon: <NotificationIcon color={'white'} width={'30'} height={'25'}/>,
+        pathName:'Notification',
+    },
+];
+
+const AdminRoutes = [
+    {
+        id:1,
+        icon:<HomeIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
+        activeIcon: <HomeIcon color={'white'} width={'30'} height={'25'}/>,
+        path: '/POS',
+        pathName:'Home'
+    },
+    {
+        id:2,
+        icon: <DiscountIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
+        path: '/discount',
+        activeIcon: <DiscountIcon color={'white'} width={'30'} height={'25'}/>,
+        pathName:'Discount'
+    },
     {
         id:3,
         icon: <DashboardIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
@@ -53,4 +85,4 @@ const Routes = [
 ];
 
 
-export{Routes}
+export{Routes,AdminRoutes}

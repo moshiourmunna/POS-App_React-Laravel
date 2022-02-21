@@ -53,7 +53,7 @@ class FrontEndController extends Controller
      * @param \App\Models\Discount $discount
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($category)
     {
         //
     }

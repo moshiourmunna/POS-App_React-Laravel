@@ -28,6 +28,7 @@ const Settings = (props) => {
 
                 <div className='settingsRightSide'>
                     <TopSection admin={true}/>
+                    <hr/>
                     {
                         (props.page === 'home') ?
                             <CentralData data={data} admin={true}/>

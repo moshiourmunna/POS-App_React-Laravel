@@ -12,19 +12,37 @@ import Register from "./views/forms/register";
 
 
 function App() {
+
+
+    const user=JSON.parse(localStorage.getItem('user'));
+    let admin=user?.admin;
+
     return (
         <div className="App">
             <Router>
                 <Sidebar/>
                 <Routes>
+                    {
+                        (admin) &&
+                        <Route path="/Settings" element={<Settings page={'home'} data={[]}/>}/>
+
+                    }
+                    {
+                        (admin) &&
+                        <Route path="/Dashboard" element={<Dashboard/>}/>
+
+                    }
+                    {/*{*/}
+                    {/*    (!admin) &&*/}
+                    {/*    <Route path="/Dashboard" element={<Home page={'home'}/>}/>*/}
+
+                    {/*}*/}
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route exact path="/POS" element={<Home page={'home'} data={[]}/>}/>
                     <Route path="/categories/:key" element={<Category/>}/>
                     <Route path="/settings/categories/:key" element={<CategoryAdmin/>}/>
-                    <Route path="/Settings" element={<Settings page={'home'} data={[]}/>}/>
                     <Route path="/payment/:key" element={<Home/>}/>
-                    <Route path="/Dashboard" element={<Dashboard/>}/>
                 </Routes>
             </Router>
 

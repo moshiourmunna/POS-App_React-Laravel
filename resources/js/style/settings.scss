@@ -56,6 +56,14 @@
             padding-left: 5%;
             padding-right: 5%;
             min-height: fit-content;
+//mixin possible with this hr and of line 18 from home.scss
+            hr{
+                margin-bottom: -2px;
+                width: 94.5%;
+                color: $body-bg2;
+                margin-left: 2.5%;
+                height: .1px;
+            }
 
             .adminButtons {
                 display: flex;

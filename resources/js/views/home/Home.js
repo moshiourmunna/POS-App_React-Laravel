@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import '../../style/home.scss';
 import TopSection from "../../components/topSection";
 import SelectOption from "../../components/forms/selectOption";
@@ -9,6 +9,7 @@ import FullCart from "../../components/contents/fullCart";
 import '../../style/rowColumnStyle.scss';
 import PropTypes from "prop-types";
 import RecipeData from "../../data/Recipe";
+import Api from "../../api/api";
 
 const Home = (props) => {
 
@@ -17,11 +18,27 @@ const Home = (props) => {
     const [state, setState] = useState(false)
     const [data, setData] = useState([])
 
+    const getProducts = useCallback(
+        async () => {
+            await Api().get(`/products/`+category.title)
+                .then((response)=>{
+                    console.log(response)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+        [],
+    );
+
+
     useEffect(() => {
         setState(!state)
         //callback function for the api call for all data
+        getProducts().then(r => r)
         setData(RecipeData)
-    }, [basket, category]);
+        // console.log('here',category.title)
+    }, [basket, category,getProducts]);
 
 
     return (

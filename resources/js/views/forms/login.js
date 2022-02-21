@@ -31,10 +31,13 @@ const Login = () => {
             setNotFound(user?.message)
         } else {
             if(user?.admin===true){
-                navigate('/dashboard')
+                // navigate('/dashboard')
+                window.location.replace('/dashboard')
+
             }
             else{
-                 navigate('/POS')
+                 // navigate('/POS')
+                window.location.replace('/POS')
             }
 
         }

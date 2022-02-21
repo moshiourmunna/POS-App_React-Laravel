@@ -1,7 +1,7 @@
 import React from "react";
 import '../../style/sidebar.scss'
 import SidebarCard from "../card/sidebarCard";
-import {Routes} from "../../data/RouteWithIcons";
+import {AdminRoutes, Routes} from "../../data/RouteWithIcons";
 import {NavLink} from "react-router-dom";
 import LogOutIcon from "../../assets/icons/sidebar/LogOutIcon";
 import {useNavigate} from "react-router";
@@ -12,11 +12,15 @@ import ReactTooltip from "react-tooltip";
 const sidebar = () => {
 
     const navigate=useNavigate()
-    const user = window.localStorage.getItem('user')
+    const user=JSON.parse(localStorage.getItem('user'));
+    let admin=user?.admin;
+
+
 
     function logout(){
         window.localStorage.removeItem('user')
-        navigate('/POS')
+        // navigate('/POS')
+        window.location.replace('/POS')
     }
 
 
@@ -28,6 +32,11 @@ const sidebar = () => {
                </div>
             </div>
             {
+                (admin)?
+                    AdminRoutes.map((route) =>
+                        <SidebarCard key={route.id} activeIcon={route.activeIcon} icon={route.icon} path={route.path} name={route.pathName}/>
+                    )
+                    :
                 Routes.map((route) =>
                     <SidebarCard key={route.id} activeIcon={route.activeIcon} icon={route.icon} path={route.path} name={route.pathName}/>
                 )

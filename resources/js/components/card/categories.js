@@ -1,12 +1,9 @@
 import React from "react";
 import {useStateValue} from "../../states/StateProvider";
-import {Link, useLocation} from "react-router-dom";
 
 const Categories = (props) => {
 
-    const url = useLocation();
-    const path = url.pathname.split('/').pop();
-    const [{}, dispatch] = useStateValue();
+    const [{category}, dispatch] = useStateValue();
 
     function clickHandler() {
         dispatch(
@@ -19,17 +16,10 @@ const Categories = (props) => {
     }
 
     return (
-        <div className={(path === props.keys) ? 'activeLink' : 'inActiveLink'}>
-            {
-                (props.admin)?
-                    <Link to={`/settings/categories/${props.keys}`} onClick={clickHandler}>
-                        {props.keys}
-                    </Link>
-                    :
-                    <Link to={`/categories/${props.keys}`} onClick={clickHandler}>
-                        {props.keys}
-                    </Link>
-            }
+        <div className={(category.title === props.keys) ? 'activeLink' : 'inActiveLink'}>
+            <a onClick={clickHandler}>
+                {props.keys}
+            </a>
             <hr/>
         </div>
     )

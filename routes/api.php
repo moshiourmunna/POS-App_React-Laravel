@@ -7,8 +7,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/store',[FrontEndController::class, 'store']);
+Route::post('/products/{category}', [FrontEndController::class, 'show']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::post('/store',[FrontEndController::class, 'store']);
 });
