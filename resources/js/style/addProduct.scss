@@ -14,33 +14,40 @@
         display: grid;
         grid-template-columns: auto auto;
         grid-gap: 20px;
-        .select{
+
+        .select {
             width: 30.5vw;
             margin: 10px;
             padding: 10px;
-            background-color: $darkTheme;
+            background-color: $body-bg2;
             color: $appWhite;
             border-style: none;
         }
+
         .input, .auto_height {
             width: 29vw;
+            height: 8vh;
             margin: 10px;
             padding: 10px;
-            background-color: $darkTheme;
+            background-color: $body-bg2;
             color: $appWhite;
             border-style: none;
+            border-radius: 8px;
         }
 
-        .input_red, .auto_height_red{
+        .input_red, .auto_height_red {
+            border-radius: 8px;
             width: 29vw;
             margin: 10px;
+            height: 8vh;
             padding: 10px;
             background-color: $appWhite;
             font-weight: 700;
             color: red;
             border-color: red;
         }
-        .select_red{
+
+        .select_red {
             width: 30.5vw;
             margin: 10px;
             padding: 10px;
@@ -50,8 +57,8 @@
             border-color: red;
         }
 
-        p {
-            font-size: 11px;
+        .addedDoneMessage {
+            font-size: 20px;
             color: $theme;
         }
     }

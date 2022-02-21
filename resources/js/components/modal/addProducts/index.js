@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import axios from "axios"
 import '../../../style/addProduct.scss'
+import {BsImage} from "react-icons/bs";
+import Button from "../../button/Button";
 
 const AddProducts = () => {
 
@@ -10,11 +12,14 @@ const AddProducts = () => {
     const [price, setPrice] = useState('')
     const [stock, setStock] = useState('')
     const [discount, setDiscount] = useState('')
-    const [status, setStatus] = useState()
+    const [status, setStatus] = useState(0)
     const [file, setFile] = useState('');
     const [res, setResponse] = useState('');
+    const [ready, setReady] = useState(false);
     const [errors, setErrors] = useState([]);
     const api = process.env.MIX_API;
+    const ref = useRef();
+    const disabled = '';
 
     async function upload() {
         const Data = new FormData();
@@ -44,6 +49,41 @@ const AddProducts = () => {
 
     }
 
+    const titleHandler = (e) => {
+        setTitle(e.target.value)
+        errors.title = ''
+    }
+    const stockHandler = (e) => {
+        setStock(e.target.value)
+        errors.stock = ''
+    }
+
+    const priceHandler = (e) => {
+        setPrice(e.target.value)
+        errors.price = ''
+    }
+    const descriptionHandler = (e) => {
+        setDescription(e.target.value)
+        errors.description = ''
+    }
+
+    const discountHandler = (e) => {
+        setDiscount(e.target.value)
+        errors.discount = ''
+    }
+
+    const fileHandler = (e) => {
+        setFile(e.target.files[0])
+        errors.file = ''
+    }
+
+    useEffect(() => {
+       if(file && title && price && description && discount && stock){
+           setReady(true)
+       }
+    }, [file,title,price,description,discount,stock]);
+
+
     return (
         <div>
             <div className='add-page'>
@@ -53,22 +93,30 @@ const AddProducts = () => {
                     <input
                         className={(errors?.title) ? 'input_red' : 'input'}
                         type='text'
-                        placeholder='* Title'
+                        placeholder={
+                            (errors?.title) ?
+                                errors?.title
+                                :
+                                "* Product Title"
+                        }
                         name='title'
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}/>
-                    {/*{*/}
-                    {/*    (errors?.title) ?*/}
-                    {/*        <p>{errors?.title}</p>*/}
-                    {/*        :*/}
-                    {/*        ''*/}
-                    {/*}*/}
+                        value= { !(errors?.title) ?
+                            title
+                            :
+                            ''
+                        }
+                        onChange={(e) => titleHandler(e)}/>
+
                     <select
                         className={(errors?.status) ? 'select_red' : 'select'}
                         id='status'
                         name="status"
                         onChange={(e) => setStatus(e.target.value)}
-                        value={status}
+                        value= { !(errors?.status) ?
+                            status
+                            :
+                            ''
+                        }
                     >
                         <option> * Choose Product Status</option>
                         <option
@@ -80,12 +128,7 @@ const AddProducts = () => {
                             Published
                         </option>
                     </select>
-                    {
-                        (errors?.status) ?
-                            <p>{errors?.status}</p>
-                            :
-                            ''
-                    }
+
                     <input
                         className={(errors?.stock) ? 'input_red' : 'input'}
                         type='text'
@@ -96,14 +139,13 @@ const AddProducts = () => {
                                 "* Product Stock"
                         }
                         name='stock'
-                        value={stock}
-                        onChange={(e) => setStock(e.target.value)}/>
-                    {/*{*/}
-                    {/*    (errors?.stock) ?*/}
-                    {/*        <p>{errors?.stock}</p>*/}
-                    {/*        :*/}
-                    {/*        ''*/}
-                    {/*}*/}
+                        value= { !(errors?.stock) ?
+                            stock
+                            :
+                            ''
+                        }
+                        onChange={(e) => stockHandler(e)}/>
+
                     <input
                         className={(errors?.discount) ? 'input_red' : 'input'}
                         type='text'
@@ -114,18 +156,16 @@ const AddProducts = () => {
                                 "* Product Discount ID"
                         }
                         name='discount'
-                        value={discount}
-                        onChange={(e) => setDiscount(e.target.value)}/>
-                    {/*{*/}
-                    {/*    (errors?.discount) ?*/}
-                    {/*        <p>{errors?.discount}</p>*/}
-                    {/*        :*/}
-                    {/*        ''*/}
-                    {/*}*/}
+                        value= { !(errors?.discount) ?
+                            discount
+                            :
+                            ''
+                        }
+                        onChange={(e) => discountHandler(e)}/>
 
                     <input
                         className={(errors?.price) ? 'input_red' : 'input'}
-                        type='number'
+                        type='text'
                         placeholder={
                             (errors?.price) ?
                                 errors?.price
@@ -133,38 +173,44 @@ const AddProducts = () => {
                                 "* Price"
                         }
                         name='price'
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}/>
-                    {/*{*/}
-                    {/*    (errors?.price) ?*/}
-                    {/*        <p>{errors?.price}</p>*/}
-                    {/*        :*/}
-                    {/*        ''*/}
-                    {/*}*/}
+                        value= { !(errors?.price) ?
+                        price
+                            :
+                            ''
+                        }
+                        onChange={(e) => priceHandler(e)}/>
 
-                    <input
-                        className={(errors?.file) ? 'input_red' : 'input'}
-                        style={{color: 'grey'}}
-                        type='file'
-                        placeholder={
+                    <label className={(errors?.file) ? 'input_red' : 'input'} ref={ref} htmlFor="fileInput">
+                        <BsImage
+                            size={20}
+                            style={{cursor: "pointer", opacity: '.7'}}
+                            color={'white'}
+                        />
+                        {
                             (errors?.file) ?
                                 errors?.file
                                 :
-                                "* Product Image"
+                                " * Product Image"
                         }
+                    </label>
+
+                    <input
+                        id="fileInput"
+                        className={(errors?.file) ? 'input_red' : 'input'}
+                        type='file'
+                        style={{display: "none"}}
                         name='file'
-                        onChange={(e) => setFile(e.target.files[0])}/>
-                    {/*{*/}
-                    {/*    (errors?.file) ?*/}
-                    {/*        <p>{errors?.file}</p>*/}
-                    {/*        :*/}
-                    {/*        ''*/}
-                    {/*}*/}
+                        onChange={(e) => fileHandler(e)}/>
+
                     <TextareaAutosize
                         className={(errors?.description) ? 'auto_height_red' : 'auto_height'}
                         name='description'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        value= { !(errors?.description) ?
+                            description
+                            :
+                            ''
+                        }
+                        onChange={(e) => descriptionHandler(e)}
                         placeholder={
                             (errors?.description) ?
                                 errors?.description
@@ -175,9 +221,15 @@ const AddProducts = () => {
                         maxRows={20}
                     />
                 </form>
-                <button onClick={upload}>
-                    Add Product
-                </button>
+                <div className='button'>
+                    <button
+                        className={(ready)?'button-glow':'button-dim'}
+                        disabled={(ready) ? disabled : !disabled}
+                        onClick={upload}>
+                        Add Product
+                    </button>
+                </div>
+
                 {
                     (res) ?
                         <p className='addedDoneMessage'>{res}</p>

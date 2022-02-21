@@ -30,7 +30,7 @@ const Button = (props) => {
                     >
                         {props.name}
                     </button>
-                    :
+                    : (!props.addProduct) ?
                     <button
                         disabled={!props.cancel ? disabled : !disabled}
                         className={!props.cancel ? 'button-glow' : 'button-dim'}
@@ -38,6 +38,8 @@ const Button = (props) => {
                     >
                         {props.name}
                     </button>
+                    :
+                    ''
             }
         </div>
     )

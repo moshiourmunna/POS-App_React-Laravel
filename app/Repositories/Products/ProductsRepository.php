@@ -21,7 +21,7 @@ class ProductsRepository implements ProductsInterface
     {
         $validator = $request->validate([
             'title' => 'required|string|max:50',
-            'discount' => 'required|string|max:40',
+            'discount' => 'required|numeric|max:40',
             'stock' => 'required|numeric',
             'price' => 'required|numeric|regex:/^\d*(\.\d{2})?$/',
             'description' => 'required|max:1200',
@@ -33,7 +33,7 @@ class ProductsRepository implements ProductsInterface
                 'discount.required' => ':attribute can not be blank',
                 'stock.required' => ':attribute can not be blank Or non integer',
                 'price.required' => ':attribute has to be a float of point 2',
-                'file.required' => 'product must have a :attribute',
+                'file.required' => '',
                 'status.required' => 'please select a :attribute',
                 'description.required' => ':attribute can not be blank',
             ]);
