@@ -25,7 +25,9 @@ class Product extends Model
         'discount_id',
         'sold'
     ];
-
+    /**
+     * @var mixed|string
+     */
     /**
      * Product Author Relation
      * @return BelongsTo

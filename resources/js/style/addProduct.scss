@@ -1,0 +1,58 @@
+@import "variables";
+
+.add-page {
+    margin: 5vh 0 0 0;
+    text-align: center;
+
+    h1 {
+        color: $appWhite;
+        font-size: 2vw;
+        margin-bottom: 5vh;
+    }
+
+    form {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 20px;
+        .select{
+            width: 30.5vw;
+            margin: 10px;
+            padding: 10px;
+            background-color: $darkTheme;
+            color: $appWhite;
+            border-style: none;
+        }
+        .input, .auto_height {
+            width: 29vw;
+            margin: 10px;
+            padding: 10px;
+            background-color: $darkTheme;
+            color: $appWhite;
+            border-style: none;
+        }
+
+        .input_red, .auto_height_red{
+            width: 29vw;
+            margin: 10px;
+            padding: 10px;
+            background-color: $appWhite;
+            font-weight: 700;
+            color: red;
+            border-color: red;
+        }
+        .select_red{
+            width: 30.5vw;
+            margin: 10px;
+            padding: 10px;
+            background-color: $appWhite;
+            font-weight: 700;
+            color: red;
+            border-color: red;
+        }
+
+        p {
+            font-size: 11px;
+            color: $theme;
+        }
+    }
+}

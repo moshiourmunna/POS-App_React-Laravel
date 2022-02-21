@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Repositories\Products\ProductsRepository;
 use Illuminate\Http\Request;
 
 class FrontEndController extends Controller
 {
+    public $productsRepository;
+
+    public function __construct(ProductsRepository $productsRepository)
+    {
+        $this->productsRepository = $productsRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,18 +38,19 @@ class FrontEndController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $response = $this->productsRepository->save($request);
+        return response($response, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Discount  $discount
+     * @param \App\Models\Discount $discount
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -61,7 +71,7 @@ class FrontEndController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function update()

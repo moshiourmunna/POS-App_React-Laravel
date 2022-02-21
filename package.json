@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "prop-types": "^15.8.1",
+        "react-form-validator-core": "^1.1.1",
         "react-icons": "^4.3.1",
         "react-modal": "^3.14.4",
         "react-router": "^6.2.1",
