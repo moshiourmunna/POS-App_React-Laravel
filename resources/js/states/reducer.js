@@ -4,8 +4,6 @@ export const initialState = {
     deliveryMethod: [],
     category: {},
     modal: false,
-    AddCategoryModal:false,
-    AddProductModal:false,
     payMethod:0
 };
 
@@ -64,16 +62,6 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 modal: action.item
-            }
-            case "SetAddCategoryModal":
-            return {
-                ...state,
-                AddCategoryModal: action.item
-            }
-            case "SetAddProductModal":
-            return {
-                ...state,
-                AddProductModal: action.item
             }
             case "SetPayMethod":
             return {

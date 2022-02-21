@@ -13,7 +13,7 @@ const TopSection = (props) => {
     const rawDate = new Date();
     const date = rawDate.toDateString()
     const [toggle, setToggle] = useState(false);
-    const [{modal}, dispatch] = useStateValue();
+    const [categoryDiv, setCategoryDiv] = useState(false);
 
     return (
         <div className='topSection'>
@@ -29,15 +29,17 @@ const TopSection = (props) => {
                     :
                     <div>
                         <div className='rightSide'>
-                            <button onClick={() =>
-                                dispatch({
-                                    type: "SetAddCategoryModal",
-                                    item: true
-                                })}><span style={{margin: '5px'}}><RiListSettingsLine/></span>Manage Categories
+                            <button onClick={()=>setCategoryDiv(!categoryDiv)}>
+                                <span style={{margin: '5px'}}>
+                                    <RiListSettingsLine/>
+                                </span>
+                                Manage Categories
                             </button>
                         </div>
                         <h3>Products Management</h3>
-                        <ModalContent addCategory={true}/>
+                        <div className={(categoryDiv)?'categoryAdd':'hide'}>
+                            <h2> heyyyy</h2>
+                        </div>
                     </div>
             }
             <div className='header'>
@@ -49,13 +51,13 @@ const TopSection = (props) => {
                     }
                 </ul>
             </div>
+
             <div className='dropDownIcon' onClick={() => setToggle(!toggle)}>
                 <IoIosArrowDropdownCircle
                     size='20px'
                     color='#9288E0'
                 />
                 <span>categories</span>
-
             </div>
             <div className='header-mobile'>
                 <ul className={(toggle) ? 'headerUl' : 'hide'}>

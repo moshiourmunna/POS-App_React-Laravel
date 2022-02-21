@@ -233,7 +233,22 @@
     }
 }
 
-
+.categoryAdd{
+    position: absolute;
+    top: 20%;
+    left: 60%;
+    z-index: 1;
+    background-color: $body-bg2;
+    min-width: 32vw;
+    min-height: 40vh;
+    border-radius: 8px;
+    h2{
+        font-size: 40px;
+    }
+}
+.categoryAdd:after{
+    background: #0f5132;
+}
 
 @media screen and (min-width: 1920px) {
     .home-Container {

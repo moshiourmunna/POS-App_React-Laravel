@@ -9,19 +9,11 @@ import AddProducts from "./addProducts";
 
 const ModalContent = (props) => {
 
-    const [{modal,AddCategoryModal,AddProductModal}, dispatch] = useStateValue();
+    const [{modal}, dispatch] = useStateValue();
 
     function closeModal() {
         dispatch({
             type: "SetModal",
-            item: false
-        })
-        dispatch({
-            type: "setAddCategoryModal",
-            item: false
-        })
-        dispatch({
-            type: "setAddProductModal",
             item: false
         })
     }
@@ -42,7 +34,7 @@ const ModalContent = (props) => {
     return (
         <div className='modalContainer'>
             <Modal
-                isOpen={(props.addProducts)?AddProductModal:(props.addCategory)?AddCategoryModal:modal}
+                isOpen={modal}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Example Modal"
@@ -54,11 +46,7 @@ const ModalContent = (props) => {
                     (props.addProducts) ?
                         <AddProducts/>
                         :
-                        (props.addCategory) ?
-                         <PaymentPopUp/>
-                         :
-                         <PaymentPopUp/>
-
+                        <PaymentPopUp/>
                 }
             </Modal>
         </div>

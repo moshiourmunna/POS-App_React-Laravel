@@ -22,7 +22,7 @@ const Settings = (props) => {
         <div className='settingsContainer'>
             <h2>Settings</h2>
             <div className='settings'>
-                <div style={{background:'#1F1D2BFF', borderRadius:'10px'}}>
+                <div style={{background: '#1F1D2BFF', borderRadius: '10px'}}>
                     <SettingsOptions/>
                 </div>
 
