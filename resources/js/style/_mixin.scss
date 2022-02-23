@@ -3,9 +3,9 @@
 @mixin dishContainer($color) {
     z-index: -1;
     position: relative;
-    margin-top: -55%;
+    margin-top: -45%;
     background: $color;
-    padding: 52% 10% 10% 5%;
+    padding: 45% 10% 10% 10%;
     border-radius: 10px;
     width: 12vw;
 
@@ -28,4 +28,15 @@
         font-size: 90%;
         font-weight: 400;
     }
+}
+
+@mixin categoryPageInputs{
+    padding: 5px;
+    height: 5vh;
+    width: 50%;
+    color: $appWhite;
+    background: $body-bg2;
+    border-radius: 10px;
+    margin: 10px;
+    border-style: none;
 }

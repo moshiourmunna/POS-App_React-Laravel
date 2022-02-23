@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 const LandingData = (props) => {
 
-    const [{ category}] = useStateValue();
+    const [{ category,state}] = useStateValue();
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([])
 
@@ -24,7 +24,7 @@ const LandingData = (props) => {
                     console.log(error);
                 })
         },
-        [category.title],
+        [category.title,state],
     );
 
 

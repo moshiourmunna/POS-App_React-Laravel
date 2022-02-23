@@ -1,6 +1,7 @@
 export const initialState = {
     basket: [],
     user: {},
+    state:0,
     deliveryMethod: [],
     category: {title:0},
     modal: false,
@@ -52,6 +53,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 category: action.item
+            }
+
+        case "setState":
+            return {
+                ...state,
+                state: action.item
             }
         case "SetDeliveryMethod":
             return {

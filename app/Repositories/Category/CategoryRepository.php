@@ -17,12 +17,18 @@ class CategoryRepository implements CategoryInterface
         $this->model = $category;
     }
 
-    public function create(array $data)
+    public function create($request)
     {
-        $data['slug'] = $this->slugify($data['name']);
-        Artisan::call('cache:clear');
+        $category = new Category();
+        $category->published = filter_var($request->published, FILTER_VALIDATE_BOOLEAN);
+        $category->name = $request->name;
+        $category->slug =  $this->slugify($request->name);
+        $category->save();
 
-        return $this->model->create($data);
+        $response = [
+            'category' => $category,
+        ];
+        return $category->published;
     }
 
     private function slugify($name): string

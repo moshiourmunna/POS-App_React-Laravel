@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixin";
 
 .home-Container {
     display: flex;
@@ -13,7 +14,8 @@
         margin-right: 92px;
         min-height: fit-content;
         background: $body-bg2;
-        min-width: 60vw;
+        min-width: 55vw;
+        max-width: 55vw;
 
         hr {
             width: 94.5%;
@@ -54,7 +56,7 @@
     width: 90%;
     padding: 30px;
 
-    hr{
+    hr {
         color: $body-bg2;
     }
 
@@ -136,7 +138,7 @@
 }
 
 .topSection {
-    padding: 5px 30px 0 25px;
+    padding: 20px 30px 0 25px;
     height: auto;
     text-align: left;
 
@@ -165,7 +167,7 @@
     h3 {
         padding: 30px 30px 30px 0;
         color: $appWhite;
-        font-size: 18px;
+        font-size: 1.5vw;
         font-weight: 400;
     }
 
@@ -243,15 +245,72 @@
     }
 }
 
-.categoryAdd {
-    position: absolute;
-    top: 20%;
-    left: 60%;
+.categoryPage {
+    position: fixed;
+    text-align: center;
+    //top: 22vh;
+    //left: 37vw;
+    right: 7%;
     z-index: 1;
-    background-color: $body-bg2;
-    min-width: 32vw;
-    min-height: 40vh;
+    padding: 20px;
+    background-color: $body-bg1;
+    width: 54vw;
+    min-height: 65vh;
     border-radius: 8px;
+
+    .addedDoneMessage{
+        padding: 10px;
+        font-size: 1.2vw;
+        color: $secondaryColor;
+    }
+
+    .Category-table{
+        max-height: 35vh;
+        overflow-y: scroll;
+    }
+
+    .CategoryPop{
+        padding: 15px;
+        cursor: pointer;
+        color: $offWhite;
+        background-color: $darkTheme;
+        border-radius: 10px;
+    }
+
+    .addCategory {
+        display: flex;
+        flex-direction: column;
+        p{
+            color: $theme;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+        form {
+
+            .input {
+                @include categoryPageInputs;
+                width: 49%;
+            }
+            .input_red{
+                @include categoryPageInputs;
+                color: red;
+                border-style: solid;
+                border-color: red;
+            }
+
+            select {
+                @include categoryPageInputs;
+            }
+        }
+        button {
+            margin: 10px;
+            width: 25%;
+            background: $theme;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 8px;
+        }
+    }
 
     h2 {
         font-size: 40px;

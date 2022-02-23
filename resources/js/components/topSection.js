@@ -7,6 +7,8 @@ import {RiListSettingsLine} from 'react-icons/ri'
 import Api from "../api/api";
 import {useNavigate} from "react-router";
 import {BeatLoader} from "react-spinners";
+import CategoryDetails from "./admin/categoryDetails";
+import {useStateValue} from "../states/StateProvider";
 
 const TopSection = (props) => {
 
@@ -15,12 +17,8 @@ const TopSection = (props) => {
     const [toggle, setToggle] = useState(false);
     const [loading, setLoading] = useState(true);
     const [categoryDiv, setCategoryDiv] = useState(false);
-    const [errors, setErrors] = useState([]);
-    const [name, setName] = useState('');
-    const [published, setPublished] = useState(0);
-    const [response, setResponse] = useState('');
-    const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
+    const [{state}] = useStateValue();
 
     const getCategories = useCallback(
         async () => {
@@ -29,41 +27,15 @@ const TopSection = (props) => {
                     setCategories(response.data)
                     setLoading(false)
                 })
-                .catch(e => setErrors(e))
+                .catch(e => console.log('first e',e))
         },
-        [],
+        [state],
     );
 
     useEffect(() => {
         getCategories().then(r => r)
     }, [getCategories]);
 
-
-    async function createCategory() {
-
-        const Data = new FormData();
-        Data.append('name', name);
-        Data.append('published', published);
-
-        await Api().post('/createCategory', Data
-        ).then((response) => {
-            console.log(response)
-            if (response.status === 201) {
-                setResponse('Category Created Successfully!')
-                setName('')
-            } else {
-                setResponse('response.statusText')
-                console.log(response)
-            }
-        }).catch((e) => {
-            setResponse(e.response.statusText)
-            if (e.response.status === 401) {
-                navigate('/login')
-            }
-            setErrors(e.response.data.errors)
-        })
-
-    }
 
     return (
         <div className='topSection'>
@@ -83,47 +55,17 @@ const TopSection = (props) => {
                                 <span style={{margin: '5px'}}>
                                     <RiListSettingsLine/>
                                 </span>
-                                Manage Categories
+                                {
+                                    (!categoryDiv)?
+                                        'Manage Categories'
+                                        :
+                                        'Close Categories'
+                                }
                             </button>
                         </div>
                         <h3>Products Management</h3>
-                        <div className={(categoryDiv) ? 'categoryAdd' : 'hide'}>
-                            <form onSubmit={(e) => e.preventDefault()}>
-                                <input type='text' name='name' onChange={(e) => setName(e.target.value)}/>
-                                <select
-                                    className={(errors?.published) ? 'select_red' : 'select'}
-                                    id='status'
-                                    name="status"
-                                    onChange={(e) => setPublished(e.target.value)}
-                                    value={!(errors?.published) ?
-                                        published
-                                        :
-                                        ''
-                                    }
-                                >
-                                    <option> * Published</option>
-                                    <option
-                                        value="0">
-                                        Published
-                                    </option>
-                                    <option
-                                        value="1">
-                                        Unpublished
-                                    </option>
-                                </select>
-                            </form>
-                            <div className='button'>
-                                <button
-                                    onClick={createCategory}>
-                                    Add Product
-                                </button>
-                            </div>
-                            {
-                                (response) ?
-                                    <p className='addedDoneMessage'>{response}</p>
-                                    :
-                                    ''
-                            }
+                        <div className={(categoryDiv) ? 'categoryPage' : 'hide'}>
+                            <CategoryDetails categories={categories}/>
                         </div>
                     </div>
             }

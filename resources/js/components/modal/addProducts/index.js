@@ -4,6 +4,7 @@ import '../../../style/addProduct.scss'
 import {BsImage} from "react-icons/bs";
 import Api from "../../../api/api";
 import {useNavigate} from "react-router";
+import {useStateValue} from "../../../states/StateProvider";
 
 const AddProducts = () => {
 
@@ -23,6 +24,7 @@ const AddProducts = () => {
     const [categories, setCategories] = useState([]);
     const ref = useRef();
     const disabled = '';
+    const [{}, dispatch] = useStateValue();
 
     const getCategories= useCallback(
         async() => {
@@ -63,8 +65,15 @@ const AddProducts = () => {
                 setDescription('')
                 setFile('')
                 setUrl('')
+                dispatch(
+                    {
+                        type: "setState",
+                        item: {
+                            title: 1
+                        },
+                    })
             } else {
-                setResponse('response.statusText')
+                setResponse(response.statusText)
                 console.log(response)
             }
         }).catch((e) => {

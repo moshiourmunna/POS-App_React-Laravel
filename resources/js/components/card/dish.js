@@ -63,6 +63,13 @@ const Dish = (props) => {
             await Api().delete(`/delete/` + id)
                 .then((response) => {
                     console.log(response)
+                    dispatch(
+                        {
+                            type: "setState",
+                            item: {
+                                title: 1
+                            },
+                        })
                 })
                 .catch(e => {
                     setError(e)

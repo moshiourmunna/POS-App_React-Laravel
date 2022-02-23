@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Repositories\Category\CategoryRepository;
 
@@ -41,18 +42,19 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Category[]|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:categories,name'
+            'name' => 'required|unique:categories,name',
+            'published' => 'required'
         ]);
 
-        $data = $request->all();
-        $category = $this->categoryRepository->create($data);
+//        $data = $request->all();
+        $category = $this->categoryRepository->create($request);
 
-        return $category;
+        return response($category, 201);
     }
 
     /**

@@ -6,7 +6,7 @@ namespace App\Repositories\Category;
 
 interface CategoryInterface
 {
-    public function create(array $data);
+    public function create($request);
 
     public function getById(int $id);
 
