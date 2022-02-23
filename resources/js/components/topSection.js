@@ -5,7 +5,6 @@ import {IoIosArrowDropdownCircle} from 'react-icons/io';
 import PropTypes from "prop-types";
 import {RiListSettingsLine} from 'react-icons/ri'
 import Api from "../api/api";
-import {useNavigate} from "react-router";
 import {BeatLoader} from "react-spinners";
 import CategoryDetails from "./admin/categoryDetails";
 import {useStateValue} from "../states/StateProvider";
