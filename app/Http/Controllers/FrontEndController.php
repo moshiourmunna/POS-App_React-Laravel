@@ -54,7 +54,7 @@ class FrontEndController extends Controller
      */
     public function show($category)
     {
-        if ($category === 'all') {
+        if ($category === 0) {
             $result = $this->productsRepository->publishedProducts();
         }
         else {

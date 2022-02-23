@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {useStateValue} from "../../states/StateProvider";
+import {BeatLoader} from "react-spinners";
 
 const Categories = (props) => {
 
@@ -15,15 +16,16 @@ const Categories = (props) => {
             })
     }
 
-    useEffect(() => {
-        // console.log(category.title)
-    }, [category.title]);
-
-
     return (
         <div className={(category.title === props.keys) ? 'activeLink' : 'inActiveLink'}>
+
             <a onClick={clickHandler}>
-                {props.title}
+                {
+                    (!props.loading) ?
+                        props.title
+                        :
+                        <BeatLoader size={10} color={'#EA7C69'}/>
+                }
             </a>
             <hr/>
         </div>

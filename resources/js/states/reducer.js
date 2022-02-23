@@ -2,7 +2,7 @@ export const initialState = {
     basket: [],
     user: {},
     deliveryMethod: [],
-    category: {title:'all'},
+    category: {title:0},
     modal: false,
     payMethod:0
 };

@@ -98,11 +98,11 @@ class ProductsRepository implements ProductsInterface
 
     }
 
-    private function baseQuery(int $categoryId = -1)
+    private function baseQuery(int $categoryId = 0)
     {
         return $this->model->whereHas('categories', function ($q) use ($categoryId) {
             $q->where('published', '=', 0);
-            $q->when($categoryId !== -1, function ($sq) use ($categoryId) {
+            $q->when($categoryId !== 0, function ($sq) use ($categoryId) {
                 $sq->where('category_id', $categoryId);
             });
         });
@@ -124,7 +124,7 @@ class ProductsRepository implements ProductsInterface
             ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock')
             ->with('categories')
             ->latest()
-            ->limit(2)
+            ->limit(6)
             ->get();
     }
 
