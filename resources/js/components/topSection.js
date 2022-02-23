@@ -65,7 +65,7 @@ const TopSection = (props) => {
                         </div>
                         <h3>Products Management</h3>
                         <div className={(categoryDiv) ? 'categoryPage' : 'hide'}>
-                            <CategoryDetails categories={categories}/>
+                            <CategoryDetails/>
                         </div>
                     </div>
             }

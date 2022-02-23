@@ -10,11 +10,13 @@ import PropTypes from "prop-types";
 const LandingData = (props) => {
 
     const [{ category,state}] = useStateValue();
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
 
     const getProducts = useCallback(
         async () => {
+
+            setLoading(true)
             await Api().get(`/products/` + category.title)
                 .then((response) => {
                     setData(response.data)
@@ -48,7 +50,7 @@ const LandingData = (props) => {
                 {
                     (loading) ?
                         <div style={{marginTop:'20%'}}>
-                            <BeatLoader size={40} color={'#EA7C69'}/>
+                            <BeatLoader size={30} color={'#9288E0'}/>
                         </div>
                         :
                         <CentralData data={data} admin={props.admin}/>

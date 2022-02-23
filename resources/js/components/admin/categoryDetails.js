@@ -1,17 +1,37 @@
-import React, {useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Api from "../../api/api";
-import PropTypes from "prop-types";
 import {AiFillDelete} from "react-icons/ai";
 import {useStateValue} from "../../states/StateProvider";
+import {BeatLoader} from "react-spinners";
+import {BsToggle2Off, BsToggle2On} from "react-icons/bs";
+import CategoryDetailsCard from "../card/categoryDetails";
 
-const CategoryDetails = (props) => {
+const CategoryDetails = () => {
 
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
     const [published, setPublished] = useState(1);
     const [response, setResponse] = useState('');
     const [toggle, setToggle] = useState(false);
-    const [{}, dispatch] = useStateValue();
+    const [{state}, dispatch] = useStateValue();
+    const [loading, setLoading] = useState(false);
+    const [categories, setCategories] = useState([]);
+
+    const getAllCategories = useCallback(
+        async () => {
+            await Api().get(`/getAllCategory`)
+                .then((response) => {
+                    setCategories(response.data)
+                    setLoading(false)
+                })
+                .catch(e => console.log('first e', e))
+        },
+        [state],
+    );
+
+    useEffect(() => {
+        getAllCategories().then(r => r)
+    }, [getAllCategories]);
 
 
     async function createCategory() {
@@ -52,34 +72,32 @@ const CategoryDetails = (props) => {
 
     return (
         <div>
-            <div  className='Category-table'>
-                <table>
+            <div className='Category-table'>
+                <table id='customers'>
                     <thead>
                     <tr>
                         <th>Name</th>
                         <th>Status</th>
                         <th>Delete</th>
                     </tr>
+                    <tr style={{borderBottom:' 1px solid #2f2f2f'}}/>
                     </thead>
-
-                    <tbody>
                     {
-                        props.categories.map((category) => (
-                            <tr key={category.id}>
-                                <td>{category.name}</td>
-                                <td>{category.published}</td>
-                                <td><AiFillDelete/></td>
-                            </tr>
-
+                        categories.map((category) => (
+                            <CategoryDetailsCard
+                                key={category.id}
+                                published={category.published}
+                                id={category.id}
+                                name={category.name}
+                            />
                         ))
                     }
-                    </tbody>
                 </table>
             </div>
 
             <button className='CategoryPop' onClick={() => setToggle(!toggle)}>
                 {
-                    (!toggle)?
+                    (!toggle) ?
                         'Create A New Category'
                         :
                         'Cancel'
@@ -99,10 +117,8 @@ const CategoryDetails = (props) => {
                                 :
                                 "* Category Name"
                         }
-                        value={!(errors?.name) ?
+                        value={!(errors?.name) &&
                             name
-                            :
-                            ''
                         }
                     />
                     <select
@@ -110,10 +126,8 @@ const CategoryDetails = (props) => {
                         id='status'
                         name="published"
                         onChange={(e) => setPublished(e.target.value)}
-                        value={!(errors?.published) ?
+                        value={!(errors?.published) &&
                             published
-                            :
-                            ''
                         }
                     >
                         <option
@@ -135,17 +149,11 @@ const CategoryDetails = (props) => {
                 </div>
             </div>
             {
-                (response) ?
-                    <p className='addedDoneMessage'>{response}</p>
-                    :
-                    ''
+                (response) &&
+                <p className='addedDoneMessage'>{response}</p>
             }
         </div>
     )
 }
 
 export default CategoryDetails
-
-CategoryDetails.prototype = {
-    categories: PropTypes.array
-}

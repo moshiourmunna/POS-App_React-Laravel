@@ -191,6 +191,7 @@ const AddProducts = () => {
                     <option> * Select Category</option>
                     {
                         categories.map((category)=>(
+                            (category.id !== 0) &&
                             <option
                                 key={category.id}
                                 value={category.id}>

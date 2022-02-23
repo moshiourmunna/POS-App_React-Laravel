@@ -10,6 +10,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/products/{category}', [FrontEndController::class, 'show']);
 Route::get('/getCategory',[CategoryController::class, 'index']);
+Route::get('/getAllCategory',[CategoryController::class, 'allCategories']);
 
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
@@ -20,5 +21,7 @@ Route::group([
 ], function () {
     Route::post('/store',[FrontEndController::class, 'store']);
     Route::post('/createCategory',[CategoryController::class, 'store']);
+    Route::post('/updateCategory/{id}',[CategoryController::class, 'update']);
     Route::delete('/delete/{id}',[FrontEndController::class, 'destroy']);
+    Route::delete('/deleteCategory/{id}',[CategoryController::class, 'destroy']);
 });

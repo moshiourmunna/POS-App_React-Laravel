@@ -24,8 +24,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return $this->categoryRepository->all();
+        return $this->categoryRepository->allPublished();
 
+    }
+
+    public function allCategories()
+    {
+        return $this->categoryRepository->allCategories();
     }
 
     /**
@@ -86,9 +91,10 @@ class CategoryController extends Controller
      * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update($id)
     {
-        //
+        return $this->categoryRepository->update($id);
+
     }
 
     /**
@@ -97,8 +103,9 @@ class CategoryController extends Controller
      * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $this->categoryRepository->delete($id);
+        return response('Successfully Deleted',201);
     }
 }

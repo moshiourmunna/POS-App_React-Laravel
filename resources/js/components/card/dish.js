@@ -14,6 +14,7 @@ const Dish = (props) => {
     const [{basket}, dispatch] = useStateValue();
     const [quantity, setQuantity] = useState(1)
     const [allReadyAdded, setAllReadyAdded] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem('user'));
@@ -58,6 +59,7 @@ const Dish = (props) => {
 
     async function Delete(id) {
 
+        setLoading(true)
         let confirmDelete = confirm("Are You Sure You Want to delete?");
         if (confirmDelete) {
             await Api().delete(`/delete/` + id)
@@ -70,6 +72,7 @@ const Dish = (props) => {
                                 title: 1
                             },
                         })
+                    setLoading(false)
                 })
                 .catch(e => {
                     setError(e)
@@ -84,7 +87,12 @@ const Dish = (props) => {
             {
                 (props.data) ?
                     <div className={(props.Admin) ? 'adminDesign' : 'userDesign'}>
-                        <img src={props.data.image} alt='product'/>
+                        {
+                            (!props.data.image)?
+                                <BeatLoader size={10} color={'#50D1AA'}/>
+                                :
+                                <img src={props.data.image}/>
+                        }
                         <div className={(allReadyAdded.length > 0 && !props.Admin) ? 'containerAdded' : 'container'}>
                             <h3>{props.data.title}</h3>
                             <h4>${props.data.price}</h4>
@@ -105,7 +113,12 @@ const Dish = (props) => {
                             <button
                                 onClick={() => Delete(props.data.id)}
                             >
-                                <RiDeleteBin5Fill size='25px'/>
+                                {
+                                    (!loading)?
+                                        <RiDeleteBin5Fill size='25px'/>
+                                        :
+                                        <BeatLoader size={10} color={'#EA7C69'}/>
+                                }
                             </button>
                         </div>
                     </div>

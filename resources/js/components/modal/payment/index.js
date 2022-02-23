@@ -1,6 +1,6 @@
 import React from "react";
 import '../../../style/payment.scss';
-import FullCart from "../../contents/fullCart";
+import FullCart from "../../card/cart/fullCart";
 import '../../../style/items.scss'
 import PaymentInfo from "./partial/paymentInfo";
 

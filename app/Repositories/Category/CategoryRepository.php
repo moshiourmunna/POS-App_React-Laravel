@@ -41,22 +41,29 @@ class CategoryRepository implements CategoryInterface
         return $this->model->find($id);
     }
 
-    public function update(array $data, int $id)
+    public function update( int $id)
     {
-        $data['slug'] = $this->slugify($data['name']);
-        Artisan::call('cache:clear');
+        $model = $this->model::find($id);
+        if ($model->published === 1) {
+            $model->published = 0;
+        }
+        else{
+            $model->published = 1;
+        }
 
-        return $this->model->where('id', $id)->update($data);
+        $model->save();
+
+        return $model;
     }
 
-    public function delete(int $id)
+    public function delete( $id)
     {
         Artisan::call('cache:clear');
 
         return $this->model->where('id', $id)->delete();
     }
 
-    public function all()
+    public function allPublished()
     {
         return $this->model
             ->where('published', 0)
@@ -66,6 +73,11 @@ class CategoryRepository implements CategoryInterface
     public function paginate($perPage = 10)
     {
         return $this->model->orderBy('position', 'asc')->withCount('articles')->paginate($perPage);
+    }
+
+    public function allCategories(){
+        return $this->model
+            ->orderBy('name')->get();
     }
 
 }

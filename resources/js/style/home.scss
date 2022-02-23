@@ -267,6 +267,48 @@
     .Category-table{
         max-height: 35vh;
         overflow-y: scroll;
+        margin-bottom: 20px;
+
+        .title{
+            color: $secondaryColor;
+        }
+        .delete{
+            cursor: pointer;
+            color: $darkTheme;
+        }
+        .statusGreen{
+            font-size: 15px;
+            color: $pasteColor;
+            cursor: pointer;
+        }
+        .statusRed{
+            font-size: 15px;
+            cursor: pointer;
+            color: $theme;
+        }
+
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {
+            padding: 8px;
+            border-style: none;
+        }
+
+        #customers tr:nth-child(even){background-color: $body-bg2;}
+
+        //#customers tr:hover {background-color: $body-bg2;}
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: $darkTheme;
+            color: black;
+        }
     }
 
     .CategoryPop{
