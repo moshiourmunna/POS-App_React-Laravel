@@ -9,9 +9,9 @@
     cursor: pointer;
 
     .adminDesign {
-        width: 200px;
-        height: fit-content;
+        width: 15vw;
         z-index: 0;
+        height: 36vh;
         position: relative;
         background: $body-bg1;
         border-radius: 10px;
@@ -23,17 +23,17 @@
     }
 
     .userDesign {
+        width: 15vw;
         margin-bottom: 40px;
         position: relative;
-        width: 16vw;
-        height: fit-content;
         z-index: 0;
         line-height: 3;
+        height: 36vh;
     }
 
     img {
-        max-width: 16vw;
-        max-height: 16vh;
+        width: 10vw;
+        height: 16vh;
     }
 
     .container {
