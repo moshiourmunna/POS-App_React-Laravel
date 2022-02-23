@@ -4,7 +4,7 @@ namespace App\Repositories\Products;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 use Str;
 
 class ProductsRepository implements ProductsInterface
@@ -58,9 +58,11 @@ class ProductsRepository implements ProductsInterface
         $product->stock = $request->stock;
         $product->price = $request->price;
         $product->slug =  $this->slugify($request->title);
-//        $product->sell_count = 0;
+//      $product->sell_count = 0;
         $product->description = $request->description;
         $product->save();
+
+        $product->categories()->sync([$request->category]);
 
         $response = [
             'product' => $product,
@@ -82,12 +84,51 @@ class ProductsRepository implements ProductsInterface
 
     public function delete(int $id)
     {
+        $product = $this->model::findOrFail($id);
+        if (File::exists($product->image)) {
+            File::delete($product->image);
+        }
+        $product->categories()->detach();
 
+        return $product->delete();
     }
 
     public function paginate($limit = 10)
     {
 
     }
+
+    private function baseQuery(int $categoryId = -1)
+    {
+        return $this->model->whereHas('categories', function ($q) use ($categoryId) {
+            $q->where('published', '=', 0);
+            $q->when($categoryId !== -1, function ($sq) use ($categoryId) {
+                $sq->where('category_id', $categoryId);
+            });
+        });
+    }
+
+    public function publishedProducts()
+    {
+        return $this->baseQuery()
+            ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock')
+            ->with('categories')
+            ->latest()
+            ->limit(6)
+            ->get();
+    }
+
+    public function publishedProductsByCategory($category)
+    {
+        return $this->baseQuery($category)
+            ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock')
+            ->with('categories')
+            ->latest()
+            ->limit(2)
+            ->get();
+    }
+
+
+
 
 }

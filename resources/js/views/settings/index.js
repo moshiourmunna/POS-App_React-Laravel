@@ -1,23 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import '../../style/settings.scss';
-import RecipeData from "../../data/Recipe";
-import CentralData from "../home/partial/centralData";
 import '../../style/rowColumnStyle.scss';
-import TopSection from "../../components/topSection";
-import PropTypes from "prop-types";
 import SettingsOptions from "./partial/settingsOptions";
-import Button from "../../components/button/Button";
 import ModalContent from "../../components/modal";
+import LandingData from "../../components/landingData";
 
-const Settings = (props) => {
-
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-        //callback function for the api call to get all data
-        setData(RecipeData)
-    }, []);
-
+const Settings = () => {
     return (
         <div className='settingsContainer'>
             <h2>Settings</h2>
@@ -25,20 +13,8 @@ const Settings = (props) => {
                 <div style={{background: '#1F1D2BFF', borderRadius: '10px'}}>
                     <SettingsOptions/>
                 </div>
-
                 <div className='settingsRightSide'>
-                    <TopSection admin={true}/>
-                    <hr/>
-                    {
-                        (props.page === 'home') ?
-                            <CentralData data={data} admin={true}/>
-                            :
-                            <CentralData data={props.data} admin={true}/>
-                    }
-                    <div className='adminButtons'>
-                        <Button name={'Cancel'} cancel={true} admin={true}/>
-                        <Button name={'Save Changes'} cancel={true} admin={true}/>
-                    </div>
+                    <LandingData admin={true}/>
                 </div>
                 <ModalContent addProducts={true}/>
             </div>
@@ -47,8 +23,3 @@ const Settings = (props) => {
 }
 
 export default Settings
-
-Settings.propTypes = {
-    data: PropTypes.array,
-    page: PropTypes.string
-}

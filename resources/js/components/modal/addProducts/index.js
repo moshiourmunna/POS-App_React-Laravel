@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import '../../../style/addProduct.scss'
 import {BsImage} from "react-icons/bs";
@@ -7,10 +7,11 @@ import {useNavigate} from "react-router";
 
 const AddProducts = () => {
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
+    const [category, setCategory] = useState('')
     const [stock, setStock] = useState('')
     const [discount, setDiscount] = useState('')
     const [status, setStatus] = useState(0)
@@ -19,8 +20,25 @@ const AddProducts = () => {
     const [Url, setUrl] = useState('');
     const [ready, setReady] = useState(false);
     const [errors, setErrors] = useState([]);
+    const [categories, setCategories] = useState([]);
     const ref = useRef();
     const disabled = '';
+
+    const getCategories= useCallback(
+        async() => {
+            await Api().get(`/getCategory`)
+                .then((response)=>{
+                    setCategories(response.data)
+                })
+                .catch(e=>setErrors(e))
+        },
+        [],
+    );
+
+    useEffect(() => {
+        getCategories().then(r=>r)
+    }, [getCategories]);
+
 
     async function upload() {
         const Data = new FormData();
@@ -31,7 +49,7 @@ const AddProducts = () => {
         Data.append('price', price);
         Data.append('description', description);
         Data.append('status', status);
-
+        Data.append('category', category);
 
         await Api().post('/store', Data
         ).then((response) => {
@@ -51,7 +69,7 @@ const AddProducts = () => {
             }
         }).catch((e) => {
             setResponse(e.response.statusText)
-            if(e.response.status===401){
+            if (e.response.status === 401) {
                 navigate('/login')
             }
             setErrors(e.response.data.errors)
@@ -148,6 +166,29 @@ const AddProducts = () => {
                         value="0">
                         Published
                     </option>
+                </select>
+
+                <select
+                    className={(errors?.category) ? 'select_red' : 'select'}
+                    id='status'
+                    name="status"
+                    onChange={(e) => setCategory(e.target.value)}
+                    value={!(errors?.category) ?
+                        category
+                        :
+                        ''
+                    }
+                >
+                    <option> * Select Category</option>
+                    {
+                        categories.map((category)=>(
+                            <option
+                                key={category.id}
+                                value={category.id}>
+                                {category.name}
+                            </option>
+                        ))
+                    }
                 </select>
 
                 <input

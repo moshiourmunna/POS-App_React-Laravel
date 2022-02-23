@@ -55,8 +55,11 @@
             margin: 0 0 0 5%;
             padding-left: 5%;
             padding-right: 5%;
-            min-height: fit-content;
-//mixin possible with this hr and of line 18 from home.scss
+            min-height:84vh;
+            min-width: 52vw;
+            max-width: 52vw;
+
+            //mixin possible with this hr and of line 18 from home.scss
             hr{
                 margin-bottom: -2px;
                 width: 94.5%;

@@ -1,61 +1,25 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../../style/home.scss';
-import TopSection from "../../components/topSection";
-import SelectOption from "../../components/forms/selectOption";
 import {useStateValue} from "../../states/StateProvider";
-import CentralData from "./partial/centralData";
 import ModalContent from "../../components/modal";
 import FullCart from "../../components/contents/fullCart";
 import '../../style/rowColumnStyle.scss';
 import PropTypes from "prop-types";
-import RecipeData from "../../data/Recipe";
-import Api from "../../api/api";
+import LandingData from "../../components/landingData";
 
-const Home = (props) => {
+const Home = () => {
 
-
-    const [{basket, category, modal}] = useStateValue();
     const [state, setState] = useState(false)
-    const [data, setData] = useState([])
-
-    const getProducts = useCallback(
-        async () => {
-            await Api().get(`/products/`+category.title)
-                .then((response)=>{
-                    console.log(response)
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-        },
-        [],
-    );
-
+    const [{basket}] = useStateValue();
 
     useEffect(() => {
         setState(!state)
-        //callback function for the api call for all data
-        getProducts().then(r => r)
-        setData(RecipeData)
-        // console.log('here',category.title)
-    }, [basket, category,getProducts]);
-
+    }, [basket]);
 
     return (
         <div className='home-Container'>
             <div className='home'>
-                <TopSection admin={false}/>
-                <hr/>
-                <div className='flex-split'>
-                    <h2>Choose Dishes</h2>
-                    <li><SelectOption admin={false}/></li>
-                </div>
-                {
-                    (props.page === 'home') ?
-                        <CentralData data={data} admin={false}/>
-                        :
-                        <CentralData data={props.data} admin={false}/>
-                }
+                <LandingData admin={false}/>
             </div>
             <FullCart isThisForConfirmPayment={false}/>
             <ModalContent/>

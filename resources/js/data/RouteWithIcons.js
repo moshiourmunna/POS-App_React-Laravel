@@ -41,13 +41,6 @@ const Routes = [
 
 const AdminRoutes = [
     {
-        id:1,
-        icon:<HomeIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
-        activeIcon: <HomeIcon color={'white'} width={'30'} height={'25'}/>,
-        path: '/POS',
-        pathName:'Home'
-    },
-    {
         id:2,
         icon: <DiscountIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
         path: '/discount',

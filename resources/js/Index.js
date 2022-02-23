@@ -3,16 +3,13 @@ import React from "react";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Home from "./views/home/Home";
 import Sidebar from "./components/sidebar";
-import Category from "./views/categories/userCategory";
 import Settings from "./views/settings";
-import CategoryAdmin from "./views/categories/adminCategory";
 import Dashboard from "./views/dashboard";
 import Login from "./views/forms/login";
 import Register from "./views/forms/register";
 
 
 function App() {
-
 
     const user=JSON.parse(localStorage.getItem('user'));
     let admin=user?.admin;
@@ -32,16 +29,14 @@ function App() {
                         <Route path="/Dashboard" element={<Dashboard/>}/>
 
                     }
-                    {/*{*/}
-                    {/*    (!admin) &&*/}
-                    {/*    <Route path="/Dashboard" element={<Home page={'home'}/>}/>*/}
+                    {
+                        (!admin) &&
+                        <Route path="/Dashboard" element={<Home page={'home'}/>}/>
 
-                    {/*}*/}
+                    }
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route exact path="/POS" element={<Home page={'home'} data={[]}/>}/>
-                    <Route path="/categories/:key" element={<Category/>}/>
-                    <Route path="/settings/categories/:key" element={<CategoryAdmin/>}/>
                     <Route path="/payment/:key" element={<Home/>}/>
                 </Routes>
             </Router>

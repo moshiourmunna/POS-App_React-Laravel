@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useStateValue} from "../../states/StateProvider";
 
 const Categories = (props) => {
@@ -15,10 +15,15 @@ const Categories = (props) => {
             })
     }
 
+    useEffect(() => {
+        // console.log(category.title)
+    }, [category.title]);
+
+
     return (
         <div className={(category.title === props.keys) ? 'activeLink' : 'inActiveLink'}>
             <a onClick={clickHandler}>
-                {props.keys}
+                {props.title}
             </a>
             <hr/>
         </div>

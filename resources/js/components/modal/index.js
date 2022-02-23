@@ -37,6 +37,7 @@ const ModalContent = (props) => {
                 isOpen={modal}
                 onRequestClose={closeModal}
                 style={customStyles}
+                ariaHideApp={false}
                 contentLabel="Example Modal"
             >
                 <div style={{cursor: 'pointer', marginLeft: '30px'}}>

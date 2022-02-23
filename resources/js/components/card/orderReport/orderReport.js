@@ -16,13 +16,15 @@ const orderReport = () => {
             </div>
             <div className='orderInfo'>
                 <table>
+                    <thead>
                     <tr>
                         <th>Customer</th>
                         <th>Menu</th>
                         <th>Total Payment</th>
                         <th>Status</th>
                     </tr>
-                    <hr width='375%'/>
+                    <tr style={{borderBottom:' 1px solid #2f2f2f'}}/>
+                    </thead>
                         {
                             OrderInfo.map((order) => (
                                 <OrderReportsMapper

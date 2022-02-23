@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Repositories\Products\ProductsRepository;
 use Illuminate\Http\Request;
 
@@ -55,7 +54,14 @@ class FrontEndController extends Controller
      */
     public function show($category)
     {
-        //
+        if ($category === 'all') {
+            $result = $this->productsRepository->publishedProducts();
+        }
+        else {
+            $result = $this->productsRepository->publishedProductsByCategory($category);
+        }
+
+        return response($result, 201);
     }
 
     /**
@@ -84,8 +90,9 @@ class FrontEndController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-        //
+        $response=$this->productsRepository->delete($id);
+        return response($response,201);
     }
 }

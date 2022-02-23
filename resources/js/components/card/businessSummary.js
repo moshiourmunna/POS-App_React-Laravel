@@ -62,6 +62,6 @@ const BusinessSummary = (props) => {
 export default BusinessSummary
 
 BusinessSummary.propTypes={
-    data:PropTypes.abort,
+    data:PropTypes.array,
     title:PropTypes.string.isRequired
 }

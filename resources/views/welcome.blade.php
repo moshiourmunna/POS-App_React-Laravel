@@ -3,10 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>POS</title>
 
-    <title>Laravel</title>
-
-    <link rel="stylesheet" href='../js/App.css'>
+{{--    <link rel="stylesheet" href='../js/App.css'>--}}
 </head>
 <body>
 <div id="app">
