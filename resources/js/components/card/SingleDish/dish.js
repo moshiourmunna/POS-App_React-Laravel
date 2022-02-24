@@ -12,9 +12,10 @@ import AddProducts from "../../modal/addProducts";
 
 const Dish = (props) => {
 
-    const [{basket}, dispatch] = useStateValue();
+    const [{basket,state}, dispatch] = useStateValue();
     const [quantity, setQuantity] = useState(1)
-    const [allReadyAdded, setAllReadyAdded] = useState(false)
+    let clicked=1
+    const [allReadyAdded, setAllReadyAdded] = useState([])
     const [loading, setLoading] = useState(false)
     const [toggle, setToggle] = useState(false)
     const [error, setError] = useState('')
@@ -25,7 +26,6 @@ const Dish = (props) => {
 
     function editSubmission() {
         setToggle(!toggle)
-        // navigate(`/settings/dish/edit/${props.id}`)
     }
 
     useEffect(() => {
@@ -33,12 +33,12 @@ const Dish = (props) => {
             return b.productId === props.data.id
         })
         setAllReadyAdded(res)
-    }, [basket]);
+    }, [quantity,basket]);
 
+    async function addToCart() {
 
-    function addToCart() {
-        setQuantity(quantity + 1)
-        if (quantity <= props.data.stock) {
+        setQuantity(quantity+1)
+        if (quantity <= props.data.stock && allReadyAdded.length<1) {
             (!admin) &&
             dispatch(
                 {
@@ -52,7 +52,15 @@ const Dish = (props) => {
                         quantity: quantity
                     },
                 })
-        } else {
+        }
+         else if(quantity <= props.data.stock && allReadyAdded.length>0 ){
+            dispatch({
+                type:'INCREMENT_QUANTITY',
+                id: props.data.id,
+                value:quantity
+            })
+        }
+        else {
             setError('Maximum Added')
         }
     }
@@ -81,7 +89,7 @@ const Dish = (props) => {
 
     return (
         <div className='dish'
-             onClick={() => addToCart()}
+             onClick={addToCart}
         >
             {
                 (toggle) ?
@@ -110,10 +118,8 @@ const Dish = (props) => {
                             <h5>{props.data.stock} {props.Availability}</h5>
                         </div>
                         {
-                            (error) ?
-                                <p>{error}</p>
-                                :
-                                ''
+                            (error) &&
+                                <p style={{marginTop:'-60%', width:'16vw'}}>{error}</p>
                         }
                         <div className={(props.Admin) ? 'editDish' : 'hidden'}>
                             <button

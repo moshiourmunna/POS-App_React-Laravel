@@ -10,7 +10,7 @@ import Tabs from "../../tabs";
 
 const FullCart = (props) => {
 
-    const [{deliveryMethod}] = useStateValue();
+    const [{deliveryMethod,basket}] = useStateValue();
 
     return (
         <div className='homeRightSide'>
@@ -47,10 +47,10 @@ const FullCart = (props) => {
                 </div>
             </div>
             <hr/>
-            <CleanBasket/>
+            {/*<CleanBasket/>*/}
             <div className='orderList'>
                 {
-                    Cart.map((item) => (
+                    basket.map((item) => (
                         <CartItem key={item.title} data={item}/>
                     ))
                 }
@@ -58,7 +58,7 @@ const FullCart = (props) => {
             <hr/>
             <div className='orderSubmitTab'>
                 <p>Discount <span>$0</span></p>
-                <p>SubTotal <span>${getBasketTotal(Cart).toFixed(2)}</span></p>
+                <p>SubTotal <span>${getBasketTotal(basket).toFixed(2)}</span></p>
             </div>
             <div style={{padding: '20px 0 0 0 '}}>
                 {
