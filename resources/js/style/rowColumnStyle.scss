@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixin";
 
 .grid-container {
     display: grid;
@@ -8,6 +9,9 @@
     width: 100%;
     @media screen and (max-width: $bp-mobile) {
         grid-template-columns: auto;
+    }
+    .paginate{
+        @include paginationStyle($theme,$body-bg1);
     }
 }
 
@@ -22,6 +26,13 @@
     scrollbar-width: none;
     @media screen and (max-width: $bp-mobile) {
         grid-template-columns: auto;
+    }
+    .paginate{
+        @include paginationStyle($theme,$body-bg1);
+        margin-left: 40%;
+        width: 40%;
+        bottom: 5%;
+        padding: 5px;
     }
 }
 

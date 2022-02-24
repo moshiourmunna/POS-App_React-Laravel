@@ -13,6 +13,8 @@
         font-weight: 500;
         color: $appWhite;
         width: auto;
+        min-height: 50px;
+        max-height: 50px;
         line-height: 1;
 
     }
@@ -39,4 +41,22 @@
     border-radius: 10px;
     margin: 10px;
     border-style: none;
+}
+
+@mixin paginationStyle($color,$background){
+    position: absolute;
+    bottom: 4vh;
+    left: 92px;
+    color: $color;
+    cursor: pointer;
+    text-decoration: none;
+    list-style: none;
+    display: flex;
+    width: 50%;
+    margin-left: 9%;
+    padding: 20px;
+    background-color: $background;
+    justify-content: space-between;
+    border-radius: 10px;
+    font-weight: 700;
 }
