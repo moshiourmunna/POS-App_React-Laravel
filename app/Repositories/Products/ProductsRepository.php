@@ -24,7 +24,6 @@ class ProductsRepository implements ProductsInterface
             'discount' => 'required|numeric|max:40',
             'stock' => 'required|numeric',
             'price' => 'required|numeric|regex:/^\d*(\.\d{2})?$/',
-            'description' => 'required|max:1200',
             'file' => 'image|mimes:jpeg,jpg,png|required|max:10000',
             'status' => 'required|string|max:50',
         ],
@@ -35,7 +34,6 @@ class ProductsRepository implements ProductsInterface
                 'price.required' => ':attribute has to be a float of point 2',
                 'file.required' => '',
                 'status.required' => 'please select a :attribute',
-                'description.required' => ':attribute can not be blank',
             ]);
 
         $product = new Product();
@@ -59,7 +57,6 @@ class ProductsRepository implements ProductsInterface
         $product->price = $request->price;
         $product->slug =  $this->slugify($request->title);
 //      $product->sell_count = 0;
-        $product->description = $request->description;
         $product->save();
 
         $product->categories()->sync([$request->category]);
@@ -148,7 +145,6 @@ class ProductsRepository implements ProductsInterface
             ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock','discount_id')
             ->with('categories')
             ->latest()
-            ->limit(6)
             ->get();
     }
 
@@ -158,7 +154,6 @@ class ProductsRepository implements ProductsInterface
             ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock','discount_id')
             ->with('categories')
             ->latest()
-            ->limit(6)
             ->get();
     }
 

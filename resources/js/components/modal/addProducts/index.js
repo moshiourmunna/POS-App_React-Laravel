@@ -188,10 +188,10 @@ async function update() {
     }
 
     useEffect(() => {
-        if (File && title && price && description && discount && stock) {
+        if (File && title && price && discount && stock) {
             setReady(true)
         }
-    }, [File, title, price, description, discount, stock,category]);
+    }, [File, title, price, discount, stock]);
 
 
     return (
