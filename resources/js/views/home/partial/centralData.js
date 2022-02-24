@@ -1,30 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Dish from "../../../components/card/SingleDish/dish";
 import PropTypes from "prop-types";
 import AddMore from "../../../components/button/AddMore";
 import {useStateValue} from "../../../states/StateProvider";
-import ReactPaginate from "react-paginate";
+import {BeatLoader} from 'react-spinners'
 
 const CentralData = (props) => {
-
-    const items = props.data;
-
-    function Items({ currentItems }) {
-        return (
-            <>
-                {currentItems &&
-                    currentItems.map((data) => (
-                        <Dish
-                            key={data.id}
-                            id={data.id}
-                            data={data}
-                            Admin={props.admin}
-                            Availability={'Bowls Available'}
-                        />
-                    ))}
-            </>
-        );
-    }
 
     const [{modal}, dispatch] = useStateValue();
 
@@ -34,26 +15,6 @@ const CentralData = (props) => {
             item: true
         })
     }
-        const [currentItems, setCurrentItems] = useState(null);
-        const [pageCount, setPageCount] = useState(0);
-        const [itemOffset, setItemOffset] = useState(0);
-        const perPage=6
-
-
-        useEffect(() => {
-            const endOffset = itemOffset + perPage;
-            console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-            setCurrentItems(items.slice(itemOffset, endOffset));
-            setPageCount(Math.ceil(items.length / perPage));
-        }, [itemOffset, perPage]);
-
-        const handlePageClick = (event) => {
-            const newOffset = (event.selected * perPage) % items.length;
-            console.log(
-                `User requested page number ${event.selected}, which is offset ${newOffset}`
-            );
-            setItemOffset(newOffset);
-        };
 
     return (
         <div className={(props.admin) ? 'grid-container-admin' : 'grid-container'}>
@@ -65,17 +26,17 @@ const CentralData = (props) => {
                     :
                     ''
             }
-            <Items currentItems={currentItems} />
-            <ReactPaginate
-                className='paginate'
-                breakLabel="..."
-                nextLabel="next >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
-                pageCount={pageCount}
-                previousLabel="< previous"
-                renderOnZeroPageCount={null}
-            />
+            {
+                props.data.map((data) => (
+                    <Dish
+                        key={data.id}
+                        id={data.id}
+                        data={data}
+                        Admin={props.admin}
+                        Availability={'Bowls Available'}
+                    />
+                ))
+            }
         </div>
     )
 }
