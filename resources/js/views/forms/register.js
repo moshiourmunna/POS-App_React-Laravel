@@ -76,7 +76,7 @@ const Register = () => {
                 }
                 <input type='password'
                        name='password'
-                       placeholder='password' onChange={(e => setPassword(e.target.value))}/>
+                       placeholder='password (uppercase,lowercase and number: min 10)' onChange={(e => setPassword(e.target.value))}/>
                 <br/>
                 <br/>
                 {

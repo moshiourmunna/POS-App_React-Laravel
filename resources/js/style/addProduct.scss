@@ -6,8 +6,13 @@
 
     h1 {
         color: $appWhite;
-        font-size: 2vw;
+        font-size: 1.5vw;
         margin-bottom: 5vh;
+
+        span{
+            color: $theme;
+            font-size: 1.3vw;
+        }
     }
 
     form {
@@ -22,7 +27,7 @@
         }
 
         .select {
-            width: 30.5vw;
+            width: 23.5vw;
             margin: 10px;
             padding: 10px;
             background-color: $body-bg2;
@@ -31,7 +36,7 @@
         }
 
         .input, .auto_height {
-            width: 29vw;
+            width: 22vw;
             height: 8vh;
             margin: 10px;
             padding: 10px;
@@ -43,7 +48,7 @@
 
         .input_red, .auto_height_red {
             border-radius: 8px;
-            width: 29vw;
+            width: 22vw;
             margin: 10px;
             height: 8vh;
             padding: 10px;
@@ -54,7 +59,7 @@
         }
 
         .select_red {
-            width: 30.5vw;
+            width: 23.5vw;
             margin: 10px;
             padding: 10px;
             background-color: $appWhite;

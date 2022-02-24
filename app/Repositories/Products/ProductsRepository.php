@@ -77,10 +77,44 @@ class ProductsRepository implements ProductsInterface
         return \Str::slug($name);
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): array
     {
+        $product = Product::findOrFail($id);
+        $isPublishedBefore = $product->published;
 
+        $image = $request->file;
+        if ($image) {
+            $image_ext = $image->getClientOriginalExtension();
+            $image_full_name = time() . '.' . $image_ext;
+            $upload_path = 'assets/images/';
+            $image_url = $upload_path . $image_full_name;
+
+            $success = $image->move($upload_path, $image_full_name);
+        } else {
+            $image_url = '';
+        }
+
+        $data = [
+            'title' => $request->input('title'),
+            'slug' => $this->slugify($request->input('title')),
+            'description' => $request->input('description'),
+            'published' => filter_var($request->input('published'), FILTER_VALIDATE_BOOLEAN),
+            'price' => $request->input('price'),
+            'stock' => $request->input('stock'),
+            'discount_id' => $request->input('discount'),
+            'image' => $image_url,
+        ];
+
+        // Category
+//        $product->categories()->detach();
+        $product->categories()->sync([$request->category]);
+
+        $product->update($data);
+
+        return ['product' => $product, 'previouslyPublished' => $isPublishedBefore];
     }
+
+
 
     public function delete(int $id)
     {
@@ -111,7 +145,7 @@ class ProductsRepository implements ProductsInterface
     public function publishedProducts()
     {
         return $this->baseQuery()
-            ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock')
+            ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock','discount_id')
             ->with('categories')
             ->latest()
             ->limit(6)
@@ -121,7 +155,7 @@ class ProductsRepository implements ProductsInterface
     public function publishedProductsByCategory($category)
     {
         return $this->baseQuery($category)
-            ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock')
+            ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock','discount_id')
             ->with('categories')
             ->latest()
             ->limit(6)

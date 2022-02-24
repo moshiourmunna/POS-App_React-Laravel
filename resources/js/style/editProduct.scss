@@ -1,0 +1,23 @@
+@import "variables";
+@import "mixin";
+
+.editProduct{
+    position: fixed;
+    text-align: center;
+    top: 3vh;
+    left: 40vw;
+    right: 7%;
+    z-index: 1;
+    padding: 20px;
+    background-color: $body-bg1;
+    width: auto;
+    min-height: 75vh;
+    border-radius: 8px;
+
+    p{
+        color: $appWhite;
+        font-size: 1.5vw;
+        font-weight: 700;
+    }
+}
+

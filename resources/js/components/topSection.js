@@ -6,8 +6,9 @@ import PropTypes from "prop-types";
 import {RiListSettingsLine} from 'react-icons/ri'
 import Api from "../api/api";
 import {BeatLoader} from "react-spinners";
-import CategoryDetails from "./admin/categoryDetails";
+import CategoryDetails from "../views/Admin/settings/partial/categoryDetails";
 import {useStateValue} from "../states/StateProvider";
+import '../style/editCategory.scss';
 
 const TopSection = (props) => {
 

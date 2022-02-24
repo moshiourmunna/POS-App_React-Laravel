@@ -1,5 +1,5 @@
 import React from "react";
-import Dish from "../../../components/card/dish";
+import Dish from "../../../components/card/SingleDish/dish";
 import PropTypes from "prop-types";
 import AddMore from "../../../components/button/AddMore";
 import {useStateValue} from "../../../states/StateProvider";

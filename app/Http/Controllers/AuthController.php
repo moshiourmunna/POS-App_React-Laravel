@@ -35,8 +35,35 @@ class AuthController extends Controller
      */
     public function login(Request $request): Response
     {
-        $response=$this->usersRepository->login($request);
-        return response($response, 201);
+        $fields = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string'
+        ],
+            [
+                'email.required' => ':attribute can not be blank',
+                'password.required' => ':attribute does not match to this email',
+            ]
+        );
+
+        $user = User::where('email', $fields['email'])->first();
+
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'user not found'
+            ], 401);
+        }
+
+        $admin = false;
+        if ($user->role !== 'user') {
+            $admin = true;
+        }
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
+        return response([
+            'user' => $user,
+            'token' => $token,
+            'admin' => $admin
+        ], 202);
     }
 
     /**

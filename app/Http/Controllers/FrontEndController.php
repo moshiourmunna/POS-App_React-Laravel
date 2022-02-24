@@ -78,11 +78,11 @@ class FrontEndController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function update()
+    public function update(Request $request,$id)
     {
-        //
+        return $this->productsRepository->update($request, $id);
     }
 
     /**

@@ -6,13 +6,13 @@ import Api from "../../../api/api";
 import {useNavigate} from "react-router";
 import {useStateValue} from "../../../states/StateProvider";
 
-const AddProducts = () => {
+const AddProducts = (props) => {
 
     const navigate = useNavigate()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState()
     const [stock, setStock] = useState('')
     const [discount, setDiscount] = useState('')
     const [status, setStatus] = useState(0)
@@ -26,19 +26,19 @@ const AddProducts = () => {
     const disabled = '';
     const [{}, dispatch] = useStateValue();
 
-    const getCategories= useCallback(
-        async() => {
+    const getCategories = useCallback(
+        async () => {
             await Api().get(`/getCategory`)
-                .then((response)=>{
+                .then((response) => {
                     setCategories(response.data)
                 })
-                .catch(e=>setErrors(e))
+                .catch(e => setErrors(e))
         },
         [],
     );
 
     useEffect(() => {
-        getCategories().then(r=>r)
+        getCategories().then(r => r)
     }, [getCategories]);
 
 
@@ -86,7 +86,68 @@ const AddProducts = () => {
 
     }
 
+async function update() {
+        const Data = new FormData();
+        Data.append('file', File);
+        Data.append('title', title);
+        Data.append('discount', discount);
+        Data.append('stock', stock);
+        Data.append('price', price);
+        Data.append('description', description);
+        Data.append('status', status);
+        Data.append('category', category);
+
+        await Api().post(`/update/`+props.data.id, Data
+        ).then((response) => {
+            console.log(response)
+            if (response.status === 200) {
+                setResponse('Product Added Successfully!')
+                setTitle('')
+                setDiscount('')
+                setStock('')
+                setPrice('')
+                setDescription('')
+                setFile('')
+                setUrl('')
+                dispatch(
+                    {
+                        type: "setState",
+                        item: {
+                            title: 2
+                        },
+                    })
+            } else {
+                setResponse(response.statusText)
+                console.log(response)
+            }
+        }).catch((e) => {
+            if(e.response.status===500){
+                setResponse('OOOPS...Something Went Wrong')
+            }
+            setErrors(e.response.data.errors)
+        })
+
+    }
+
+    useEffect(() => {
+        if (props?.data) {
+            setTitle(props.data.title)
+            setPrice(props.data.price)
+            setStock(props.data.stock)
+            setDiscount(props.data.discount_id)
+            // setUrl(props.data.image)
+            // setFile(props.data.image)
+            setStatus(props.data.published)
+            setDescription(props.data.description)
+        }
+        if(props?.category){
+            setCategory(props.category[0].id)
+        }
+    }, []);
+
+
     const titleHandler = (e) => {
+
         setTitle(e.target.value)
         errors.title = ''
     }
@@ -130,12 +191,17 @@ const AddProducts = () => {
         if (File && title && price && description && discount && stock) {
             setReady(true)
         }
-    }, [File, title, price, description, discount, stock]);
+    }, [File, title, price, description, discount, stock,category]);
 
 
     return (
         <div className='add-page'>
-            <h1>Add a new product</h1>
+            {
+                (props?.data)?
+                    <h1>Editing <span>{props.data.title}</span></h1>
+                    :
+                    <h1>Add a new product</h1>
+            }
             <hr/>
             <form onSubmit={(e) => e.preventDefault()}>
                 <input
@@ -148,22 +214,22 @@ const AddProducts = () => {
                             "* Product Title"
                     }
                     name='title'
-                    value={!(errors?.title) ?
+                    value={
+                        !(errors?.title) &&
                         title
-                        :
-                        ''
+
                     }
-                    onChange={(e) => titleHandler(e)}/>
+                    onChange={(e) => titleHandler(e)}
+                />
 
                 <select
                     className={(errors?.status) ? 'select_red' : 'select'}
                     id='status'
                     name="status"
                     onChange={(e) => setStatus(e.target.value)}
-                    value={!(errors?.status) ?
+                    value={
+                        !(errors?.status) &&
                         status
-                        :
-                        ''
                     }
                 >
                     <option> * Choose Product Status</option>
@@ -182,15 +248,16 @@ const AddProducts = () => {
                     id='status'
                     name="status"
                     onChange={(e) => setCategory(e.target.value)}
-                    value={!(errors?.category) ?
+                    value={
+                        !(errors?.category) ?
                         category
-                        :
-                        ''
+                            :
+                            ''
                     }
                 >
                     <option> * Select Category</option>
                     {
-                        categories.map((category)=>(
+                        categories.map((category) => (
                             (category.id !== 0) &&
                             <option
                                 key={category.id}
@@ -211,10 +278,9 @@ const AddProducts = () => {
                             "* Product Stock"
                     }
                     name='stock'
-                    value={!(errors?.stock) ?
+                    value={
+                        !(errors?.stock) &&
                         stock
-                        :
-                        ''
                     }
                     onChange={(e) => stockHandler(e)}/>
 
@@ -228,10 +294,10 @@ const AddProducts = () => {
                             "* Product Discount ID"
                     }
                     name='discount'
-                    value={!(errors?.discount) ?
+                    value={
+                        !(errors?.discount) &&
                         discount
-                        :
-                        ''
+
                     }
                     onChange={(e) => discountHandler(e)}/>
 
@@ -245,10 +311,9 @@ const AddProducts = () => {
                             "* Price"
                     }
                     name='price'
-                    value={!(errors?.price) ?
+                    value={
+                        !(errors?.price) &&
                         price
-                        :
-                        ''
                     }
                     onChange={(e) => priceHandler(e)}/>
                 <label className={(errors?.file) ? 'input_red' : 'input'} ref={ref} htmlFor="fileInput">
@@ -273,33 +338,38 @@ const AddProducts = () => {
                     name='file'
                     onChange={(e) => fileHandler(e)}/>
 
-                <TextareaAutosize
-                    className={(errors?.description) ? 'auto_height_red' : 'auto_height'}
-                    name='description'
-                    value={!(errors?.description) ?
-                        description
-                        :
-                        ''
-                    }
-                    onChange={(e) => descriptionHandler(e)}
-                    placeholder={
-                        (errors?.description) ?
-                            errors?.description
-                            :
-                            "* Product Description"
-                    }
-                    minRows={3}
-                    maxRows={20}
-                />
-                <img src={Url} width='60%' style={{maxHeight: '150px', marginLeft: '20%'}}/>
+                {/*<TextareaAutosize*/}
+                {/*    className={(errors?.description) ? 'auto_height_red' : 'auto_height'}*/}
+                {/*    name='description'*/}
+                {/*    value={*/}
+                {/*        !(errors?.description) &&*/}
+                {/*        description*/}
+
+                {/*    }*/}
+                {/*    onChange={(e) => descriptionHandler(e)}*/}
+                {/*    placeholder={*/}
+                {/*        (errors?.description) ?*/}
+                {/*            errors?.description*/}
+                {/*            :*/}
+                {/*            "* Product Description"*/}
+                {/*    }*/}
+                {/*    minRows={3}*/}
+                {/*    maxRows={20}*/}
+                {/*/>*/}
+                <img src={Url} width='60%' style={{maxHeight: '120px', marginLeft: '20%',marginTop:'-25px'}}/>
                 <br/>
             </form>
             <div className='button'>
                 <button
                     className={(ready) ? 'button-glow' : 'button-dim'}
                     disabled={(ready) ? disabled : !disabled}
-                    onClick={upload}>
-                    Add Product
+                    onClick={(props?.data)?update:upload}>
+                    {
+                        (props.data)?
+                            'Update Product'
+                            :
+                            ' Add Product'
+                    }
                 </button>
             </div>
 
