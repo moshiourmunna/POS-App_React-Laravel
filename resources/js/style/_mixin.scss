@@ -45,7 +45,7 @@
 
 @mixin paginationStyle($color,$background){
     position: absolute;
-    bottom: 4vh;
+    bottom: 2vh;
     left: 92px;
     color: $color;
     cursor: pointer;
@@ -56,7 +56,7 @@
     margin-left: 9%;
     padding: 20px;
     background-color: $background;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border-radius: 10px;
     font-weight: 700;
 }

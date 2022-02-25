@@ -17,12 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->enum('status', ['processing','sent','delivered'])->nullable();
-            $table->integer('quantity')->nullable();
-            $table->string('instruction')->nullable();
-            $table->string('deliver_method')->nullable();
-            $table->float('bill')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->string('shipped_at')->nullable();
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@
     .cartItemsContainer {
         width: 100%;
         text-align: left;
-        margin-top: 20px;
+        margin-right: -40px;
 
         img {
             width: 6vw;
@@ -28,16 +28,16 @@
                 font-size: 2vh;
                 background: $body-bg2;
                 border-radius: 1vh;
-                padding: 1vw;
+                padding: 1vw 1.3vw 1vw 1vw;
                 min-width: 1vw;
                 max-width: 1vw;
-
+                margin-right: -1px;
             }
 
             h2 {
                 margin-top: 10%;
                 padding: 1vw;
-                font-size: 2vh;
+                font-size: .97vw;
                 min-width: 15px;
                 max-width: 15px;
             }

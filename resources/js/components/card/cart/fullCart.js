@@ -1,6 +1,5 @@
 import React from "react";
 import {DeliveryMethod} from "../../../data/deliveryMethods";
-import {Cart, CleanBasket} from "../../../helpers/cleanBasket";
 import CartItem from "./cartItem";
 import {getBasketTotal} from "../../../states/reducer";
 import Button from "../../button/Button";
@@ -47,7 +46,6 @@ const FullCart = (props) => {
                 </div>
             </div>
             <hr/>
-            {/*<CleanBasket/>*/}
             <div className='orderList'>
                 {
                     basket.map((item) => (
@@ -62,10 +60,12 @@ const FullCart = (props) => {
             </div>
             <div style={{padding: '20px 0 0 0 '}}>
                 {
-                    (!props.isThisForConfirmPayment) ?
-                        <Button name={'Continue To Payment'} cancel={false} admin={false}/>
-                        :
-                        ''
+                    (!props.isThisForConfirmPayment) &&
+                        <Button
+                            name={'Continue To Payment'}
+                            cancel={false}
+                            admin={false}
+                        />
                 }
             </div>
         </div>

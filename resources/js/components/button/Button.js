@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import '../../style/button.scss';
-import {Cart} from "../../helpers/cleanBasket";
 import {useStateValue} from "../../states/StateProvider";
 
 const Button = (props) => {
 
     const disabled = '';
-    const [{deliveryMethod}, dispatch] = useStateValue();
+    const [{deliveryMethod,basket}, dispatch] = useStateValue();
 
     function submit() {
         dispatch(
@@ -22,10 +21,17 @@ const Button = (props) => {
     return (
         <div className='button'>
             {
+                 (props.order) ?
+                <button
+                disabled={!props.cancel ? disabled : !disabled}
+                className={!props.cancel ? 'button-glow' : 'button-dim'}
+                >
+            {props.name}
+                </button>:
                 (!props.admin) ?
                     <button
-                        disabled={Cart.length > 0 ? disabled : !disabled}
-                        className={Cart.length > 0 && deliveryMethod.title && !props.cancel ? 'button-glow' : 'button-dim'}
+                        disabled={basket.length > 0 ? disabled : !disabled}
+                        className={basket.length > 0 && deliveryMethod.title && !props.cancel ? 'button-glow' : 'button-dim'}
                         onClick={submit}
                     >
                         {props.name}
@@ -38,7 +44,7 @@ const Button = (props) => {
                     >
                         {props.name}
                     </button>
-                    :
+                        :
                     ''
             }
         </div>

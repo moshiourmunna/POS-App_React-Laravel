@@ -33,7 +33,7 @@ const Dish = (props) => {
             return b.productId === props.data.id
         })
         setAllReadyAdded(res)
-    }, [quantity,basket]);
+    }, [basket]);
 
     async function addToCart() {
 
@@ -54,6 +54,7 @@ const Dish = (props) => {
                 })
         }
          else if(quantity <= props.data.stock && allReadyAdded.length>0 ){
+            (!admin) &&
             dispatch({
                 type:'INCREMENT_QUANTITY',
                 id: props.data.id,
@@ -92,7 +93,7 @@ const Dish = (props) => {
              onClick={addToCart}
         >
             {
-                (toggle) ?
+                (toggle) &&
                     <div className='editProduct'>
                         <p onClick={editSubmission}>Cancel</p>
                         <AddProducts
@@ -100,8 +101,6 @@ const Dish = (props) => {
                             category={props.data.categories}
                         />
                     </div>
-                    :
-                    ''
             }
             {
                 (props.data) ?

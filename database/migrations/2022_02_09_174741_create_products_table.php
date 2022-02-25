@@ -23,7 +23,6 @@ class CreateProductsTable extends Migration
             $table->float('price')->nullable();
             $table->integer('stock')->nullable();
             $table->boolean('published')->default(1);
-            $table->integer('sold')->default(0);
             $table->unsignedBigInteger('discount_id')->nullable();
             $table->timestamps();
         });

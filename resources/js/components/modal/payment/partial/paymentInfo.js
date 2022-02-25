@@ -11,7 +11,7 @@ const PaymentInfo = () => {
                 <h2>Payment</h2>
                 <p>{PaymentMethods.length} payment methods available</p>
             </div>
-            <hr/>
+            <hr style={{marginLeft:'5px'}}/>
 
             <div className='billingContainer'>
                 <h2>Payment Method</h2>

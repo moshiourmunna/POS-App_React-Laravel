@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('gender');
             $table->string('email')->unique();
             $table->enum('role', ['admin','staff','user'])->nullable();
             $table->mediumText('address')->nullable();

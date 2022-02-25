@@ -10,9 +10,11 @@
     @media screen and (max-width: $bp-mobile) {
         grid-template-columns: auto;
     }
-    .paginate{
-        @include paginationStyle($theme,$body-bg1);
+
+    .paginate {
+        @include paginationStyle($theme, $body-bg1);
     }
+
 }
 
 .grid-container-admin {
@@ -27,8 +29,9 @@
     @media screen and (max-width: $bp-mobile) {
         grid-template-columns: auto;
     }
-    .paginate{
-        @include paginationStyle($theme,$body-bg1);
+
+    .paginate {
+        @include paginationStyle($theme, $body-bg1);
         margin-left: 40%;
         width: 40%;
         bottom: 5%;
@@ -40,6 +43,24 @@
     display: none;
 }
 
+.pageNumber {
+    background-color: (rgb(234,124,105,.8));
+    color: $body-bg1;
+    border-radius: 8px;
+    padding: 5px;
+
+}
+
+.activeCLass {
+    color: (rgb(80,209,170,.8));
+    border-radius: 8px;
+}
+
+.prevClass {
+    color: (rgb(255,255,255,.4));
+    //color: $body-bg1;
+    border-radius: 5px;
+}
 .addDish {
     margin: 5%;
     width: 15vw;

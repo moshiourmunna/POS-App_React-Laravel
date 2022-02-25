@@ -9,16 +9,18 @@ const CentralData = (props) => {
 
     const items = props.data;
     const [{modal}, dispatch] = useStateValue();
+
     function setModal() {
         dispatch({
             type: "SetModal",
             item: true
         })
     }
+
     const [currentItems, setCurrentItems] = useState(null);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
-    const perPage=6
+    const perPage = 6
 
 
     useEffect(() => {
@@ -39,12 +41,10 @@ const CentralData = (props) => {
     return (
         <div className={(props.admin) ? 'grid-container-admin' : 'grid-container'}>
             {
-                (props.admin) ?
+                (props.admin) &&
                     <div className='addDish' onClick={setModal}>
                         <AddMore color={'#EA7C69'} name='Add More Dish' background={'inherit'}/>
                     </div>
-                    :
-                    ''
             }
             {currentItems &&
                 currentItems.map((data) => (
@@ -57,6 +57,11 @@ const CentralData = (props) => {
                     />
                 ))}
             <ReactPaginate
+                //  containerClassName='paginate'
+                // pageClassName='pageNumber'
+                activeClassName='activeCLass'
+                previousClassName='prevClass'
+                nextClassName='prevClass'
                 className='paginate'
                 breakLabel="..."
                 nextLabel="next >"

@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->boolean('is_published')->default(1);
+            $table->boolean('published')->default(1);
             $table->timestamps();
         });
     }
