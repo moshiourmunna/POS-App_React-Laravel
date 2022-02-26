@@ -54,12 +54,8 @@ class FrontEndController extends Controller
      */
     public function show($category)
     {
-        if ($category === 0) {
-            $result = $this->productsRepository->publishedProducts();
-        }
-        else {
-            $result = $this->productsRepository->publishedProductsByCategory($category);
-        }
+
+        $result = $this->productsRepository->publishedProducts($category);
 
         return response($result, 201);
     }
@@ -80,7 +76,7 @@ class FrontEndController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         return $this->productsRepository->update($request, $id);
     }
@@ -92,7 +88,7 @@ class FrontEndController extends Controller
      */
     public function destroy($id)
     {
-        $response=$this->productsRepository->delete($id);
-        return response($response,201);
+        $response = $this->productsRepository->delete($id);
+        return response($response, 201);
     }
 }

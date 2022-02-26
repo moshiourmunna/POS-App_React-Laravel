@@ -139,16 +139,7 @@ class ProductsRepository implements ProductsInterface
         });
     }
 
-    public function publishedProducts()
-    {
-        return $this->baseQuery()
-            ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock','discount_id')
-            ->with('categories')
-            ->latest()
-            ->get();
-    }
-
-    public function publishedProductsByCategory($category)
+    public function publishedProducts($category)
     {
         return $this->baseQuery($category)
             ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock','discount_id')
