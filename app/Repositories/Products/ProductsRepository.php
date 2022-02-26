@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Products;
 
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -55,7 +57,7 @@ class ProductsRepository implements ProductsInterface
         $product->discount_id = $request->discount;
         $product->stock = $request->stock;
         $product->price = $request->price;
-        $product->slug =  $this->slugify($request->title);
+        $product->slug = $this->slugify($request->title);
 //      $product->sell_count = 0;
         $product->save();
 
@@ -112,7 +114,6 @@ class ProductsRepository implements ProductsInterface
     }
 
 
-
     public function delete(int $id)
     {
         $product = $this->model::findOrFail($id);
@@ -142,13 +143,39 @@ class ProductsRepository implements ProductsInterface
     public function publishedProducts($category)
     {
         return $this->baseQuery($category)
-            ->select('id', 'title', 'slug', 'published', 'image', 'description','price','stock','discount_id')
+            ->select('id', 'title', 'slug', 'published', 'image', 'description', 'price', 'stock', 'discount_id')
             ->with('categories')
             ->latest()
             ->get();
     }
 
+    public function saveOrder(Request $request)
+    {
+        $order = new Order();
+        $order->user_id = 3;
+//        $order->user_id = $request->user_id;
+        $order->status = $request->status;
+        $order->shipped_at = $request->shipped_at;
+//        $order->published = filter_var($request->status, FILTER_VALIDATE_BOOLEAN);
+//        $order->slug = $this->slugify($request->title);
+        $order->save();
 
+        $orderItem = new OrderItem();
+        $orderItem->order_id = $order->id;
+        $orderItem->product_id = $request->product_id;
+        $orderItem->quantity = $request->quantity;
+        $orderItem->instruction = $request->instruction;
+        $orderItem->discount = $request->discount;
+        $orderItem->delivery_method = $request->delivery_method;
+        $orderItem->save();
+
+        $response = [
+            'order' => $order,
+            'orderItem' => $orderItem
+        ];
+
+        return $response;
+    }
 
 
 

@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
+    public function orderItemss(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
     public function getUserTypeAttribute(): string
     {
         switch (auth()->user()->role) {
