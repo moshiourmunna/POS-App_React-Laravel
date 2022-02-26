@@ -31,7 +31,7 @@ const Button = (props) => {
                 (!props.admin) ?
                     <button
                         disabled={basket.length > 0 ? disabled : !disabled}
-                        className={basket.length > 0 && deliveryMethod.title && !props.cancel ? 'button-glow' : 'button-dim'}
+                        className={basket.length > 0 && deliveryMethod[0].deliveryMethod && !props.cancel ? 'button-glow' : 'button-dim'}
                         onClick={submit}
                     >
                         {props.name}

@@ -1,7 +1,7 @@
 import React from "react";
 import {PaymentMethods} from "../../../../data/paymentMethods";
 import PaymentMethodList from "../../../card/paymentMethodList";
-import CardPay from "../../../card/billingPage/card";
+import Pay from "../../../card/billingPage/pay";
 
 const PaymentInfo = () => {
 
@@ -27,7 +27,7 @@ const PaymentInfo = () => {
                         ))
                     }
                 </div>
-                <CardPay/>
+                <Pay/>
             </div>
 
         </div>

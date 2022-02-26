@@ -2,10 +2,11 @@ export const initialState = {
     basket: [],
     user: {},
     state:0,
-    deliveryMethod: [],
+    deliveryMethod:[ {deliveryMethod:''}],
     category: {title:0},
     modal: false,
-    payMethod:0
+    payMethod:0,
+    orderNote:[ {orderNote:''}]
 };
 
 export const getBasketTotal = (basket) =>
@@ -64,6 +65,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 deliveryMethod: action.item
+            }
+            case "setOrderNote":
+            return {
+                ...state,
+                orderNote: action.item
             }
         case "SetModal":
             return {
