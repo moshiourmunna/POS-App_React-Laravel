@@ -1,32 +1,49 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import SelectOption from "../../forms/selectOption";
 import Button from "../../button/Button";
 import {useStateValue} from "../../../states/StateProvider";
 import Api from "../../../api/api";
 import {useNavigate} from "react-router";
+import {ToastContainer, toast} from 'react-toastify';
 
 const Pay = () => {
 
-    const [{orderNote,basket,deliveryMethod},dispatch] =useStateValue()
-    let user=localStorage.getItem('user')
-    let navigate=useNavigate()
+    const Notify =async () => toast("Wow so easy!");
+    const [{orderNote, basket, deliveryMethod}, dispatch] = useStateValue()
+    const [response, setResponse] = useState('')
+    const [error, setError] = useState('')
+    let user = localStorage.getItem('user')
+    let navigate = useNavigate()
 
     useEffect(() => {
         console.log(basket)
     }, []);
 
-    async function placeOrder(){
+    async function placeOrder() {
 
-        if(user){
-            await Api().post('/storeOrder',basket)
-                .then((response)=>{
-                    console.log('payload',response.data.storeOrder)
+        if (user) {
+            await Api().post('/storeOrder', basket)
+                .then((response) => {
+                    if (response.status === 201) {
+                        toast('Order Placed Successfully')
+                        dispatch({
+                            type: 'EMPTY_BASKET'
+                        })
+                        dispatch({
+                            type: 'SetModal',
+                            item:false
+                        })
+                    }
+                    else{
+                        toast('OOps! Something Went Wrong')
+                    }
                 })
-        }
-        else{
+                .catch(e => toast(e)
+                )
+        } else {
+            toast('Please, Log In First')
             navigate('/login')
         }
-
     }
 
 
@@ -51,14 +68,14 @@ const Pay = () => {
             </div>
             <br/>
             <hr/>
-            <p style={{padding:'10px',marginLeft:'5px'}}>Order Type</p>
+            <p style={{padding: '10px', marginLeft: '5px'}}>Order Type</p>
 
-            <div style={{margin:'0% 0 10px 25%'}}>
+            <div style={{margin: '0% 0 10px 25%'}}>
                 <SelectOption/>
             </div>
 
             <div className='confirmPay'>
-                <div   onClick={()=>dispatch({type:'SetModal',item:false})}
+                <div onClick={() => dispatch({type: 'SetModal', item: false})}
                 >
                     <Button
                         order={true}
@@ -66,8 +83,7 @@ const Pay = () => {
                         cancel={false}
                     />
                 </div>
-
-                <div onClick={placeOrder}>
+                <div onClick={() => placeOrder()}>
                     <Button
                         order={true}
                         name={'Confirm Payment'}
@@ -75,7 +91,7 @@ const Pay = () => {
                     />
                 </div>
 
-             </div>
+            </div>
         </div>
     )
 }

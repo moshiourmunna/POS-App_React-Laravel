@@ -58,9 +58,9 @@ class User extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
-    public function orderItemss(): HasMany
+    public function orders(): HasMany
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->hasMany(Order::class);
     }
 
     public function getUserTypeAttribute(): string

@@ -5,6 +5,8 @@ import {useStateValue} from "../../../../states/StateProvider";
 import {BeatLoader} from "react-spinners";
 import {BsToggle2Off, BsToggle2On} from "react-icons/bs";
 import CategoryDetailsCard from "../../../../components/card/categoryDetails";
+import {toast} from "react-toastify";
+import Button from "../../../../components/button/Button";
 
 const CategoryDetails = () => {
 
@@ -42,9 +44,8 @@ const CategoryDetails = () => {
 
         await Api().post('/createCategory', Data
         ).then((response) => {
-            console.log(response)
             if (response.status === 201) {
-                setResponse(`Category ${name} Created Successfully!`)
+                toast(`Category ${name} Created Successfully!`)
                 setName('')
                 dispatch(
                     {
@@ -143,15 +144,12 @@ const CategoryDetails = () => {
                 </form>
                 <div className='button'>
                     <button
+                        style={{color:'white', padding:'15px',width:'40%'}}
                         onClick={createCategory}>
                         Create category
                     </button>
                 </div>
             </div>
-            {
-                (response) &&
-                <p className='addedDoneMessage'>{response}</p>
-            }
         </div>
     )
 }

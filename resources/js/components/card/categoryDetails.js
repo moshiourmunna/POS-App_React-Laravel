@@ -4,19 +4,19 @@ import {BsToggle2Off, BsToggle2On} from "react-icons/bs";
 import {AiFillDelete} from "react-icons/ai";
 import Api from "../../api/api";
 import {useStateValue} from "../../states/StateProvider";
+import {toast} from "react-toastify";
 
 const CategoryDetailsCard = (props) => {
 
     const [{state}, dispatch] = useStateValue();
     const [loading, setLoading] = useState(false);
-    const [response, setResponse] = useState('');
 
     async function Delete(id) {
         let confirmDelete = confirm('Are You Sure You Want To Delete?')
         if (confirmDelete) {
             await Api().delete(`/deleteCategory/` + id)
                 .then((response) => {
-                    setResponse(response.data)
+                    toast.success(`Category ${props.name} Deleted Successfully!`)
                     dispatch(
                         {
                             type: "setState",

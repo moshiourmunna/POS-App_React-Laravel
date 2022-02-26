@@ -5,6 +5,7 @@ import {BsImage} from "react-icons/bs";
 import Api from "../../../api/api";
 import {useNavigate} from "react-router";
 import {useStateValue} from "../../../states/StateProvider";
+import {toast, ToastContainer} from "react-toastify";
 
 const AddProducts = (props) => {
 
@@ -57,7 +58,8 @@ const AddProducts = (props) => {
         ).then((response) => {
             console.log(response)
             if (response.status === 201) {
-                setResponse('Product Added Successfully!')
+                setResponse()
+                toast.success('Product Added Successfully!')
                 setTitle('')
                 setDiscount('')
                 setStock('')
@@ -65,6 +67,10 @@ const AddProducts = (props) => {
                 setDescription('')
                 setFile('')
                 setUrl('')
+                dispatch({
+                    type: "SetModal",
+                    item: false
+                })
                 dispatch(
                     {
                         type: "setState",
@@ -72,21 +78,22 @@ const AddProducts = (props) => {
                             title: 1
                         },
                     })
+
             } else {
-                setResponse(response.statusText)
-                console.log(response)
+                toast.error('OOPs, Something Went Wrong')
             }
         }).catch((e) => {
-            setResponse(e.response.statusText)
+            setErrors(e.response.data.errors)
             if (e.response.status === 401) {
                 navigate('/login')
+            } else if (e.response.status === 500) {
+                toast.error('OOPS, Seems Like The Product Title Already Exists')
             }
-            setErrors(e.response.data.errors)
         })
 
     }
 
-async function update() {
+    async function update() {
         const Data = new FormData();
         Data.append('file', File);
         Data.append('title', title);
@@ -97,11 +104,11 @@ async function update() {
         Data.append('status', status);
         Data.append('category', category);
 
-        await Api().post(`/update/`+props.data.id, Data
+        await Api().post(`/update/` + props.data.id, Data
         ).then((response) => {
             console.log(response)
             if (response.status === 200) {
-                setResponse('Product Added Successfully!')
+                toast.success('Product Updated Successfully!')
                 setTitle('')
                 setDiscount('')
                 setStock('')
@@ -121,10 +128,10 @@ async function update() {
                 console.log(response)
             }
         }).catch((e) => {
-            if(e.response.status===500){
-                setResponse('OOOPS...Something Went Wrong')
-            }
             setErrors(e.response.data.errors)
+            if (e.response.status === 500) {
+                toast.error('OOOPS...Something Went Wrong')
+            }
         })
 
     }
@@ -135,12 +142,10 @@ async function update() {
             setPrice(props.data.price)
             setStock(props.data.stock)
             setDiscount(props.data.discount_id)
-            // setUrl(props.data.image)
-            // setFile(props.data.image)
             setStatus(props.data.published)
             setDescription(props.data.description)
         }
-        if(props?.category){
+        if (props?.category) {
             setCategory(props.category[0].id)
         }
     }, []);
@@ -197,7 +202,7 @@ async function update() {
     return (
         <div className='add-page'>
             {
-                (props?.data)?
+                (props?.data) ?
                     <h1>Editing <span>{props.data.title}</span></h1>
                     :
                     <h1>Add a new product</h1>
@@ -215,9 +220,10 @@ async function update() {
                     }
                     name='title'
                     value={
-                        !(errors?.title) &&
-                        title
-
+                        !(errors?.title) ?
+                            title
+                            :
+                            ''
                     }
                     onChange={(e) => titleHandler(e)}
                 />
@@ -228,8 +234,10 @@ async function update() {
                     name="status"
                     onChange={(e) => setStatus(e.target.value)}
                     value={
-                        !(errors?.status) &&
-                        status
+                        !(errors?.status) ?
+                            status
+                            :
+                            ''
                     }
                 >
                     <option> * Choose Product Status</option>
@@ -250,7 +258,7 @@ async function update() {
                     onChange={(e) => setCategory(e.target.value)}
                     value={
                         !(errors?.category) ?
-                        category
+                            category
                             :
                             ''
                     }
@@ -279,8 +287,10 @@ async function update() {
                     }
                     name='stock'
                     value={
-                        !(errors?.stock) &&
-                        stock
+                        !(errors?.stock) ?
+                            stock
+                            :
+                            ''
                     }
                     onChange={(e) => stockHandler(e)}/>
 
@@ -295,9 +305,10 @@ async function update() {
                     }
                     name='discount'
                     value={
-                        !(errors?.discount) &&
-                        discount
-
+                        !(errors?.discount) ?
+                            discount
+                            :
+                            ''
                     }
                     onChange={(e) => discountHandler(e)}/>
 
@@ -312,8 +323,10 @@ async function update() {
                     }
                     name='price'
                     value={
-                        !(errors?.price) &&
-                        price
+                        !(errors?.price) ?
+                            price
+                            :
+                            ''
                     }
                     onChange={(e) => priceHandler(e)}/>
                 <label className={(errors?.file) ? 'input_red' : 'input'} ref={ref} htmlFor="fileInput">
@@ -356,29 +369,22 @@ async function update() {
                 {/*    minRows={3}*/}
                 {/*    maxRows={20}*/}
                 {/*/>*/}
-                <img src={Url} width='60%' style={{maxHeight: '120px', marginLeft: '20%',marginTop:'-25px'}}/>
+                <img src={Url} width='60%' style={{maxHeight: '120px', marginLeft: '20%', marginTop: '-25px'}}/>
                 <br/>
             </form>
             <div className='button'>
                 <button
                     className={(ready) ? 'button-glow' : 'button-dim'}
                     disabled={(ready) ? disabled : !disabled}
-                    onClick={(props?.data)?update:upload}>
+                    onClick={(props?.data) ? update : upload}>
                     {
-                        (props.data)?
+                        (props.data) ?
                             'Update Product'
                             :
                             ' Add Product'
                     }
                 </button>
             </div>
-
-            {
-                (res) ?
-                    <p className='addedDoneMessage'>{res}</p>
-                    :
-                    ''
-            }
         </div>
     );
 };

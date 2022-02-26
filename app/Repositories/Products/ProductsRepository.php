@@ -81,6 +81,24 @@ class ProductsRepository implements ProductsInterface
         $product = Product::findOrFail($id);
         $isPublishedBefore = $product->published;
 
+        $request->validate([
+            'title' => 'required|string|max:50',
+            'discount' => 'required|numeric|max:40',
+            'stock' => 'required|numeric',
+            'price' => 'required|numeric|regex:/^\d*(\.\d{2})?$/',
+            'file' => 'image|mimes:jpeg,jpg,png|required|max:10000',
+            'status' => 'required|string|max:50',
+        ],
+            [
+                'title.required' => ':attribute can not be blank',
+                'discount.required' => ':attribute can not be blank',
+                'stock.required' => ':attribute can not be blank Or non integer',
+                'price.required' => ':attribute has to be a float of point 2',
+                'file.required' => '',
+                'status.required' => 'please select a :attribute',
+            ]);
+
+
         $image = $request->file;
         if ($image) {
             $image_ext = $image->getClientOriginalExtension();
@@ -166,17 +184,39 @@ class ProductsRepository implements ProductsInterface
             $orderItem->delivery_method = $element["deliveryMethod"];
             $orderItem->save();
 
-
             Product::where('id', $element["productId"])
                 ->increment('sold', $element["quantity"]);
         }
-
 
         $response = [
             'order' => $order,
             'orderItem' => $orderItem
         ];
 
+        return $response;
+    }
+
+    public function OrderInfo(): array
+    {
+        $getOrderInfo = Order::with(['orderItems' => function($q){
+                $q->with(['products' => function($sq){
+                    $sq->select('id','title','price');
+                }]);
+            }])->with(['users' => function($q){
+            $q->select('id','first_name','last_name');
+        }])
+            ->get();
+
+        $totalPayment = 0;
+        foreach ($getOrderInfo as $payment){
+            $totalPayment = $payment->price*$payment->quantity;
+        }
+
+        $response = [
+            'getOrderInfo' => $getOrderInfo,
+            'totalPayment' => $totalPayment
+
+        ];
 
         return $response;
     }

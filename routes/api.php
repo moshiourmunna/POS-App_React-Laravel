@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
+    Route::get('/getOrderInfo',[FrontEndController::class, 'getOrderInfo']);
     Route::post('/store',[FrontEndController::class, 'store']);
     Route::post('/storeOrder',[FrontEndController::class, 'storeOrder']);
     Route::post('/update/{id}',[FrontEndController::class, 'update']);

@@ -7,6 +7,8 @@ import Settings from "./views/Admin/settings";
 import Dashboard from "./views/Admin/dashboard";
 import Login from "./views/forms/login";
 import Register from "./views/forms/register";
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from "react-toastify";
 
 
 function App() {
@@ -40,17 +42,7 @@ function App() {
                     <Route path="/payment/:key" element={<Home/>}/>
                 </Routes>
             </Router>
-
-            {/*<AddMore color={'white'} background={'#EA7C69'} name={<AiOutlinePlus size='21px'/>}/>*/}
-            {/*<br/>*/}
-            {/*<Button color={'white'} name={'Confirm Payment Payment'} background={'#EA7C69'}/>*/}
-            {/*<SelectOption title={'Dine In'}/>*/}
-            {/*<CartItem data={RecipeData}/>*/}
-            {/*<Dish data={RecipeData} Admin={true} Availability={'Bowls Available'}/>*/}
-            {/*<Index title={'Dine In'} active={true}/>*/}
-            {/*<MostOrdered data={RecipeData}/>*/}
-            {/*<BusinessSummary data={RecipeData} title={'Total Revenue'}/>*/}
-
+            <ToastContainer/>
         </div>
     );
 }

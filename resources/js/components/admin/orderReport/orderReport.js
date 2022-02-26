@@ -1,9 +1,40 @@
-import React from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {RiListSettingsLine} from 'react-icons/ri'
 import OrderReportsMapper from "./orderReportsMapper";
 import {OrderInfo} from '../../../data/orderInfo'
+import Api from "../../../api/api";
 
-const orderReport = () => {
+const OrderReport = () => {
+
+    const [order,setOrder]=useState([])
+    const [orderItems,setOrderItems]=useState([])
+
+    const getOrderInfo= useCallback(
+        async () => {
+
+            await Api().get('/getOrderInfo')
+                .then((response)=>{
+                    console.log(response.data.getOrderInfo)
+                    setOrder(response.data.getOrderInfo)
+                })
+        },
+        [],
+    );
+
+    useEffect(() => {
+        getOrderInfo().then(r=>r)
+    }, [getOrderInfo]);
+
+    // useEffect(() => {
+    //     order.map((o)=>{
+    //         console.log('status:',o.status)
+    //         o.order_items.map((oi)=>{
+    //             console.log('orderItem: ',oi.id)
+    //         })
+    //     })
+    // }, [order]);
+    //
+
     return (
         <div className='orderReports'>
 
@@ -26,6 +57,7 @@ const orderReport = () => {
                     <tr style={{borderBottom:' 1px solid #2f2f2f'}}/>
                     </thead>
                         {
+
                             OrderInfo.map((order) => (
                                 <OrderReportsMapper
                                     key={order.id}
@@ -38,9 +70,8 @@ const orderReport = () => {
                         }
                 </table>
             </div>
-
         </div>
     )
 }
 
-export default orderReport
+export default OrderReport

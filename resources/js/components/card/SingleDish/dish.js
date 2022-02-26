@@ -9,6 +9,7 @@ import {FiEdit3} from 'react-icons/fi';
 import {RiDeleteBin5Fill} from "react-icons/ri";
 import Api from "../../../api/api";
 import AddProducts from "../../modal/addProducts";
+import {toast} from "react-toastify";
 
 const Dish = (props) => {
 
@@ -84,11 +85,15 @@ const Dish = (props) => {
                                 title: 1
                             },
                         })
+                    toast(`${props.data.title} Deleted Successfully`)
                     setLoading(false)
                 })
                 .catch(e => {
                     setError(e)
                 })
+        }
+        else{
+            setLoading(false)
         }
     }
 

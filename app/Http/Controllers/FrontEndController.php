@@ -61,6 +61,17 @@ class FrontEndController extends Controller
 
         return response($response,201);
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getOrderInfo(): \Illuminate\Http\Response
+    {
+        $result = $this->productsRepository->OrderInfo();
+
+        return response($result, 201);
+    }
 
     /**
      * Display the specified resource.
