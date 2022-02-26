@@ -3,10 +3,13 @@ import SelectOption from "../../forms/selectOption";
 import Button from "../../button/Button";
 import {useStateValue} from "../../../states/StateProvider";
 import Api from "../../../api/api";
+import {useNavigate} from "react-router";
 
 const Pay = () => {
 
     const [{orderNote,basket,deliveryMethod},dispatch] =useStateValue()
+    let user=localStorage.getItem('user')
+    let navigate=useNavigate()
 
     useEffect(() => {
         console.log(basket)
@@ -14,21 +17,15 @@ const Pay = () => {
 
     async function placeOrder(){
 
-        // Array.prototype.push.apply(basket,deliveryMethod);
-        // Array.prototype.push.apply(basket,orderNote);
-        await Api().post('/storeOrder',basket)
-            .then((response)=>{
-                console.log('payload',response.data.storeOrder)
-            })
-
-        // basket.map((b)=>{
-        //    let Data= b.orderNote
-        //     console.log('inside',Data)
-        // })
-        //
-
-        console.log('basket',basket)
-
+        if(user){
+            await Api().post('/storeOrder',basket)
+                .then((response)=>{
+                    console.log('payload',response.data.storeOrder)
+                })
+        }
+        else{
+            navigate('/login')
+        }
 
     }
 
