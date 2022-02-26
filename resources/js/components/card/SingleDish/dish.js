@@ -12,7 +12,7 @@ import AddProducts from "../../modal/addProducts";
 
 const Dish = (props) => {
 
-    const [{basket,state}, dispatch] = useStateValue();
+    const [{basket,deliveryMethod,orderNote}, dispatch] = useStateValue();
     const [quantity, setQuantity] = useState(1)
     let clicked=1
     const [allReadyAdded, setAllReadyAdded] = useState([])
@@ -50,7 +50,9 @@ const Dish = (props) => {
                         price: props.data.price,
                         image: props.data.image,
                         quantity: quantity,
-                        stock:props.data.stock
+                        stock:props.data.stock,
+                        deliveryMethod: deliveryMethod.deliveryMethod,
+                        orderNote:orderNote.orderNote
                     },
                 })
         }

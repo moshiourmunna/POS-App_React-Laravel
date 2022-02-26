@@ -26,7 +26,7 @@ const FullCart = (props) => {
                 {
                     DeliveryMethod.map((method) => (
                         <li key={method.id}>
-                            <Tabs title={method.title} condition={deliveryMethod[0].deliveryMethod}/>
+                            <Tabs title={method.title} condition={deliveryMethod.deliveryMethod}/>
                         </li>
                     ))
                 }

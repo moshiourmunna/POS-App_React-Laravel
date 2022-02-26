@@ -10,17 +10,17 @@ const OrderNote = (props) => {
         <div style={{width:'100%'}}>
             <input
                 type={"text"}
-                value={orderNote[0].orderNote}
+                value={orderNote.orderNote}
                 placeholder={props.placeholder}
                 onChange={(e) =>
                     dispatch(
                         {
                             type: "setOrderNote",
-                            item: [
+                            item:
                                 {
                                     orderNote: e.target.value
                                 }
-                            ],
+                            ,
                         })}
             />
         </div>
