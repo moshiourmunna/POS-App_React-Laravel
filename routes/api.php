@@ -11,7 +11,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/products/{category}', [FrontEndController::class, 'show']);
 Route::get('/getCategory',[CategoryController::class, 'index']);
 Route::get('/getAllCategory',[CategoryController::class, 'allCategories']);
-Route::post('/storeOrder',[FrontEndController::class, 'storeOrder']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -22,7 +21,7 @@ Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
     Route::post('/store',[FrontEndController::class, 'store']);
-//    Route::post('/storeOrder',[FrontEndController::class, 'storeOrder']);
+    Route::post('/storeOrder',[FrontEndController::class, 'storeOrder']);
     Route::post('/update/{id}',[FrontEndController::class, 'update']);
     Route::post('/createCategory',[CategoryController::class, 'store']);
     Route::post('/updateCategory/{id}',[CategoryController::class, 'update']);
