@@ -16,7 +16,7 @@ const Pay = () => {
 
         Array.prototype.push.apply(basket,deliveryMethod);
         Array.prototype.push.apply(basket,orderNote);
-        await Api().post('/saveOrder',basket)
+        await Api().post('/storeOrder',basket)
             .then((response)=>{
                 console.log(response)
             })

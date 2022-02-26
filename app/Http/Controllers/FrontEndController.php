@@ -38,31 +38,28 @@ class FrontEndController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $storeProduct = $this->productsRepository->save($request);
-//        $storeOrder = $this->productsRepository->saveOrder($request);
 
         $response = [
             'storeProduct' => $storeProduct,
-//            'storeOrder' => $storeOrder
         ];
 
-        return $response;
+        return response($response,201);
     }
+
     public function storeOrder(Request $request)
     {
-//        $storeProduct = $this->productsRepository->save($request);
         $storeOrder = $this->productsRepository->saveOrder($request);
 
         $response = [
-//            'storeProduct' => $storeProduct,
             'storeOrder' => $storeOrder
         ];
 
-        return $response;
+        return response($response,201);
     }
 
     /**
