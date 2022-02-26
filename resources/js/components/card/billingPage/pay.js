@@ -14,11 +14,11 @@ const Pay = () => {
 
     async function placeOrder(){
 
-        Array.prototype.push.apply(basket,deliveryMethod);
-        Array.prototype.push.apply(basket,orderNote);
+        // Array.prototype.push.apply(basket,deliveryMethod);
+        // Array.prototype.push.apply(basket,orderNote);
         await Api().post('/storeOrder',basket)
             .then((response)=>{
-                console.log(response)
+                console.log('payload',response.data.storeOrder)
             })
 
         // basket.map((b)=>{

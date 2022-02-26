@@ -151,28 +151,29 @@ class ProductsRepository implements ProductsInterface
 
     public function saveOrder(Request $request)
     {
+        $payload = json_decode($request->getContent(), true);
         $order = new Order();
-        $order->user_id = 3;
-//        $order->user_id = $request->user_id;
-        $order->status = $request->status;
-        $order->shipped_at = $request->shipped_at;
-//        $order->published = filter_var($request->status, FILTER_VALIDATE_BOOLEAN);
-//        $order->slug = $this->slugify($request->title);
+        $order->user_id = auth()->user()->id;
         $order->save();
 
-        $orderItem = new OrderItem();
-        $orderItem->order_id = $order->id;
-        $orderItem->product_id = $request->product_id;
-        $orderItem->quantity = $request->quantity;
-        $orderItem->instruction = $request->instruction;
-        $orderItem->discount = $request->discount;
-        $orderItem->delivery_method = $request->delivery_method;
-        $orderItem->save();
+        foreach ($payload as $element){
+            $orderItem = new OrderItem();
+            $orderItem->order_id = $order->id;
+            $orderItem->product_id = $element["productId"];
+            $orderItem->quantity = $element["quantity"];
+            $orderItem->instruction = 'note';
+            $orderItem->discount = 0;
+            $orderItem->delivery_method = 'method';
+            $orderItem->save();
+
+        }
 
         $response = [
             'order' => $order,
             'orderItem' => $orderItem
         ];
+
+
 
         return $response;
     }
