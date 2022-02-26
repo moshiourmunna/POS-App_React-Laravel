@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import '../../../style/items.scss';
 import '../../../style/forms.scss';
-import TextField from "../../forms/TextField";
+import OrderNote from "../../forms/orderNote";
 import DeleteIcon from '../../../assets/icons/Delete.png';
 import PropTypes from "prop-types";
 import {useStateValue} from "../../../states/StateProvider";
@@ -79,7 +79,7 @@ const CartItem = (props) => {
             </div>
 
             <div className='flex-row-form'>
-                <TextField placeholder='Order Note...'/>
+                <OrderNote placeholder='Order Note...'/>
                 <img onClick={() => RemoveItem()} src={DeleteIcon} alt='DeleteIcon'/>
             </div>
         </div>

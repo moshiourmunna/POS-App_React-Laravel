@@ -12,9 +12,11 @@ const Index = (props) => {
                     dispatch(
                         {
                             type: "SetDeliveryMethod",
-                            item: {
-                                title: props.title
-                            },
+                            item: [
+                                {
+                                    deliveryMethod: props.title
+                                }
+                            ],
                         })}
                 className={(props.condition === props.title) ? 'activeStyle' : 'normalStyle'}
             >

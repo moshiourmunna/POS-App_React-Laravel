@@ -26,7 +26,7 @@ const FullCart = (props) => {
                 {
                     DeliveryMethod.map((method) => (
                         <li key={method.id}>
-                            <Tabs title={method.title} condition={deliveryMethod.title}/>
+                            <Tabs title={method.title} condition={deliveryMethod[0].deliveryMethod}/>
                         </li>
                     ))
                 }
@@ -46,6 +46,7 @@ const FullCart = (props) => {
                 </div>
             </div>
             <hr/>
+            <br/>
             <div className='orderList'>
                 {
                     basket.map((item) => (
