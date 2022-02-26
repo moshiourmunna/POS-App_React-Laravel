@@ -54,7 +54,6 @@ class FrontEndController extends Controller
      */
     public function show($category)
     {
-
         $result = $this->productsRepository->publishedProducts($category);
 
         return response($result, 201);
