@@ -1,4 +1,5 @@
 @import "../style/variables";
+@import "mixin";
 
 .cartItems {
     width: auto;
@@ -22,16 +23,26 @@
             float: left;
             width: 48%;
 
+            .minus {
+                @include plusMinusCart($theme);
+                padding-right: 3px;
+
+            }
+
+            .plus {
+                @include plusMinusCart($pasteColor)
+            }
+
             h5 {
                 margin-top: 10%;
                 margin-left: auto;
                 font-size: 2vh;
                 background: $body-bg2;
                 border-radius: 1vh;
-                padding: 1vw 1.3vw 1vw 1vw;
-                min-width: 1vw;
-                max-width: 1vw;
-                margin-right: -1px;
+                padding: 1vw .4vw 1vw .5vw;
+                min-width: 3.4vw;
+                max-width: 3.4vw;
+                margin-right: -3px;
             }
 
             h2 {
@@ -67,6 +78,7 @@
         width: 100%;
         float: left;
         display: flex;
+
         input {
             background: #2D303E;
             border-style: none;

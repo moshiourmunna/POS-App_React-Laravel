@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import '../../../style/items.scss';
 import '../../../style/forms.scss';
 import TextField from "../../forms/TextField";
@@ -8,7 +8,8 @@ import {useStateValue} from "../../../states/StateProvider";
 
 const CartItem = (props) => {
 
-    const [{}, dispatch] = useStateValue();
+    const [{basket}, dispatch] = useStateValue();
+    const [updatedQuantity, setUpdatedQuantity] = useState(props.data.quantity)
 
     function RemoveItem() {
         dispatch({
@@ -17,6 +18,39 @@ const CartItem = (props) => {
             id: props.data.productId
         });
     }
+
+    useEffect(() => {
+        update().then(r => r)
+    }, []);
+
+    useEffect(() => {
+        setUpdatedQuantity(props.data.quantity)
+    }, [basket]);
+
+
+    async function update() {
+        dispatch({
+            type: "INCREMENT_QUANTITY",
+            id: props.data.productId,
+            value: updatedQuantity
+        });
+    }
+
+
+    function Increase() {
+        if (props.data.stock > updatedQuantity) {
+            setUpdatedQuantity(updatedQuantity + 1)
+        } else {
+            alert('Out Of Stock!!!')
+        }
+    }
+
+    function Decrease() {
+        if (props.data.stock > 0 && updatedQuantity > 1) {
+            setUpdatedQuantity(updatedQuantity - 1)
+        }
+    }
+
 
     return (
         <div className='cartItems'>
@@ -33,8 +67,12 @@ const CartItem = (props) => {
                 </div>
 
                 <div className='flex-sum-row-right'>
-                    <div style={{display:'flex'}}>
-                        <h5>{props.data.quantity}</h5>
+                    <div style={{display: 'flex'}}>
+                        <h5>
+                            <span className='minus' onClick={Decrease}>-</span>
+                            {updatedQuantity}
+                            <span className='plus' onClick={Increase}>+</span>
+                        </h5>
                         <h2>${(props.data.quantity * props.data.price).toFixed(2)}</h2>
                     </div>
                 </div>

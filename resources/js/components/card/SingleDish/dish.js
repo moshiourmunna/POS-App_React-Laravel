@@ -49,7 +49,8 @@ const Dish = (props) => {
                         title: props.data.title,
                         price: props.data.price,
                         image: props.data.image,
-                        quantity: quantity
+                        quantity: quantity,
+                        stock:props.data.stock
                     },
                 })
         }
@@ -68,8 +69,8 @@ const Dish = (props) => {
 
     async function Delete(id) {
 
-        setLoading(true)
         let confirmDelete = confirm("Are You Sure You Want to delete?");
+        setLoading(true)
         if (confirmDelete) {
             await Api().delete(`/delete/` + id)
                 .then((response) => {

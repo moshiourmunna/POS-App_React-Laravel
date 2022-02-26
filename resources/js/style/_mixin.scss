@@ -60,3 +60,12 @@
     border-radius: 10px;
     font-weight: 700;
 }
+
+@mixin plusMinusCart($color){
+    padding-left: 3px;
+    font-size: 1.4vw;
+    color: $color;
+    cursor: pointer;
+    min-width: 3vw;
+    max-width: 3vw;
+}

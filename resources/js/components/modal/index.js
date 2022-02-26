@@ -19,6 +19,9 @@ const ModalContent = (props) => {
     }
 
     const customStyles = {
+        overlay: {
+            backgroundColor: 'rgba(31,29,43,0.75)'
+        },
         content: {
             top: '50%',
             left: '67%',
@@ -27,7 +30,8 @@ const ModalContent = (props) => {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             backgroundColor: '#1F1D2BFF',
-            overflow: 'scroll'
+            overflow: 'scroll',
+            borderStyle:'none'
         },
     };
 
