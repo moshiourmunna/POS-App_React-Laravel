@@ -2,11 +2,11 @@ export const initialState = {
     basket: [],
     user: {},
     state:0,
-    deliveryMethod:[ {deliveryMethod:''}],
+    deliveryMethod:'',
     category: {title:0},
     modal: false,
     payMethod:0,
-    orderNote:[ {orderNote:''}]
+    orderNote:''
 };
 
 export const getBasketTotal = (basket) =>
@@ -27,6 +27,16 @@ const reducer = (state, action) => {
                 basket: state.basket.map(item => item.productId === action.id ? {
                     ...item,
                     quantity: action.value
+                } : item),
+            };
+
+            case "updateCart":
+            return {
+                ...state,
+                basket: state.basket.map(item => item.productId ? {
+                    ...item,
+                    deliveryMethod: action.method,
+                    orderNote: action.note
                 } : item),
             };
 

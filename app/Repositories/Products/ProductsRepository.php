@@ -161,11 +161,10 @@ class ProductsRepository implements ProductsInterface
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $element["productId"];
             $orderItem->quantity = $element["quantity"];
-            $orderItem->instruction = 'note';
+            $orderItem->instruction =$element["orderNote"];
             $orderItem->discount = 0;
-            $orderItem->delivery_method = 'method';
+            $orderItem->delivery_method = $element["deliveryMethod"];
             $orderItem->save();
-
         }
 
         $response = [

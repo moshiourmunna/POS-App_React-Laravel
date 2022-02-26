@@ -5,10 +5,11 @@ import OrderNote from "../../forms/orderNote";
 import DeleteIcon from '../../../assets/icons/Delete.png';
 import PropTypes from "prop-types";
 import {useStateValue} from "../../../states/StateProvider";
+import orderNote from "../../forms/orderNote";
 
 const CartItem = (props) => {
 
-    const [{basket}, dispatch] = useStateValue();
+    const [{basket,deliveryMethod,orderNote}, dispatch] = useStateValue();
     const [updatedQuantity, setUpdatedQuantity] = useState(props.data.quantity)
 
     function RemoveItem() {
@@ -25,7 +26,15 @@ const CartItem = (props) => {
 
     useEffect(() => {
         setUpdatedQuantity(props.data.quantity)
-    }, [basket]);
+        dispatch({
+            type: "updateCart",
+            id: props.data.productId,
+            method: deliveryMethod.deliveryMethod,
+            note:orderNote.orderNote
+        });
+
+        console.log('basket',basket)
+    }, [deliveryMethod,orderNote]);
 
 
     async function update() {

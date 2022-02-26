@@ -12,16 +12,16 @@ const SelectOption = (props) => {
             {
                 (!props.admin) ?
                     <select
-                        value={deliveryMethod[0].deliveryMethod}
+                        value={deliveryMethod.deliveryMethod}
                         onChange={(e) =>
                             dispatch(
                                 {
                                     type: "SetDeliveryMethod",
-                                    item: [
+                                    item:
                                         {
                                             deliveryMethod: e.target.value
                                         }
-                                    ],
+                                    ,
                                 })}
                     >
                         <option style={{display: 'none'}}>*Delivery Method</option>
@@ -39,7 +39,7 @@ const SelectOption = (props) => {
                     </select>
                     :
                     <select
-                        value={deliveryMethod[0].deliveryMethod}
+                        value={deliveryMethod.deliveryMethod}
                         onChange={(e) => console.log('admin selected:',e.target.value)}
                     >
                         <option value='Today'>
