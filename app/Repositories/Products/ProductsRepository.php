@@ -156,12 +156,12 @@ class ProductsRepository implements ProductsInterface
         $order->user_id = auth()->user()->id;
         $order->save();
 
-        foreach ($payload as $element){
+        foreach ($payload as $element) {
             $orderItem = new OrderItem();
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $element["productId"];
             $orderItem->quantity = $element["quantity"];
-            $orderItem->instruction =$element["orderNote"];
+            $orderItem->instruction = $element["orderNote"];
             $orderItem->discount = 0;
             $orderItem->delivery_method = $element["deliveryMethod"];
             $orderItem->save();
@@ -171,10 +171,6 @@ class ProductsRepository implements ProductsInterface
                 ->increment('sold', $element["quantity"]);
         }
 
-        Product::where('id', $orderItem->product_id)
-            ->update([
-                'sold'=> DB::raw('sold+1')
-            ]);
 
         $response = [
             'order' => $order,
@@ -182,11 +178,8 @@ class ProductsRepository implements ProductsInterface
         ];
 
 
-
         return $response;
     }
-
-
 
 
 }
