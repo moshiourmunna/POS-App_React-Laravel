@@ -58,7 +58,7 @@ class ProductsRepository implements ProductsInterface
         $product->stock = $request->stock;
         $product->price = $request->price;
         $product->slug = $this->slugify($request->title);
-//      $product->sell_count = 0;
+//        $product->sold = $request->price->increment();
         $product->save();
 
         $product->categories()->sync([$request->category]);
@@ -166,6 +166,11 @@ class ProductsRepository implements ProductsInterface
             $orderItem->delivery_method = $element["deliveryMethod"];
             $orderItem->save();
         }
+
+        Product::where('id', $orderItem->product_id)
+            ->update([
+                'sold'=> DB::raw('sold+1')
+            ]);
 
         $response = [
             'order' => $order,
