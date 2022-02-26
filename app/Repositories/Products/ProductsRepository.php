@@ -165,6 +165,10 @@ class ProductsRepository implements ProductsInterface
             $orderItem->discount = 0;
             $orderItem->delivery_method = $element["deliveryMethod"];
             $orderItem->save();
+
+
+            Product::where('id', $element["productId"])
+                ->increment('sold', $element["quantity"]);
         }
 
         $response = [

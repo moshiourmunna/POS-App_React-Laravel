@@ -9,7 +9,7 @@ import orderNote from "../../forms/orderNote";
 
 const CartItem = (props) => {
 
-    const [{basket,deliveryMethod,orderNote}, dispatch] = useStateValue();
+    const [{basket, deliveryMethod, orderNote}, dispatch] = useStateValue();
     const [updatedQuantity, setUpdatedQuantity] = useState(props.data.quantity)
 
     function RemoveItem() {
@@ -25,16 +25,18 @@ const CartItem = (props) => {
     }, []);
 
     useEffect(() => {
-        setUpdatedQuantity(props.data.quantity)
         dispatch({
             type: "updateCart",
             id: props.data.productId,
             method: deliveryMethod.deliveryMethod,
-            note:orderNote.orderNote
+            note: orderNote.orderNote
         });
 
-        console.log('basket',basket)
-    }, [deliveryMethod,orderNote]);
+    }, [deliveryMethod, orderNote]);
+
+    useEffect(() => {
+        setUpdatedQuantity(props.data.quantity)
+    }, [basket]);
 
 
     async function update() {
