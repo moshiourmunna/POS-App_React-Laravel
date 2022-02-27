@@ -2,15 +2,13 @@
 @import "mixin";
 
 .dish {
-    min-width: 10vw;
-    min-height: 20vh;
+    width: 200px;
     padding: 10px;
     cursor: pointer;
-
     .adminDesign {
-        width: 15vw;
+        width: 200px;
         z-index: 0;
-        height: 43vh;
+        height: 390px;
         position: relative;
         background: $body-bg1;
         border-radius: 10px;
@@ -19,12 +17,10 @@
         border-style: solid;
         border-width: thin;
         border-color: $borderColor;
-
         img {
-            width: 11vw;
-            height: 20vh;
+            width: 140px;
+            height: 140px;
         }
-
         p {
             display: none
         }
@@ -32,19 +28,17 @@
     }
 
     .userDesign {
-        width: 22vw;
+        width: 300px;
         margin-bottom: 40px;
         position: relative;
         z-index: 0;
         line-height: 3;
-        height: 36vh;
-
+        height: 460px;
         img {
-            margin-left: -6vw;
-            width: 11vw;
-            height: 20vh;
+            margin-left: -80px;
+            width: 180px;
+            height: 180px;
         }
-
         p {
             width: 100%;
             padding: 10px 5px 10px 0;
@@ -65,8 +59,7 @@
         width: auto;
         background: $darkTheme;
         padding: 2px;
-        margin-top: -10px;
-        height: 5vh;
+        height: 55px;
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
         display: flex;

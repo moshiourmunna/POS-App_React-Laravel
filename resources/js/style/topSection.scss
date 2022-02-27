@@ -1,0 +1,117 @@
+@import "mixin";
+@import "variables";
+
+.topSection {
+    padding: 20px 30px 0 25px;
+    height: auto;
+    text-align: left;
+
+    .dropDownIcon {
+        display: none;
+
+    }
+
+    .hide {
+        display: none;
+    }
+
+    h1 {
+        font-size: 25px;
+        color: $appWhite;
+        font-weight: 500;
+    }
+
+    h2 {
+        padding-top: 5px;
+        color: $offWhite;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    h3 {
+        padding: 30px 30px 30px 0;
+        color: $appWhite;
+        font-size: 15px;
+        font-weight: 400;
+    }
+
+    .rightSide {
+        float: right;
+        margin-right: -10px;
+
+        button {
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 8px;
+            background: $body-bg1;
+            color: $appWhite;
+            border-style: solid;
+            font-size: 15px;
+            border-width: thin;
+            border-color: #68696c;
+            padding: 10px;
+            width: fit-content;
+        }
+
+        button:hover {
+            color: $theme;
+            opacity: .8;
+        }
+
+        input {
+            width: 200px;
+            margin-top: 10px;
+            background: #2D303E;
+            padding: 10px;
+            height: 35px;
+            font-size: 16px;
+            border-radius: 8px;
+            border-style: solid;
+            border-width: 1px;
+            border-color: #676767;
+            color: $appWhite;
+        }
+    }
+
+    .header {
+        padding: 20px 0 0 0;
+        margin-left: -40px;
+
+        .headerUl {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
+
+            .activeLink {
+                a {
+                    text-decoration: none;
+                    color: $theme;
+                    cursor: pointer;
+                    font-weight: 600;
+                    font-size: 15px;
+                }
+
+                hr {
+                    margin-top: 23px;
+                    color: #EA7C69;
+                    width: 45px;
+                }
+            }
+
+            .inActiveLink {
+                a {
+                    font-size: 15px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    color: $appWhite;
+                    font-weight: 300;
+                }
+
+                hr {
+                    margin-top: 23px;
+                    opacity: 0;
+                }
+            }
+        }
+    }
+}

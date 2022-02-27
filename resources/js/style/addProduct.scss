@@ -1,17 +1,20 @@
 @import "variables";
 
 .add-page {
-    margin: 10vh 0 0 0;
+
+    width: 600px;
+    margin: 10% 0 0 0;
     text-align: center;
+    height: 700px;
 
     h1 {
         color: $appWhite;
-        font-size: 1.5vw;
-        margin-bottom: 5vh;
+        font-size: 15px;
+        margin-bottom: 5px;
 
         span{
             color: $theme;
-            font-size: 1.3vw;
+            font-size: 13px;
         }
     }
 
@@ -27,17 +30,17 @@
         }
 
         .select {
-            width: 25.5vw;
+            width: 260px;
             margin: 10px;
             padding: 10px;
+            border-radius: 8px;
             background-color: $body-bg2;
             color: $appWhite;
             border-style: none;
         }
 
         .input, .auto_height {
-            width: 24vw;
-            height: 8vh;
+            width: 240px;
             margin: 10px;
             padding: 10px;
             background-color: $body-bg2;
@@ -48,9 +51,9 @@
 
         .input_red, .auto_height_red {
             border-radius: 8px;
-            width: 24vw;
+            width: 240px;
             margin: 10px;
-            height: 8vh;
+            height: 8%;
             padding: 10px;
             background-color: $appWhite;
             font-weight: 700;
@@ -59,7 +62,7 @@
         }
 
         .select_red {
-            width: 25.5vw;
+            width: 240px;
             margin: 10px;
             padding: 10px;
             background-color: $appWhite;

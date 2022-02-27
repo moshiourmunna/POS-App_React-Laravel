@@ -23,12 +23,12 @@ const ModalContent = (props) => {
             backgroundColor: 'rgba(31,29,43,0.75)'
         },
         content: {
-            top: '50%',
-            left: '67%',
-            right: 'auto',
-            bottom: '-50%',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
+            position:'relative',
+            marginLeft:'13%',
+            marginTop:'2%',
+            width:'fit-content',
+            height:'fit-content',
+            transform: 'translate(5%, -8%)',
             backgroundColor: '#1F1D2BFF',
             overflow: 'scroll',
             borderStyle:'none'

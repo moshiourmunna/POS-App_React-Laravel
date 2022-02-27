@@ -7,34 +7,36 @@
     background: $color;
     padding: 45% 10% 10% 10%;
     border-radius: 10px;
-    width: 12vw;
+    width: 160px;
 
     h3 {
         font-weight: 500;
         color: $appWhite;
         width: auto;
-        min-height: 50px;
-        max-height: 50px;
+        font-size: 18px;
+        min-height: 90px;
+        max-height: 90px;
         line-height: 1.4;
-
+        overflow-y: hidden;
     }
 
     h4 {
         color: $appWhite;
-        font-size: 90%;
+        font-size: 16px;
         font-weight: 400;
     }
 
     h5 {
         color: $offWhite;
-        font-size: 90%;
+        font-size: 15px;
         font-weight: 400;
     }
 }
 
 @mixin categoryPageInputs{
+    font-size: 16px;
     padding: 5px;
-    height: 5vh;
+    height: 60px;
     width: 50%;
     color: $appWhite;
     background: $body-bg2;
@@ -45,7 +47,7 @@
 
 @mixin paginationStyle($color,$background){
     position: absolute;
-    bottom: 2vh;
+    bottom: 30px;
     left: 92px;
     color: $color;
     cursor: pointer;
@@ -63,9 +65,9 @@
 
 @mixin plusMinusCart($color){
     padding-left: 3px;
-    font-size: 1.4vw;
+    font-size: 20px;
     color: $color;
     cursor: pointer;
-    min-width: 3vw;
-    max-width: 3vw;
+    min-width: 30px;
+    max-width: 30px;
 }

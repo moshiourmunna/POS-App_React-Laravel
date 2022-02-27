@@ -14,8 +14,8 @@
         margin-right: -40px;
 
         img {
-            width: 6vw;
-            height: 9vh;
+            width: 60px;
+            height: 80px;
         }
 
         .left,
@@ -36,19 +36,19 @@
             h5 {
                 margin-top: 10%;
                 margin-left: auto;
-                font-size: 2vh;
+                font-size: 15px;
                 background: $body-bg2;
-                border-radius: 1vh;
-                padding: .7vw .4vw 1vw .5vw;
-                min-width: 3.4vw;
-                max-width: 3.4vw;
-                margin-right: -3px;
+                border-radius: 8px;
+                padding: 10px;
+                min-width: 40px;
+                max-width: 40px;
+                margin-right: 3px;
             }
 
             h2 {
+                padding: 10px;
                 margin-top: 10%;
-                padding: 1vw;
-                font-size: .97vw;
+                font-size: 12px;
                 min-width: 15px;
                 max-width: 15px;
             }
@@ -56,25 +56,25 @@
 
         .left {
             p {
-                padding: .4vh 1vw 1vh 1vw;
-                font-size: 2vh;
-                min-width: 12vw;
-                max-width: 12vw;
+                padding: .10px 15px 15px 15px;
+                font-size: 17px;
+                min-width: 200px;
+                max-width: 200px;
                 overflow: hidden;
             }
 
             h1 {
-                padding-left: 1vw;
-                padding-top: -.5vh;
-                font-size: 1.4vh;
+                padding-left: 10px;
+                padding-top: -.6px;
+                font-size: 14px;
                 color: $offWhite;
             }
         }
     }
 
     .flex-row-form {
-        margin-bottom: 3vh;
-        margin-top: 1vh;
+        margin-bottom: 20px;
+        margin-top: 20px;
         width: 100%;
         float: left;
         display: flex;
@@ -82,9 +82,9 @@
         input {
             background: #2D303E;
             border-style: none;
-            height: 4.7vh;
             margin: 0 10px 0 0;
             color: $appWhite;
+            height: 35px;
             width: 94%;
             padding: 6px 6px 6px 15px;
             border-radius: 1vh;
@@ -93,8 +93,8 @@
 
         img {
             cursor: pointer;
-            width: 2.8vw;
-            height: 5vh;
+            width: 31px;
+            height: 35px;
             padding-left: 10px;
             margin-right: 5px;
         }

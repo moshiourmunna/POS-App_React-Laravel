@@ -9,6 +9,7 @@ import {BeatLoader} from "react-spinners";
 import CategoryDetails from "../views/Admin/settings/partial/categoryDetails";
 import {useStateValue} from "../states/StateProvider";
 import '../style/editCategory.scss';
+import '../style/topSection.scss';
 
 const TopSection = (props) => {
 

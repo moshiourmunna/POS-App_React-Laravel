@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router'
 import '../../style/registration.scss'
 import Api from "../../api/api";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 const Login = () => {
 
@@ -23,14 +24,12 @@ const Login = () => {
                 console.log('res',res)
                 if (res.status === 202) {
                     window.localStorage.setItem('user', JSON.stringify(res.data))
-                    console.log('res',res)
 
-                } else {
-                    console.log('res',res)
                 }
             })
             .catch(e => {
-                setNotFound(e.response.data.message)
+                toast.error(e.response.data.message)
+                // setNotFound(e.response.data.message)
             })
 
         let user = JSON.parse(window.localStorage.getItem('user'))

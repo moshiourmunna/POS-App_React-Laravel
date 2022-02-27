@@ -4,11 +4,23 @@
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto;
-    grid-gap: 1px;
     padding: 30px 0 0 1px;
     width: 100%;
     @media screen and (max-width: $bp-mobile) {
         grid-template-columns: auto;
+    }
+
+    @media screen and (max-width: $bp-laptop) {
+        grid-template-columns: auto auto;
+        margin-left: 50px;
+    }
+    @media screen and (max-width: $bp-mediumDesktop) {
+        margin-left: .9rem;
+    }
+
+    @media screen and (max-width: $bp-largeDesktop) {
+        margin-left: .9rem;
+
     }
 
     .paginate {
@@ -28,6 +40,18 @@
     scrollbar-width: none;
     @media screen and (max-width: $bp-mobile) {
         grid-template-columns: auto;
+    }
+
+    @media screen and (max-width: $bp-laptop) {
+        grid-template-columns: auto auto;
+        margin-left: 50px;
+    }
+    @media screen and (max-width: $bp-mediumDesktop) {
+        margin-left: .9rem;
+    }
+
+    @media screen and (max-width: $bp-largeDesktop) {
+        margin-left: .9rem;
     }
 
     .paginate {
@@ -63,7 +87,8 @@
 }
 .addDish {
     margin: 5%;
-    width: 15vw;
+    width: 200px;
+    height: 420px;
     border-radius: 10px;
     border-width: 2px;
     border-style: dashed;

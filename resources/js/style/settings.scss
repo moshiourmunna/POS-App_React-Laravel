@@ -2,25 +2,25 @@
 
 .settingsContainer {
     margin-left: 92px;
-    background: $body-bg2;
     min-height: 100vh;
+    background: $body-bg2;
 
     h2 {
         position: absolute;
-        top: 2%;
-        left: 10%;
+        top: 40px;
+        left: 135px;
+        font-size: 22px;
         color: $appWhite;
         font-weight: 600;
     }
 
     .settings {
-        background: #2D303E;
         flex: 1;
         padding: 7% 2% 0 3%;
         display: flex;
 
         .settingsOptions {
-            width: 22vw;
+            width: 300px;
             background: $body-bg1;
 
             a {
@@ -33,7 +33,7 @@
         }
 
         .settingsOptionsActive {
-            width: 22vw;
+            width: 300px;
             background: $darkTheme;
             a {
                 text-decoration: none;
@@ -55,9 +55,8 @@
             margin: 0 0 0 5%;
             padding-left: 5%;
             padding-right: 5%;
-            min-height:84vh;
-            min-width: 52vw;
-            max-width: 52vw;
+            width: 750px;
+
 
             //mixin possible with this hr and of line 18 from home.scss
             hr{
@@ -68,21 +67,21 @@
                 height: .1px;
             }
 
-            .adminButtons {
-                display: flex;
-                padding: 20px;
-                justify-content: space-between;
-                text-align: left;
-                max-width: 22vw;
-
-                .button {
-                    margin-right: 10px;
-
-                    button {
-                        min-width: 200%;
-                    }
-                }
-            }
+            //.adminButtons {
+            //    display: flex;
+            //    padding: 20px;
+            //    justify-content: space-between;
+            //    text-align: left;
+            //    max-width: 200px;
+            //
+            //    .button {
+            //        margin-right: 10px;
+            //
+            //        button {
+            //            min-width: 200%;
+            //        }
+            //    }
+            //}
         }
 
         .flex-settingsOptions {
@@ -94,6 +93,7 @@
                 padding-left: 5px;
                 color: $appWhite;
                 font-weight: 500;
+                font-size: 15px;
             }
 
             p {

@@ -10,13 +10,13 @@
     z-index: 1;
     padding: 20px;
     background-color: $body-bg1;
-    width: 54vw;
-    min-height: 75vh;
+    width: 700px;
+    min-height: 600px;
     border-radius: 8px;
 
     .addedDoneMessage{
         padding: 10px;
-        font-size: 1.2vw;
+        font-size: 17px;
         color: $secondaryColor;
     }
 
@@ -26,9 +26,11 @@
         margin-bottom: 20px;
 
         .title{
+            font-size: 16px;
             color: $secondaryColor;
         }
         .delete{
+            font-size: 16px;
             cursor: pointer;
             color: $darkTheme;
         }
@@ -103,10 +105,11 @@
         button {
             margin: 10px;
             width: 25%;
+            height: 60px;
+            font-size: 18px;
             background: $theme;
             cursor: pointer;
             border-radius: 5px;
-            padding: 8px;
         }
     }
 
