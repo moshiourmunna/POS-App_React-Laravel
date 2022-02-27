@@ -198,7 +198,7 @@ class ProductsRepository implements ProductsInterface
 
     public function OrderInfo(): array
     {
-        $getOrderInfo = Order::with(['orderItems' => function($q){
+        $getOrderInfo = Order::wherehas('orderItems')->with(['orderItems' => function($q){
                 $q->with(['products' => function($sq){
                     $sq->select('id','title','price');
                 }]);
@@ -207,15 +207,9 @@ class ProductsRepository implements ProductsInterface
         }])
             ->get();
 
-        $totalPayment = 0;
-        foreach ($getOrderInfo as $payment){
-            $totalPayment = $payment->price*$payment->quantity;
-        }
 
         $response = [
             'getOrderInfo' => $getOrderInfo,
-            'totalPayment' => $totalPayment
-
         ];
 
         return $response;

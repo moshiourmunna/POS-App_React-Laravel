@@ -4,20 +4,18 @@ import Button from "../../button/Button";
 import {useStateValue} from "../../../states/StateProvider";
 import Api from "../../../api/api";
 import {useNavigate} from "react-router";
-import {ToastContainer, toast} from 'react-toastify';
+import {toast} from 'react-toastify';
 
 const Pay = () => {
 
     const Notify =async () => toast("Wow so easy!");
     const [{orderNote, basket, deliveryMethod}, dispatch] = useStateValue()
-    const [response, setResponse] = useState('')
-    const [error, setError] = useState('')
     let user = localStorage.getItem('user')
     let navigate = useNavigate()
 
     useEffect(() => {
-        console.log(basket)
-    }, []);
+        console.log(orderNote.orderNote)
+    }, [orderNote]);
 
     async function placeOrder() {
 
@@ -35,13 +33,16 @@ const Pay = () => {
                         })
                     }
                     else{
-                        toast('OOps! Something Went Wrong')
+                        toast.error('OOps! Something Went Wrong')
                     }
                 })
-                .catch(e => toast(e)
-                )
+                .catch(e=>{
+                    if(e.response.status===500){
+                        toast.error('OOPs! Please Add An Order Note')
+                    }
+                })
         } else {
-            toast('Please, Log In First')
+            toast.warning('Please, Log In First')
             navigate('/login')
         }
     }

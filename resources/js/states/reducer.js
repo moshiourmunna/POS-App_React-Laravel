@@ -6,7 +6,7 @@ export const initialState = {
     category: {title:0},
     modal: false,
     payMethod:0,
-    orderNote:''
+    orderNote:'a'
 };
 
 export const getBasketTotal = (basket) =>

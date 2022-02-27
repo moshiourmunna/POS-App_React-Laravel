@@ -3,11 +3,11 @@ import {RiListSettingsLine} from 'react-icons/ri'
 import OrderReportsMapper from "./orderReportsMapper";
 import {OrderInfo} from '../../../data/orderInfo'
 import Api from "../../../api/api";
+import {sum} from "lodash/math";
 
 const OrderReport = () => {
 
     const [order,setOrder]=useState([])
-    const [orderItems,setOrderItems]=useState([])
 
     const getOrderInfo= useCallback(
         async () => {
@@ -15,6 +15,7 @@ const OrderReport = () => {
             await Api().get('/getOrderInfo')
                 .then((response)=>{
                     console.log(response.data.getOrderInfo)
+                    // console.log(response.data.totalPayment)
                     setOrder(response.data.getOrderInfo)
                 })
         },
@@ -25,15 +26,6 @@ const OrderReport = () => {
         getOrderInfo().then(r=>r)
     }, [getOrderInfo]);
 
-    // useEffect(() => {
-    //     order.map((o)=>{
-    //         console.log('status:',o.status)
-    //         o.order_items.map((oi)=>{
-    //             console.log('orderItem: ',oi.id)
-    //         })
-    //     })
-    // }, [order]);
-    //
 
     return (
         <div className='orderReports'>
@@ -57,13 +49,11 @@ const OrderReport = () => {
                     <tr style={{borderBottom:' 1px solid #2f2f2f'}}/>
                     </thead>
                         {
-
-                            OrderInfo.map((order) => (
+                            order.map((order) => (
                                 <OrderReportsMapper
-                                    key={order.id}
-                                    name={order.name}
-                                    menu={order.menu}
-                                    total={order.total}
+                                    key={(Math.random())}
+                                    name={`${order.users.first_name} ${order.users.last_name}`}
+                                    menu={order.order_items}
                                     status={order.status}
                                 />
                             ))
