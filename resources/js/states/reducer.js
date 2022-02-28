@@ -3,6 +3,7 @@ export const initialState = {
     user: {},
     state:0,
     deliveryMethod:'',
+    filterDay:'Today',
     category: {title:0},
     modal: false,
     payMethod:0,
@@ -75,6 +76,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 deliveryMethod: action.item
+            }
+            case "SetFilterMethod":
+            return {
+                ...state,
+                filterDay: action.item
             }
             case "setOrderNote":
             return {

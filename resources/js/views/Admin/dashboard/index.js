@@ -7,6 +7,7 @@ import SelectOption from "../../../components/forms/selectOption";
 import Button from "../../../components/button/Button";
 import Api from "../../../api/api";
 import {BeatLoader} from "react-spinners";
+import {useStateValue} from "../../../states/StateProvider";
 
 const Dashboard = () => {
 
@@ -19,6 +20,25 @@ const Dashboard = () => {
     const [orderedDishCount, setOrderedDishCount] = useState(0)
     const [customers, setCustomers] = useState(0)
     const [loading, setLoading] = useState(false)
+    const [filter, setFilter] = useState('Today')
+
+    const getMostOrdered = useCallback(
+        async () => {
+
+            await Api().get(`/getMostOrdered/` + filter)
+                .then((response) => {
+                    console.log(response.data)
+                    setMostOrdered(response.data)
+                })
+        },
+        [filter],
+    );
+
+    useEffect(() => {
+        getMostOrdered().then(r => r)
+        console.log('in base:', filter)
+    }, [getMostOrdered]);
+
 
     const getOrderInfo = useCallback(
         async () => {
@@ -31,7 +51,6 @@ const Dashboard = () => {
                     setRevenue(response.data.revenue)
                     setOrderedDishCount(response.data.orderedDishCount)
                     setCustomers(response.data.customers)
-                    setMostOrdered(response.data.mostOrdered)
                     setLoading(false)
                 })
         },
@@ -66,7 +85,17 @@ const Dashboard = () => {
                     <div className='mostOrderedCard'>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <h1>Most Ordered</h1>
-                            <SelectOption admin={true}/>
+                            <select
+                                value={filter}
+                                onChange={(e) => setFilter(e.target.value)}
+                            >
+                                <option value='Today'>
+                                    Today
+                                </option>
+                                <option value='all'>
+                                    All
+                                </option>
+                            </select>
                         </div>
                         <br/>
                         <hr/>

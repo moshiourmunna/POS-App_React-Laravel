@@ -28,12 +28,6 @@ class OrderController extends Controller
         return response($result, 201);
     }
 
-
-    public function allCategories()
-    {
-        return $this->orderRepository->allCategories();
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -52,14 +46,13 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:categories,name',
-            'published' => 'required'
-        ]);
+        $storeOrder = $this->orderRepository->create($request);
 
-        $category = $this->orderRepository->create($request);
+        $response = [
+            'storeOrder' => $storeOrder
+        ];
 
-        return response($category, 201);
+        return response($response,201);
     }
 
     /**
@@ -105,5 +98,17 @@ class OrderController extends Controller
     {
         $this->orderRepository->delete($id);
         return response('Successfully Deleted',201);
+    }
+
+    public function mostOrdered($filter){
+
+        if($filter==='all'){
+            $mostOrdered=$this->orderRepository->mostOrdered();
+        }
+        else{
+            $mostOrdered=$this->orderRepository->mostOrderedToday();
+        }
+
+        return response($mostOrdered,201);
     }
 }

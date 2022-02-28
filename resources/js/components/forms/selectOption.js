@@ -5,7 +5,7 @@ import {DeliveryMethod} from "../../data/deliveryMethods";
 
 const SelectOption = (props) => {
 
-    const [{deliveryMethod}, dispatch] = useStateValue();
+    const [{deliveryMethod,filterDay}, dispatch] = useStateValue();
 
     return (
         <div className='dineIn'>
@@ -39,13 +39,23 @@ const SelectOption = (props) => {
                     </select>
                     :
                     <select
-                        value={deliveryMethod.deliveryMethod}
-                        onChange={(e) => console.log('admin selected:',e.target.value)}
+                        value={filterDay.filterDay}
+                        onChange={(e) =>
+                            dispatch(
+                                {
+                                    type: "SetFilterMethod",
+                                    item:
+                                        {
+                                            filterDay: e.target.value
+                                        }
+                                    ,
+                                })}
+
                     >
                         <option value='Today'>
                             Today
                         </option>
-                        <option value='All'>
+                        <option value='all'>
                             All
                         </option>
                     </select>

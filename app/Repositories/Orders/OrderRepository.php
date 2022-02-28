@@ -5,7 +5,9 @@ namespace App\Repositories\Orders;
 
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\Request;
 
@@ -20,32 +22,34 @@ class OrderRepository implements OrderInterface
 
     public function create($request)
     {
+        $payload = json_decode($request->getContent(), true);
+        $order = new Order();
+        $order->user_id = auth()->user()->id;
+        $order->save();
 
-    }
+        foreach ($payload as $element) {
+            $orderItem = new OrderItem();
+            $orderItem->order_id = $order->id;
+            $orderItem->product_id = $element["productId"];
+            $orderItem->quantity = $element["quantity"];
+            $orderItem->instruction = $element["orderNote"];
+            $orderItem->discount = 0;
+            $orderItem->delivery_method = $element["deliveryMethod"];
+            $orderItem->save();
 
-    private function slugify($name): string
-    {
-        return \Str::slug($name);
-    }
+            Product::where('id', $element["productId"])
+                ->increment('sold', $element["quantity"]);
+        }
 
-    public function getById(int $id)
-    {
-        return $this->model->find($id);
+        return [
+            'order' => $order,
+            'orderItem' => $orderItem
+        ];
     }
 
     public function update( int $id)
     {
-        $model = $this->model::find($id);
-        if ($model->published === 1) {
-            $model->published = 0;
-        }
-        else{
-            $model->published = 1;
-        }
 
-        $model->save();
-
-        return $model;
     }
 
     public function delete( $id)
@@ -73,11 +77,6 @@ class OrderRepository implements OrderInterface
 
 //        $customers=Order::distinct('user_id')->count('name');
 
-        $mostOrdered=Product::select('id','title','sold','image')
-            ->orderBy('sold','DESC')
-            ->limit(3)
-            ->get();
-
         $totalPayment = [];
         $orderedDishes=[];
         $customer=[];
@@ -102,9 +101,25 @@ class OrderRepository implements OrderInterface
             'revenue'=>$revenue,
             'orderedDishCount'=>$orderedDishCount,
             'customers'=>$customers,
-            'mostOrdered'=>$mostOrdered,
             'totalPayment' => $totalPayment
         ];
+    }
+
+    public function mostOrdered()
+    {
+        return Product::select('id', 'title', 'sold', 'image')
+            ->orderBy('sold', 'DESC')
+            ->limit(3)
+            ->get();
+    }
+
+    public function mostOrderedToday()
+    {
+        return Product::where('updated_at', '>', Carbon::now()->subDays(1))
+            ->select('id', 'title', 'sold', 'image')
+            ->orderBy('sold', 'DESC')
+            ->limit(3)
+            ->get();
     }
 
 

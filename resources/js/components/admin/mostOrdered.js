@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import '../../style/mostOrdered.scss';
 import PropTypes from "prop-types";
 import {BeatLoader} from "react-spinners";
+import Api from "../../api/api";
 
 const mostOrdered = (props) => {
     return (
