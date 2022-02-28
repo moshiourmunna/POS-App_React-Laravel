@@ -8,22 +8,20 @@
     padding: 45% 10% 10% 10%;
     border-radius: 10px;
     width: 160px;
-    height: 180px;
 
     h3 {
         font-weight: 500;
         color: $appWhite;
         width: auto;
-        font-size: 18px;
-        min-height: 90px;
-        max-height: 90px;
+        font-size: 17px;
+        min-height: 50px;
         line-height: 1.4;
         overflow-y: hidden;
     }
 
     h4 {
         color: $appWhite;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 400;
     }
 

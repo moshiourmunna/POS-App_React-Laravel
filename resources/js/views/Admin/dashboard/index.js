@@ -20,15 +20,16 @@ const Dashboard = () => {
     const [orderedDishCount, setOrderedDishCount] = useState(0)
     const [customers, setCustomers] = useState(0)
     const [loading, setLoading] = useState(false)
+    const [loadingMostOrdered, setLoadingMostOrdered] = useState(false)
     const [filter, setFilter] = useState('Today')
 
     const getMostOrdered = useCallback(
         async () => {
-
+            setLoadingMostOrdered(true)
             await Api().get(`/getMostOrdered/` + filter)
                 .then((response) => {
-                    console.log(response.data)
                     setMostOrdered(response.data)
+                    setLoadingMostOrdered(false)
                 })
         },
         [filter],
@@ -46,7 +47,6 @@ const Dashboard = () => {
             await Api().get('/getOrderInfo')
                 .then((response) => {
                     console.log('orderItems', response.data.getOrderInfo)
-                    console.log('pay', response.data.totalPayment)
                     setOrder(response.data.getOrderInfo)
                     setRevenue(response.data.revenue)
                     setOrderedDishCount(response.data.orderedDishCount)
@@ -83,7 +83,7 @@ const Dashboard = () => {
                 </div>
                 <div className='dashboardRight'>
                     <div className='mostOrderedCard'>
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <div className='selectOption' style={{display: 'flex', justifyContent: 'space-between'}}>
                             <h1>Most Ordered</h1>
                             <select
                                 value={filter}
@@ -107,11 +107,11 @@ const Dashboard = () => {
                                 :
                                 mostOrdered.map((data)=>(
                                     <MostOrdered
+                                        loading={loadingMostOrdered}
                                         key={data.id}
                                         title={data.title}
                                         sold={data.sold}
                                         image={data.image}
-                                        loading={loading}
                                     />
                                 ))
                         }

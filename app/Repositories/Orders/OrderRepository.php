@@ -38,7 +38,8 @@ class OrderRepository implements OrderInterface
             $orderItem->save();
 
             Product::where('id', $element["productId"])
-                ->increment('sold', $element["quantity"]);
+                ->increment('sold', $element["quantity"])
+                ->decrement('stock',$element["quantity"]);
         }
 
         return [

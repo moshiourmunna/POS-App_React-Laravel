@@ -16,12 +16,12 @@ Route::get('/getAllCategory',[CategoryController::class, 'allCategories']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/getOrderInfo',[OrderController::class, 'index']);
 Route::get('/getMostOrdered/{filter}',[OrderController::class, 'mostOrdered']);
 
 Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
-    Route::get('/getOrderInfo',[OrderController::class, 'index']);
     Route::post('/storeOrder',[OrderController::class, 'store']);
 
     Route::post('/store',[FrontEndController::class, 'store']);

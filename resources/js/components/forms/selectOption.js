@@ -8,7 +8,7 @@ const SelectOption = (props) => {
     const [{deliveryMethod,filterDay}, dispatch] = useStateValue();
 
     return (
-        <div className='dineIn'>
+        <div className='selectOption'>
             {
                 (!props.admin) ?
                     <select
