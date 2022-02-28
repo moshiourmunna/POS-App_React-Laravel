@@ -5,6 +5,7 @@ namespace App\Repositories\Products;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Str;
@@ -196,24 +197,58 @@ class ProductsRepository implements ProductsInterface
         return $response;
     }
 
+    public function mostOrdered(){
+        $mostOrdered=Product::select('id','title','sold','image')
+            ->orderBy('sold','DESC')
+            ->limit(3)
+            ->get();
+
+    }
     public function OrderInfo(): array
     {
         $getOrderInfo = Order::wherehas('orderItems')->with(['orderItems' => function($q){
-                $q->with(['products' => function($sq){
-                    $sq->select('id','title','price');
-                }]);
-            }])->with(['users' => function($q){
+            $q->with(['products' => function($sq){
+                $sq->select('id','title','price');
+            }]);
+        }])->with(['users' => function($q){
             $q->select('id','first_name','last_name');
         }])
             ->get();
 
+//        $customers=Order::distinct('user_id')->count('name');
 
-        $response = [
+        $mostOrdered=Product::select('id','title','sold','image')
+            ->orderBy('sold','DESC')
+            ->limit(3)
+            ->get();
+
+        $totalPayment = [];
+        $orderedDishes=[];
+        $customer=[];
+
+        foreach ($getOrderInfo as $orders){
+            if(!in_array($orders->user_id, $customer)) {
+                $customer[] = $orders->user_id;
+            }
+            foreach ($orders->orderItems as $item){
+                $totalPayment[]  = $item->products->price * $item->quantity;
+                $orderedDishes[] = $item->quantity;
+            }
+        }
+
+        $revenue=array_sum($totalPayment);
+        $orderedDishCount=array_sum($orderedDishes);
+        $customers=count($customer);
+
+
+        return [
             'getOrderInfo' => $getOrderInfo,
+            'revenue'=>$revenue,
+            'orderedDishCount'=>$orderedDishCount,
+            'customers'=>$customers,
+            'mostOrdered'=>$mostOrdered,
+            'totalPayment' => $totalPayment
         ];
-
-        return $response;
     }
-
 
 }

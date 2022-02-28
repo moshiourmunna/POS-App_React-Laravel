@@ -1,31 +1,10 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React from "react";
 import {RiListSettingsLine} from 'react-icons/ri'
 import OrderReportsMapper from "./orderReportsMapper";
-import {OrderInfo} from '../../../data/orderInfo'
-import Api from "../../../api/api";
-import {sum} from "lodash/math";
+import PropTypes from "prop-types";
+import {BeatLoader} from "react-spinners";
 
-const OrderReport = () => {
-
-    const [order,setOrder]=useState([])
-
-    const getOrderInfo= useCallback(
-        async () => {
-
-            await Api().get('/getOrderInfo')
-                .then((response)=>{
-                    console.log(response.data.getOrderInfo)
-                    // console.log(response.data.totalPayment)
-                    setOrder(response.data.getOrderInfo)
-                })
-        },
-        [],
-    );
-
-    useEffect(() => {
-        getOrderInfo().then(r=>r)
-    }, [getOrderInfo]);
-
+const OrderReport = (props) => {
 
     return (
         <div className='orderReports'>
@@ -38,30 +17,44 @@ const OrderReport = () => {
                 </button>
             </div>
             <div className='orderInfo'>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Customer</th>
-                        <th>Menu</th>
-                        <th>Total Payment</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr style={{borderBottom:' 1px solid #2f2f2f'}}/>
-                    </thead>
-                        {
-                            order.map((order) => (
-                                <OrderReportsMapper
-                                    key={(Math.random())}
-                                    name={`${order.users.first_name} ${order.users.last_name}`}
-                                    menu={order.order_items}
-                                    status={order.status}
-                                />
-                            ))
-                        }
-                </table>
+                {
+                    (props.loading) ?
+                        <div style={{position:'relative',marginLeft:'44%', marginTop:'30%'}}>
+                            <BeatLoader size={20} color={'#a2a2a2'}/>
+                        </div>
+                        :
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Menu</th>
+                                <th>Total Payment</th>
+                                <th>Status</th>
+                            </tr>
+                            <tr style={{borderBottom: ' 1px solid #2f2f2f'}}/>
+                            </thead>
+                            {
+                                props.order.map((order) => (
+                                    <OrderReportsMapper
+                                        key={(Math.random())}
+                                        loading={props.loading}
+                                        name={`${order.users.first_name} ${order.users.last_name}`}
+                                        menu={order.order_items}
+                                        status={order.status}
+                                    />
+                                ))
+                            }
+                        </table>
+                }
+
             </div>
         </div>
     )
 }
 
 export default OrderReport
+
+OrderReport.prototype = {
+    order: PropTypes.array,
+    loading: PropTypes.bool
+}

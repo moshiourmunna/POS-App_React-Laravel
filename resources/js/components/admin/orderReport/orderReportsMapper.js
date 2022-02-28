@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import avatar from '../../../assets/images/avatar.png'
 import {sum} from "lodash/math";
+import PropTypes from "prop-types";
+import {BeatLoader} from "react-spinners";
 
 const orderReportsMapper = (props) => {
 
@@ -10,7 +12,6 @@ const orderReportsMapper = (props) => {
         let Sum = []
         props.menu.map((menu) => {
             Sum.push(menu.products.price * menu.quantity)
-            console.log(Sum)
         })
         setTotal(sum(Sum))
     }, []);
@@ -18,8 +19,14 @@ const orderReportsMapper = (props) => {
     return (
         <tbody>
         <tr>
-            <td style={{display: 'flex'}}><img src={avatar} width='20%' style={{borderRadius: '100%'}}/><p
-                style={{margin: '10px 0 0 5px'}}>{props.name}</p></td>
+            {
+                (props.loading)?
+                    <BeatLoader size={10} color={'#a2a2a2'}/>
+                    :
+                    <td style={{display: 'flex'}}><img src={avatar} width='20%' style={{borderRadius: '100%'}}/><p
+                        style={{margin: '10px 0 0 5px'}}>{props.name}</p></td>
+            }
+
             <td>{props.menu.map((menu, key) => (
                 <p style={{padding: '5px', borderBottom: ' .1px solid #2D303E'}}>
                     {menu.products.title}
@@ -39,3 +46,7 @@ const orderReportsMapper = (props) => {
 }
 
 export default orderReportsMapper
+
+orderReportsMapper.prototype={
+    loading:PropTypes.bool
+}

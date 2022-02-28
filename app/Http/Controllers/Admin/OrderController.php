@@ -21,11 +21,13 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): \Illuminate\Http\Response
     {
-        return $this->orderRepository->allPublished();
+        $result = $this->orderRepository->OrderInfo();
 
+        return response($result, 201);
     }
+
 
     public function allCategories()
     {

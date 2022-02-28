@@ -117,4 +117,5 @@ class FrontEndController extends Controller
         $response = $this->productsRepository->delete($id);
         return response($response, 201);
     }
+
 }

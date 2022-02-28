@@ -1,10 +1,9 @@
 @import "variables";
 
 .dashboardContainer {
-    padding: 20px 20px 0 20px;
+    padding-top: 20px;
     margin-left: 92px;
     background: $body-bg2;
-    min-height: 100vh;
     text-align: left;
 
     h2{
@@ -77,7 +76,7 @@
                 }
 
                 .orderInfo {
-                    max-height: 46vh;
+                    height: 46vh;
                     overflow: scroll;
                     scrollbar-width: none;
                 }
@@ -90,7 +89,6 @@
 
     .dashboardRight {
         flex: .3;
-        height: 100vh;
         margin: -5% 1% 0 1%;
         h1{
             font-size: 1.1vw;
@@ -100,6 +98,7 @@
         .mostOrderedCard {
             padding: 7%;
             border-radius: 1vh;
+            height: 320px;
             background: $body-bg1;
             margin: 3%;
             h1{
