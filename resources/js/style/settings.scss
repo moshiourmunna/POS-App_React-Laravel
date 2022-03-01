@@ -9,7 +9,7 @@
         position: absolute;
         top: 2vh;
         left: 10vw;
-        font-size: 1.5vw;
+        font-size: 1.4vw;
         color: $appWhite;
         font-weight: 600;
     }
@@ -58,7 +58,8 @@
             padding-left: 2%;
             padding-right: 2%;
             width: 62vw;
-            height: 80vh;
+            min-height: 80vh;
+            max-height: fit-content;
 
 
             //mixin possible with this hr and of line 18 from home.scss

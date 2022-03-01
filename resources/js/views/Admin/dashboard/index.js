@@ -20,7 +20,7 @@ const Dashboard = () => {
     const [customers, setCustomers] = useState(0)
     const [loading, setLoading] = useState(false)
     const [loadingMostOrdered, setLoadingMostOrdered] = useState(false)
-    const [filter, setFilter] = useState('Today')
+    const [filter, setFilter] = useState('all')
 
     const getMostOrdered = useCallback(
         async () => {
@@ -116,7 +116,7 @@ const Dashboard = () => {
 
                         <br/>
                         {/*<hr/>*/}
-                        <Button name='View All' cancel={false} admin={true}/>
+                        <Button name='View All' cancel={true} admin={true}/>
                     </div>
                     <div className='orderTypesCard'>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
