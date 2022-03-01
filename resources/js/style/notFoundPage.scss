@@ -1,0 +1,14 @@
+@import "variables";
+
+.notFoundPage{
+    height: 100vh;
+    background-color: $body-bg2;
+    text-align: center;
+
+    h2{
+        font-size: 45px;
+        padding-top: 25%;
+        color: $theme;
+        text-shadow: 2px 1px 2px $pasteColor;
+    }
+}

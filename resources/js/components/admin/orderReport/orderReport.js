@@ -46,7 +46,6 @@ const OrderReport = (props) => {
                             }
                         </table>
                 }
-
             </div>
         </div>
     )

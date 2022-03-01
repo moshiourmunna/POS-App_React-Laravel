@@ -79,6 +79,10 @@
                     height: 46vh;
                     overflow: scroll;
                     scrollbar-width: none;
+
+                    select{
+                        border-style: none;
+                    }
                 }
                 .orderInfo::-webkit-scrollbar {
                     display: none;

@@ -38,8 +38,9 @@ class OrderRepository implements OrderInterface
             $orderItem->save();
 
             Product::where('id', $element["productId"])
-                ->increment('sold', $element["quantity"])
-                ->decrement('stock',$element["quantity"]);
+                ->increment('sold', $element["quantity"]);
+            Product::where('id', $element["productId"])
+                ->decrement('stock', $element["quantity"]);
         }
 
         return [
@@ -48,12 +49,12 @@ class OrderRepository implements OrderInterface
         ];
     }
 
-    public function update( int $id)
+    public function update(int $id)
     {
 
     }
 
-    public function delete( $id)
+    public function delete($id)
     {
         Artisan::call('cache:clear');
 
@@ -67,41 +68,41 @@ class OrderRepository implements OrderInterface
 
     public function OrderInfo(): array
     {
-        $getOrderInfo = $this->model::wherehas('orderItems')->with(['orderItems' => function($q){
-            $q->with(['products' => function($sq){
-                $sq->select('id','title','price');
+        $getOrderInfo = $this->model::wherehas('orderItems')->with(['orderItems' => function ($q) {
+            $q->with(['products' => function ($sq) {
+                $sq->select('id', 'title', 'price');
             }]);
-        }])->with(['users' => function($q){
-            $q->select('id','first_name','last_name');
+        }])->with(['users' => function ($q) {
+            $q->select('id', 'first_name', 'last_name');
         }])
             ->get();
 
 //        $customers=Order::distinct('user_id')->count('name');
 
         $totalPayment = [];
-        $orderedDishes=[];
-        $customer=[];
+        $orderedDishes = [];
+        $customer = [];
 
-        foreach ($getOrderInfo as $orders){
-            if(!in_array($orders->user_id, $customer)) {
+        foreach ($getOrderInfo as $orders) {
+            if (!in_array($orders->user_id, $customer)) {
                 $customer[] = $orders->user_id;
             }
-            foreach ($orders->orderItems as $item){
-                $totalPayment[]  = $item->products->price * $item->quantity;
+            foreach ($orders->orderItems as $item) {
+                $totalPayment[] = $item->products->price * $item->quantity;
                 $orderedDishes[] = $item->quantity;
             }
         }
 
-        $revenue=array_sum($totalPayment);
-        $orderedDishCount=array_sum($orderedDishes);
-        $customers=count($customer);
+        $revenue = array_sum($totalPayment);
+        $orderedDishCount = array_sum($orderedDishes);
+        $customers = count($customer);
 
 
         return [
             'getOrderInfo' => $getOrderInfo,
-            'revenue'=>$revenue,
-            'orderedDishCount'=>$orderedDishCount,
-            'customers'=>$customers,
+            'revenue' => $revenue,
+            'orderedDishCount' => $orderedDishCount,
+            'customers' => $customers,
             'totalPayment' => $totalPayment
         ];
     }

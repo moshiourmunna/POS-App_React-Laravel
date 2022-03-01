@@ -7,6 +7,8 @@ import {BeatLoader} from "react-spinners";
 const orderReportsMapper = (props) => {
 
     const [total, setTotal] = useState(0)
+    const [updatedStatus, setUpdatedStatus] = useState('')
+    const [toggle, setToggle] = useState(false)
 
     useEffect(() => {
         let Sum = []
@@ -20,7 +22,7 @@ const orderReportsMapper = (props) => {
         <tbody>
         <tr>
             {
-                (props.loading)?
+                (props.loading) ?
                     <BeatLoader size={10} color={'#a2a2a2'}/>
                     :
                     <td style={{display: 'flex'}}><img src={avatar} width='20%' style={{borderRadius: '100%'}}/><p
@@ -34,11 +36,28 @@ const orderReportsMapper = (props) => {
             ))}</td>
             <td> ${(total).toFixed(2)}</td>
             <td>
-                <p
-                    className={(props.status === 'completed') ? 'StatusCompletedInfo' : (props.status === 'pending') ? 'StatusPendingInfo' : 'StatusCookingInfo'}
-                >
-                    {props.status}
-                </p>
+                {/*<p onClick={() => setToggle(!toggle)}*/}
+                {/*   className={(props.status === 'delivered') ? 'StatusCompletedInfo' : (props.status === 'processing') ? 'StatusPendingInfo' : 'StatusCookingInfo'}*/}
+                {/*>*/}
+                {/*    {props.status}*/}
+                {/*</p>*/}
+
+                    <select
+                        className={(props.status === 'delivered') ? 'StatusCompletedInfo' : (props.status === 'processing') ? 'StatusPendingInfo' : 'StatusCookingInfo'}
+                        value={updatedStatus}
+                        onChange={(e) => setUpdatedStatus(e.target.value)}
+                    >
+                        <option value={props.status}>
+                            {props.status}
+                        </option>
+                        <option value='sent'>
+                            Sent
+                        </option>
+                        <option value='delivered'>
+                            Delivered
+                        </option>
+                    </select>
+
             </td>
         </tr>
         </tbody>
@@ -47,6 +66,6 @@ const orderReportsMapper = (props) => {
 
 export default orderReportsMapper
 
-orderReportsMapper.prototype={
-    loading:PropTypes.bool
+orderReportsMapper.prototype = {
+    loading: PropTypes.bool
 }
