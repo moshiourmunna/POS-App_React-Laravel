@@ -4,15 +4,15 @@
 .categoryPage {
     position: relative;
     text-align: center;
-    //top: 22vh;
+    top: 1vh;
     //left: 37vw;
-    right: 7%;
+    right: 6%;
     z-index: 1;
-    padding: 20px;
+    padding: .5vw;
     background-color: $body-bg1;
-    width: 700px;
-    min-height: 600px;
-    border-radius: 8px;
+    width: 60vw;
+    min-height: 80vh;
+    border-radius: 1vw;
 
     .addedDoneMessage{
         padding: 10px;
@@ -26,21 +26,21 @@
         margin-bottom: 20px;
 
         .title{
-            font-size: 16px;
+            font-size: 1vw;
             color: $secondaryColor;
         }
         .delete{
-            font-size: 16px;
+            font-size: 1vw;
             cursor: pointer;
             color: $darkTheme;
         }
         .statusGreen{
-            font-size: 15px;
+            font-size: .9vw;
             color: $pasteColor;
             cursor: pointer;
         }
         .statusRed{
-            font-size: 15px;
+            font-size: .9vw;
             cursor: pointer;
             color: $theme;
         }
@@ -70,7 +70,8 @@
     }
 
     .CategoryPop{
-        padding: 15px;
+        padding: 10px;
+        font-size: 1vw;
         cursor: pointer;
         color: $offWhite;
         background-color: $darkTheme;
@@ -82,8 +83,9 @@
         flex-direction: column;
         p{
             color: $theme;
-            font-size: 18px;
-            margin-left: 10px;
+            font-size: 1vw;
+            padding: 1vw;
+            margin-left: 1vw;
         }
         form {
 
@@ -103,13 +105,13 @@
             }
         }
         button {
-            margin: 10px;
+            margin: 1vw;
             width: 25%;
-            height: 60px;
+            padding: 1vw;
             font-size: 18px;
             background: $theme;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 1vw;
         }
     }
 

@@ -8,7 +8,7 @@
 
 .payment {
     margin-top: -2%;
-    width: 1300px;
+    width: 100vw;
     overflow-y: scroll;
     background: $body-bg1;
 
@@ -16,12 +16,12 @@
         margin-left: -8px;
         color: $appWhite;
         font-weight: 400;
-        font-size: 27px;
+        font-size: 1.5vw;
     }
 
     p {
         margin-left: -8px;
-        font-size: 15px;
+        font-size: 1vw;
         color: $offWhite;
     }
 }
@@ -29,23 +29,23 @@
 
 .billingInfo {
     font-weight: 400;
-    padding: 30px;
-    margin-left: 20px;
+    padding: 3vw;
+    margin-left: 2vw;
     border-left-style: solid;
     border-color: #2D303E;
 
     .billingHeader {
-        padding-left: 10px;
+        padding-left: .4vw;
 
         h2 {
             color: $appWhite;
-            font-size: 23px;
+            font-size: 1.3vw;
             font-weight: 400;
         }
 
         p {
             color: $offWhite;
-            font-size: 13px;
+            font-size: 1vw;
             margin-left: .4px;
         }
     }
@@ -105,8 +105,9 @@
     input {
         margin: 5px;
         border-style: none;
-        width: 100%;
+        width: 20vw;
         padding: 11px;
+        font-size: 1vw;
         border-radius: 8px;
         color: $offWhite;
         background: $body-bg2;

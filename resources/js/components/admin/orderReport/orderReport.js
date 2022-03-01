@@ -11,7 +11,7 @@ const OrderReport = (props) => {
 
             <div className='flexHeader'>
                 <h2>Order Report</h2>
-                <button>
+                <button style={{fontSize:'1.2vw'}}>
                     <span style={{margin: '5px'}}><RiListSettingsLine/></span>
                     Filter Orders
                 </button>

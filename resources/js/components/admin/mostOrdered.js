@@ -9,7 +9,7 @@ const mostOrdered = (props) => {
         <div className='mostOrdered'>
             {
                 (props.loading)?
-                    <div style={{height:'44.5px'}}>
+                    <div style={{height:'7.1vh'}}>
                         <BeatLoader size={10} color={'#a2a2a2'}/>
                     </div>
                     :

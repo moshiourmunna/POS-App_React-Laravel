@@ -2,37 +2,37 @@
 
 .login {
     min-height: 100vh;
+    max-height: 200vh;
     background-color: $body-bg1;
 }
 
 .login-box {
     position: absolute;
-    top: 15%;
-    left: 35%;
+    left: 25%;
     background-size: cover;
     padding: 100px;
-    border-radius: 20px;
+    border-radius: 1vw;
 
     p {
+        font-size: 1vw;
         color: $theme;
-        font-size: 15px;
-        margin-top: -15px;
-        margin-left: 20%;
-        margin-bottom: 3px;
-        max-width: 23vw;
+        margin-left: 7%;
+        margin-bottom: 1vh;
+        width: 23vw;
     }
     h3{
         padding: 15px 5px 5px 5px;
-        font-size: 13px;
+        font-size: .9vw;
         font-weight: 500;
         color: $appWhite;
     }
 
     input {
-        padding: 15px 10px 10px 10px;
-        width: 350px;
-        height: 18px;
-        border-radius: 8px;
+        padding: 1.2vw 1vw 1vw 1vw;
+        width: 25vw;
+        height: 1vw;
+        font-size: 1vw;
+        border-radius: 1vw;
         border-style: hidden;
         color: $appWhite;
         background-color: $body-bg2;
@@ -43,6 +43,7 @@
         width: 100%;
         padding: 5px;
         height: 30px;
+        font-size: 1vw;
         border-radius: 5px;
         color: rgb(12, 44, 15);
         background-color: rgb(182, 181, 180);

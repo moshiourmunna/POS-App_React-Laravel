@@ -26,7 +26,7 @@ const ModalContent = (props) => {
             position:'relative',
             marginLeft:'13%',
             marginTop:'1%',
-            height:'98vh',
+            height:'100vh',
             width:'fit-content',
             transform: 'translate(5%, -8%)',
             backgroundColor: '#1F1D2BFF',

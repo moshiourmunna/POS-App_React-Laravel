@@ -14,40 +14,38 @@
     background: $color;
     padding: 45% 10% 10% 10%;
     border-radius: 10px;
-    width: 160px;
 
     h3 {
         font-weight: 500;
         color: $appWhite;
         width: auto;
-        font-size: 17px;
-        min-height: 50px;
+        font-size: 1.1vw;
+        height: 6vh;
         line-height: 1.4;
         overflow-y: hidden;
     }
 
     h4 {
         color: $appWhite;
-        font-size: 15px;
+        font-size: 1vw;
         font-weight: 400;
     }
 
     h5 {
         color: $offWhite;
-        font-size: 15px;
+        font-size: .9vw;
         font-weight: 400;
     }
 }
 
 @mixin categoryPageInputs{
-    font-size: 16px;
-    padding: 5px;
-    height: 60px;
+    margin: 1vh 1vw 1vh 25%;
+    font-size: 1vw;
+    padding: 1vw;
     width: 50%;
     color: $appWhite;
     background: $body-bg2;
-    border-radius: 10px;
-    margin: 10px;
+    border-radius: 1vw;
     border-style: none;
 }
 
@@ -70,10 +68,10 @@
 }
 
 @mixin plusMinusCart($color){
-    padding-left: 3px;
-    font-size: 20px;
+    padding-left: .5vw;
+    font-size: 1.1vw;
     color: $color;
     cursor: pointer;
-    min-width: 30px;
-    max-width: 30px;
+    min-width: 2vw;
+    max-width: 2vw;
 }

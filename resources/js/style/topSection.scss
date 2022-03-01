@@ -2,7 +2,7 @@
 @import "variables";
 
 .topSection {
-    padding: 20px 30px 0 25px;
+    padding: 1vh 2vw 0 2vw;
     height: auto;
     text-align: left;
 
@@ -16,40 +16,40 @@
     }
 
     h1 {
-        font-size: 25px;
+        font-size: 1.5vw;
         color: $appWhite;
         font-weight: 500;
     }
 
     h2 {
-        padding-top: 5px;
+        padding-top: 1vh;
         color: $offWhite;
-        font-size: 14px;
+        font-size: 1.2vw;
         font-weight: 500;
     }
 
     h3 {
-        padding: 30px 30px 30px 0;
+        padding: 2vw 2vw 2vw 0;
         color: $appWhite;
-        font-size: 15px;
+        font-size: 1.2vw;
         font-weight: 400;
     }
 
     .rightSide {
         float: right;
-        margin-right: -10px;
+        margin-right: -2%;
 
         button {
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 1vh;
             border-radius: 8px;
             background: $body-bg1;
             color: $appWhite;
             border-style: solid;
-            font-size: 15px;
+            font-size: 1vw;
             border-width: thin;
             border-color: #68696c;
-            padding: 10px;
+            padding: 1vw;
             width: fit-content;
         }
 
@@ -63,8 +63,7 @@
             margin-top: 10px;
             background: #2D303E;
             padding: 10px;
-            height: 35px;
-            font-size: 16px;
+            font-size: 1.1vw;
             border-radius: 8px;
             border-style: solid;
             border-width: 1px;
@@ -74,13 +73,12 @@
     }
 
     .header {
-        padding: 20px 0 0 0;
-        margin-left: -40px;
-
+        padding-top:2vw;
         .headerUl {
             display: flex;
+            width: 70%;
+            margin-left: -3vw;
             justify-content: space-between;
-            max-width: 800px;
 
             .activeLink {
                 a {
@@ -88,19 +86,19 @@
                     color: $theme;
                     cursor: pointer;
                     font-weight: 600;
-                    font-size: 15px;
+                    font-size: 1.1vw;
                 }
 
                 hr {
                     margin-top: 23px;
                     color: #EA7C69;
-                    width: 45px;
+                    width: 2vw;
                 }
             }
 
             .inActiveLink {
                 a {
-                    font-size: 15px;
+                    font-size: 1.1vw;
                     cursor: pointer;
                     text-decoration: none;
                     color: $appWhite;

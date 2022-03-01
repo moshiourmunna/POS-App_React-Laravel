@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import avatar from '../../../assets/images/avatar.png'
 import {sum} from "lodash/math";
 import PropTypes from "prop-types";
@@ -32,11 +32,6 @@ const orderReportsMapper = (props) => {
                 }
             })
     }
-
-    // useEffect(() => {
-    //            selectForm.current.click()
-    // }, [updatedStatus]);
-    //
 
     useEffect(() => {
         let Sum = []

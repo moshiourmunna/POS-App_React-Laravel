@@ -14,8 +14,8 @@
         margin-right: -40px;
 
         img {
-            width: 60px;
-            height: 80px;
+            width: 8vw;
+            height: 11vh;
         }
 
         .left,
@@ -25,7 +25,7 @@
 
             .minus {
                 @include plusMinusCart($theme);
-                padding-right: 3px;
+                padding-right: .5vw;
 
             }
 
@@ -36,45 +36,44 @@
             h5 {
                 margin-top: 10%;
                 margin-left: auto;
-                font-size: 15px;
+                font-size: 1.1vw;
                 background: $body-bg2;
                 border-radius: 8px;
-                padding: 10px;
-                min-width: 40px;
-                max-width: 40px;
-                margin-right: 3px;
+                padding: .9vh 1.4vw .9vh 1.4vw;
+                min-width: 3vw;
+                max-width: 3vw;
             }
 
             h2 {
-                padding: 10px;
+                padding: 1vw;
                 margin-top: 10%;
-                font-size: 12px;
-                min-width: 15px;
-                max-width: 15px;
+                font-size: 1vw;
+                min-width: 1.1vw;
+                max-width: 1.1vw;
+                margin-right: -.3vw;
             }
         }
 
         .left {
             p {
                 padding: .10px 15px 15px 15px;
-                font-size: 17px;
-                min-width: 200px;
-                max-width: 200px;
+                font-size: 1.2vw;
+                width: 16vw;
                 overflow: hidden;
             }
 
             h1 {
-                padding-left: 10px;
-                padding-top: -.6px;
-                font-size: 14px;
+                padding-left: 1vw;
+                padding-top: -.4vh;
+                font-size: .9vw;
                 color: $offWhite;
             }
         }
     }
 
     .flex-row-form {
-        margin-bottom: 20px;
-        margin-top: 20px;
+        margin-bottom: 1vh;
+        margin-top: 1vh;
         width: 100%;
         float: left;
         display: flex;
@@ -84,19 +83,19 @@
             border-style: none;
             margin: 0 10px 0 0;
             color: $appWhite;
-            height: 35px;
+            font-size: 1vw;
             width: 94%;
-            padding: 6px 6px 6px 15px;
+            padding: 1vw 1vw 1vh 1.2vw;
             border-radius: 1vh;
             outline: $theme;
         }
 
         img {
             cursor: pointer;
-            width: 31px;
-            height: 35px;
-            padding-left: 10px;
-            margin-right: 5px;
+            width: 3vw;
+            height: 4vh;
+            padding-left: 1.2vw;
+            margin-right: .5vw;
         }
     }
 

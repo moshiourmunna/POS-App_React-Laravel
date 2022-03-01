@@ -38,7 +38,7 @@ const FullCart = (props) => {
                 </li>
                 <div className='toRight'>
                     <li>
-                        Qty
+                        Quantity
                     </li>
                     <li>
                         Price

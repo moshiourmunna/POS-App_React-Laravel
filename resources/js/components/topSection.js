@@ -53,7 +53,7 @@ const TopSection = (props) => {
                     <div>
                         <div className='rightSide'>
                             <button onClick={() => setCategoryDiv(!categoryDiv)}>
-                                <span style={{margin: '5px'}}>
+                                <span style={{margin: '1vw'}}>
                                     <RiListSettingsLine/>
                                 </span>
                                 {

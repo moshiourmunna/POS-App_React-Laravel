@@ -142,9 +142,9 @@ const CategoryDetails = () => {
                     </select>
 
                 </form>
-                <div className='button'>
+                <div className='button-createCat'>
                     <button
-                        style={{color:'white', padding:'15px',width:'40%'}}
+                        style={{color:'white',width:'40%',fontSize:'1vw'}}
                         onClick={createCategory}>
                         Create category
                     </button>

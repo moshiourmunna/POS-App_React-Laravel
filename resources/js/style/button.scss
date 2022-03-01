@@ -11,7 +11,7 @@
 
     p {
         color: $theme;
-        font-size: 18px;
+        font-size: 1vw;
         margin-top: -5%;
     }
 }
@@ -23,6 +23,7 @@
 
         width: 100%;
         padding: 14px;
+        font-size: 1vw;
         background: $theme;
         border-radius: 8px;
         border-color: $theme;
@@ -39,6 +40,7 @@
         border-width: thin;
         width: 100%;
         padding: 14px;
+        font-size: 1vw;
         background: inherit;
         border-radius: 8px;
         color: $theme;

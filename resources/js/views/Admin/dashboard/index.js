@@ -7,14 +7,12 @@ import SelectOption from "../../../components/forms/selectOption";
 import Button from "../../../components/button/Button";
 import Api from "../../../api/api";
 import {BeatLoader} from "react-spinners";
-import {useStateValue} from "../../../states/StateProvider";
 
 const Dashboard = () => {
 
     const rawDate = new Date();
     const date = rawDate.toDateString()
 
-    const [{state}]=useStateValue()
     const [order, setOrder] = useState([])
     const [mostOrdered, setMostOrdered] = useState([])
     const [revenue, setRevenue] = useState(0)
@@ -38,8 +36,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         getMostOrdered().then(r => r)
-        console.log('in base:', filter)
-    }, [getMostOrdered,state]);
+    }, [getMostOrdered]);
 
 
     const getOrderInfo = useCallback(
@@ -102,7 +99,7 @@ const Dashboard = () => {
                         <hr/>
                         {
                             (loading)?
-                                <div style={{height:'82px', marginTop:'35%', marginLeft:'30%'}}>
+                                <div style={{height:'15.1vh', marginTop:'35%', marginLeft:'30%'}}>
                                     <BeatLoader size={20} color={'#a2a2a2'}/>
                                 </div>
                                 :
@@ -118,7 +115,8 @@ const Dashboard = () => {
                         }
 
                         <br/>
-                        <Button name='View All' cancel={true} admin={true}/>
+                        {/*<hr/>*/}
+                        <Button name='View All' cancel={false} admin={true}/>
                     </div>
                     <div className='orderTypesCard'>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>

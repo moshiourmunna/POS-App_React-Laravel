@@ -38,17 +38,20 @@ const CentralData = (props) => {
     };
 
     return (<div className={(props.admin) ? 'grid-container-admin' : 'grid-container'}>
-        {(props.admin) && <div className='addDish' onClick={setModal}>
-            <AddMore color={'#EA7C69'} name='Add More Dish' background={'inherit'}/>
-        </div>}
+        {
+            (props.admin) &&
+            <div className='addDish' onClick={setModal}>
+                <AddMore color={'#EA7C69'} name='Add More Dish' background={'inherit'}/>
+            </div>
+        }
         {currentItems && currentItems.map((data) => (
             <Dish
-            key={data.id}
-            id={data.id}
-            data={data}
-            Admin={props.admin}
-            Availability={'Bowls Available'}
-        />))}
+                key={data.id}
+                id={data.id}
+                data={data}
+                Admin={props.admin}
+                Availability={'Bowls Available'}
+            />))}
         <ReactPaginate
             //  containerClassName='paginate'
             // pageClassName='pageNumber'

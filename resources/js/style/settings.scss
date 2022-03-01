@@ -7,9 +7,9 @@
 
     h2 {
         position: absolute;
-        top: 40px;
-        left: 135px;
-        font-size: 22px;
+        top: 2vh;
+        left: 10vw;
+        font-size: 1.5vw;
         color: $appWhite;
         font-weight: 600;
     }
@@ -19,11 +19,13 @@
         padding: 7% 2% 0 3%;
         display: flex;
 
+
         .settingsOptions {
-            width: 300px;
+            width: 25vw;
             background: $body-bg1;
 
             a {
+                font-size: 1.3vw;
                 text-decoration: none;
 
                 :hover {
@@ -33,7 +35,7 @@
         }
 
         .settingsOptionsActive {
-            width: 300px;
+            width: 25vw;
             background: $darkTheme;
             a {
                 text-decoration: none;
@@ -52,10 +54,11 @@
         .settingsRightSide {
             border-radius: 10px;
             background: $body-bg1;
-            margin: 0 0 0 5%;
-            padding-left: 5%;
-            padding-right: 5%;
-            width: 750px;
+            margin: 0 0 0 2%;
+            padding-left: 2%;
+            padding-right: 2%;
+            width: 62vw;
+            height: 80vh;
 
 
             //mixin possible with this hr and of line 18 from home.scss
@@ -87,18 +90,18 @@
         .flex-settingsOptions {
             display: flex;
             text-align: left;
-            padding: 20px;
+            padding: 1vw;
 
             h3 {
                 padding-left: 5px;
                 color: $appWhite;
                 font-weight: 500;
-                font-size: 15px;
+                font-size: 1.1vw;
             }
 
             p {
-                padding-left: 5px;
-                font-size: 12px;
+                padding-left: 2px;
+                font-size: .9vw;
                 color: $offWhite;
                 font-weight: 400;
             }
