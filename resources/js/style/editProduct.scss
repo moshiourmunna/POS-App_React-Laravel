@@ -2,22 +2,43 @@
 @import "mixin";
 
 .editProduct{
-    position: fixed;
-    text-align: center;
-    top: 6vh;
-    left: 36vw;
-    right: 7%;
-    z-index: 1;
-    padding: 20px;
-    background-color: $body-bg1;
-    width: 58vw;
-    min-height: 75vh;
-    border-radius: 8px;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 80rem; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    //background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgb(101, 84, 81,.3); /* Black w/ opacity */
 
+    .modal-content{
+        background-color: $body-bg1;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid $body-bg2;
+        width: 80%;
+    }
     p{
         color: $appWhite;
-        font-size: 1.5vw;
+        font-size: 22px;
         font-weight: 700;
     }
 }
+
+.editProduct:after{
+    content:'';
+    position:absolute;
+    z-index:-1;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background:url(http://lorempixel.com/1600/800/nature/1) fixed center;
+    filter:blur(4px);
+    background-size:100vw auto;
+    /* makup ? */
+    box-shadow:inset 0 0 0 50vw rgba(255,255,255,0.2)
+}
+
 

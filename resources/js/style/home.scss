@@ -54,6 +54,7 @@
 .homeRightSide {
 
     width: 500px;
+    height: 600px;
     padding: 30px;
 
     hr {
@@ -108,8 +109,8 @@
     }
 
     .orderList {
-        min-height: 10vh;
-        max-height: 57vh;
+        min-height: 100px;
+        max-height: 400px;
         width: auto;
         overflow-y: scroll;
         scrollbar-width: none;

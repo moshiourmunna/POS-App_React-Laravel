@@ -1,9 +1,8 @@
 @import "variables";
+@import "mixin";
 
 .add-page {
-
-    width: 600px;
-    margin: 10% 0 0 0;
+    margin: 15% 0 0 0;
     text-align: center;
     height: 700px;
 
@@ -24,13 +23,11 @@
         grid-gap: 20px;
         textarea{
             resize: none;
-            font-size: 17px;
             min-height: 100px;
             overflow-y: scroll;
         }
 
         .select {
-            width: 260px;
             margin: 10px;
             padding: 10px;
             border-radius: 8px;
@@ -40,7 +37,7 @@
         }
 
         .input, .auto_height {
-            width: 240px;
+
             margin: 10px;
             padding: 10px;
             background-color: $body-bg2;
@@ -51,7 +48,7 @@
 
         .input_red, .auto_height_red {
             border-radius: 8px;
-            width: 240px;
+
             margin: 10px;
             height: 8%;
             padding: 10px;

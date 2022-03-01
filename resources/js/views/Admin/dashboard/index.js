@@ -14,6 +14,7 @@ const Dashboard = () => {
     const rawDate = new Date();
     const date = rawDate.toDateString()
 
+    const [{state}]=useStateValue()
     const [order, setOrder] = useState([])
     const [mostOrdered, setMostOrdered] = useState([])
     const [revenue, setRevenue] = useState(0)
@@ -38,7 +39,7 @@ const Dashboard = () => {
     useEffect(() => {
         getMostOrdered().then(r => r)
         console.log('in base:', filter)
-    }, [getMostOrdered]);
+    }, [getMostOrdered,state]);
 
 
     const getOrderInfo = useCallback(

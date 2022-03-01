@@ -105,14 +105,17 @@ const Dish = (props) => {
                 (toggle) &&
                     <div className='editProduct'>
                         <p onClick={editSubmission}>Cancel</p>
-                        <AddProducts
-                            data={props.data}
-                            category={props.data.categories}
-                        />
+                        <div className='modal-content'>
+                            <AddProducts
+                                data={props.data}
+                                category={props.data.categories}
+                            />
+                        </div>
                     </div>
             }
             {
                 (props.data) ?
+                    (!toggle)&&
                     <div className={(props.Admin) ? 'adminDesign' : 'userDesign'}>
                         {
                             (!props.data.image) ?

@@ -49,9 +49,9 @@ class OrderRepository implements OrderInterface
         ];
     }
 
-    public function update(int $id)
+    public function update($request, int $id)
     {
-
+       return $this->model::where('id',$id)->update(['status'=>$request->status]);
     }
 
     public function delete($id)

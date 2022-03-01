@@ -37,6 +37,7 @@ const OrderReport = (props) => {
                                 props.order.map((order) => (
                                     <OrderReportsMapper
                                         key={(Math.random())}
+                                        orderId={order.id}
                                         loading={props.loading}
                                         name={`${order.users.first_name} ${order.users.last_name}`}
                                         menu={order.order_items}

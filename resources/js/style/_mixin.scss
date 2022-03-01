@@ -1,5 +1,12 @@
 @import "variables";
 
+@mixin centerItems(){
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 @mixin dishContainer($color) {
     z-index: -1;
     position: relative;

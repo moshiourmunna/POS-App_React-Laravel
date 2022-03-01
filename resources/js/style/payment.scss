@@ -7,8 +7,9 @@
 }
 
 .payment {
+    margin-top: -2%;
     width: 1300px;
-    height: fit-content;
+    overflow-y: scroll;
     background: $body-bg1;
 
     h1 {
@@ -30,12 +31,10 @@
     font-weight: 400;
     padding: 30px;
     margin-left: 20px;
-    width: 400px;
     border-left-style: solid;
     border-color: #2D303E;
 
     .billingHeader {
-        height: 8.5vh;
         padding-left: 10px;
 
         h2 {

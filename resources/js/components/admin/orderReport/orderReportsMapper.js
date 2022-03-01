@@ -1,14 +1,42 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import avatar from '../../../assets/images/avatar.png'
 import {sum} from "lodash/math";
 import PropTypes from "prop-types";
 import {BeatLoader} from "react-spinners";
+import Api from "../../../api/api";
+import {toast} from "react-toastify";
 
 const orderReportsMapper = (props) => {
 
     const [total, setTotal] = useState(0)
-    const [updatedStatus, setUpdatedStatus] = useState('')
-    const [toggle, setToggle] = useState(false)
+    const [updatedStatus, setUpdatedStatus] = useState(props.status)
+    const [loading, setLoading] = useState(false)
+    const selectForm = useRef(null)
+
+    const updateOrder = async (e) => {
+        e.preventDefault()
+        const Data = new FormData();
+        Data.append('status', updatedStatus);
+
+        setLoading(true)
+        await Api().post(`/updateOrder/${props.orderId}`, Data)
+            .then((response) => {
+                setLoading(false)
+            })
+            .catch(e =>{
+                if(e.response.status===500){
+                    toast.error('OOps! Something went wrong!! Please try clicking again')
+                }
+                else{
+                    toast.error('OOps! Something went wrong!!')
+                }
+            })
+    }
+
+    // useEffect(() => {
+    //            selectForm.current.click()
+    // }, [updatedStatus]);
+    //
 
     useEffect(() => {
         let Sum = []
@@ -36,28 +64,24 @@ const orderReportsMapper = (props) => {
             ))}</td>
             <td> ${(total).toFixed(2)}</td>
             <td>
-                {/*<p onClick={() => setToggle(!toggle)}*/}
-                {/*   className={(props.status === 'delivered') ? 'StatusCompletedInfo' : (props.status === 'processing') ? 'StatusPendingInfo' : 'StatusCookingInfo'}*/}
-                {/*>*/}
-                {/*    {props.status}*/}
-                {/*</p>*/}
-
+                <form  onSubmit={updateOrder}>
                     <select
-                        className={(props.status === 'delivered') ? 'StatusCompletedInfo' : (props.status === 'processing') ? 'StatusPendingInfo' : 'StatusCookingInfo'}
+                        className={(updatedStatus === 'delivered') ? 'StatusCompletedInfo' : (updatedStatus === 'processing') ? 'StatusPendingInfo' : (updatedStatus === 'sent') ? 'StatusCookingInfo' : 'StatusPendingInfo'}
                         value={updatedStatus}
-                        onChange={(e) => setUpdatedStatus(e.target.value)}
+                        onChange={
+                             async (e) => {
+                              await setUpdatedStatus(e.target.value)
+                                selectForm.current.click()
+                            }
+                        }
                     >
-                        <option value={props.status}>
-                            {props.status}
-                        </option>
-                        <option value='sent'>
-                            Sent
-                        </option>
-                        <option value='delivered'>
-                            Delivered
-                        </option>
+                        <option value={props.status}>{props.status}</option>
+                        <option value='processing'>Processing</option>
+                        <option value='sent'>Sent</option>
+                        <option value='delivered'>Delivered</option>
                     </select>
-
+                    <button ref={selectForm} style={{display:'none'}} type='submit'> Update</button>
+                </form>
             </td>
         </tr>
         </tbody>

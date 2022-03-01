@@ -41,7 +41,8 @@ const CentralData = (props) => {
         {(props.admin) && <div className='addDish' onClick={setModal}>
             <AddMore color={'#EA7C69'} name='Add More Dish' background={'inherit'}/>
         </div>}
-        {currentItems && currentItems.map((data) => (<Dish
+        {currentItems && currentItems.map((data) => (
+            <Dish
             key={data.id}
             id={data.id}
             data={data}
@@ -57,11 +58,11 @@ const CentralData = (props) => {
             className='paginate'
             breakLabel="..."
             nextLabel=<FcNext size='25px' color={'red'}/>
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            previousLabel=<FcPrevious size='25px'/>
-            renderOnZeroPageCount={null}
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel=<FcPrevious size='25px'/>
+        renderOnZeroPageCount={null}
         />
     </div>)
 }

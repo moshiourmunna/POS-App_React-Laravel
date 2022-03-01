@@ -25,9 +25,9 @@ const ModalContent = (props) => {
         content: {
             position:'relative',
             marginLeft:'13%',
-            marginTop:'2%',
+            marginTop:'1%',
+            height:'98vh',
             width:'fit-content',
-            height:'fit-content',
             transform: 'translate(5%, -8%)',
             backgroundColor: '#1F1D2BFF',
             overflow: 'scroll',

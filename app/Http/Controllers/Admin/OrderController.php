@@ -82,10 +82,10 @@ class OrderController extends Controller
      * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        return $this->orderRepository->update($id);
-
+        $updated= $this->orderRepository->update($request,$id);
+        return response($updated,201);
     }
 
     /**

@@ -21,12 +21,15 @@ Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
     Route::get('/getOrderInfo',[OrderController::class, 'index']);
+    Route::post('/updateOrder/{id}',[OrderController::class, 'update']);
     Route::post('/storeOrder',[OrderController::class, 'store']);
     Route::get('/getMostOrdered/{filter}',[OrderController::class, 'mostOrdered']);
+
     Route::post('/store',[FrontEndController::class, 'store']);
     Route::post('/update/{id}',[FrontEndController::class, 'update']);
+    Route::delete('/delete/{id}',[FrontEndController::class, 'destroy']);
+
     Route::post('/createCategory',[CategoryController::class, 'store']);
     Route::post('/updateCategory/{id}',[CategoryController::class, 'update']);
-    Route::delete('/delete/{id}',[FrontEndController::class, 'destroy']);
     Route::delete('/deleteCategory/{id}',[CategoryController::class, 'destroy']);
 });
