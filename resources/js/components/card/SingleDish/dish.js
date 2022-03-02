@@ -15,6 +15,7 @@ const Dish = (props) => {
 
     const [{basket,deliveryMethod}, dispatch] = useStateValue();
     const [quantity, setQuantity] = useState(1)
+    const [Q, setQ] = useState(1)
     const [allReadyAdded, setAllReadyAdded] = useState([])
     const [loading, setLoading] = useState(false)
     const [toggle, setToggle] = useState(false)
@@ -38,7 +39,7 @@ const Dish = (props) => {
 
     async function addToCart() {
 
-        setQuantity(quantity+1)
+
         if (quantity <= props.data.stock && allReadyAdded.length<1) {
             (!admin) &&
             dispatch(
@@ -58,17 +59,18 @@ const Dish = (props) => {
                     },
                 })
         }
-        else if(quantity <= props.data.stock && allReadyAdded.length>0 ){
-            (!admin) &&
-            dispatch({
-                type:'INCREMENT_QUANTITY',
-                id: props.data.id,
-                value:quantity
-            })
-        }
-        else {
-            toast.error('Maximum Stock Reached')
-        }
+        // else if(quantity <= props.data.stock && allReadyAdded.length>0 ){
+        //     (!admin) &&
+        //         setQ(Q+1)
+        //     dispatch({
+        //         type:'INCREMENT_QUANTITY',
+        //         id: props.data.id,
+        //         value:Q
+        //     })
+        // }
+        // else {
+        //     toast.error('Maximum Stock Reached')
+        // }
     }
 
     async function Delete(id) {
