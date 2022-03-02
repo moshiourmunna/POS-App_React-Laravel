@@ -64,10 +64,11 @@ class FrontEndController extends Controller
         foreach ($result as $data) {
             $discounts[] = $data->discounts->percentage;
         }
+        $discount = array_sum($discounts);
 
         $response = [
             'products' => $result,
-            'discount' => $discounts
+            'discount' => $discount
         ];
         return response($response, 201);
     }

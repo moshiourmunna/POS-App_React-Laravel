@@ -21,11 +21,6 @@ const CartItem = (props) => {
             id: props.productId
         });
     }
-
-    useEffect(() => {
-        update().then(r => r)
-    }, []);
-
     async function updateCart(){
         dispatch({
             type: "updateCart",
@@ -41,8 +36,8 @@ const CartItem = (props) => {
     }, [deliveryMethod]);
 
     useEffect(() => {
-        setUpdatedQuantity(props.quantity)
-    }, [basket]);
+        setUpdatedQuantity(updatedQuantity)
+    }, [basket,updatedQuantity]);
 
 
     async function update() {
@@ -54,17 +49,19 @@ const CartItem = (props) => {
     }
 
 
-    function Increase() {
-        if (props.stock > updatedQuantity) {
-            setUpdatedQuantity(updatedQuantity + 1)
+    async function Increase() {
+        if (props.stock > props.quantity) {
+           await setUpdatedQuantity(updatedQuantity + 1)
+            update().then(r=>r)
         } else {
-            toast.error('Out Of Stock!!!')
+            toast.warning('Out Of Stock!!!')
         }
     }
 
-    function Decrease() {
+   async function Decrease() {
         if (props.stock > 0 && updatedQuantity > 1) {
-            setUpdatedQuantity(updatedQuantity - 1)
+           await setUpdatedQuantity(updatedQuantity - 1)
+            update().then(r=>r)
         }
     }
 
@@ -87,10 +84,10 @@ const CartItem = (props) => {
                     <div style={{display: 'flex'}}>
                         <h5>
                             <span className='minus' onClick={Decrease}>-</span>
-                            {updatedQuantity}
+                            {props.quantity}
                             <span className='plus' onClick={Increase}>+</span>
                         </h5>
-                        <h2>${(updatedQuantity * props.price).toFixed(2)}</h2>
+                        <h2>${(props.quantity * props.price).toFixed(2)}</h2>
                     </div>
                 </div>
             </div>
