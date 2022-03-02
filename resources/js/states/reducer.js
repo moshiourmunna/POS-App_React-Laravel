@@ -7,7 +7,7 @@ export const initialState = {
     category: {title:0},
     modal: false,
     payMethod:0,
-    orderNote:'a'
+    orderNote:''
 };
 
 export const getBasketTotal = (basket) =>
@@ -34,10 +34,9 @@ const reducer = (state, action) => {
             case "updateCart":
             return {
                 ...state,
-                basket: state.basket.map(item => item.productId ? {
+                basket: state.basket.map(item => item.productId === action.id ? {
                     ...item,
                     deliveryMethod: action.method,
-                    orderNote: action.note
                 } : item),
             };
 
@@ -83,10 +82,13 @@ const reducer = (state, action) => {
                 filterDay: action.item
             }
             case "setOrderNote":
-            return {
-                ...state,
-                orderNote: action.item
-            }
+                return {
+                    ...state,
+                    basket: state.basket.map(item => item.productId === action.id ? {
+                        ...item,
+                        orderNote: action.note
+                    } : item),
+                };
         case "SetModal":
             return {
                 ...state,

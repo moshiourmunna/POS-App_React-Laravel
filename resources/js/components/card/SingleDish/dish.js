@@ -34,7 +34,6 @@ const Dish = (props) => {
             return b.productId === props.data.id
         })
         setAllReadyAdded(res)
-        console.log('orderNote',orderNote)
     }, [basket]);
 
     async function addToCart() {
@@ -54,7 +53,7 @@ const Dish = (props) => {
                         quantity: quantity,
                         stock:props.data.stock,
                         deliveryMethod: deliveryMethod.deliveryMethod,
-                        orderNote:orderNote.orderNote
+                        orderNote:''
                     },
                 })
         }

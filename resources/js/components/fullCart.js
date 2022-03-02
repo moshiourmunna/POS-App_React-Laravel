@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {DeliveryMethod} from "../data/deliveryMethods";
 import CartItem from "./card/cart/cartItem";
 import {getBasketTotal} from "../states/reducer";
@@ -9,8 +9,7 @@ import Tabs from "./tabs";
 
 const FullCart = (props) => {
 
-    const [{deliveryMethod,basket}] = useStateValue();
-
+    const [{deliveryMethod, basket}] = useStateValue();
     return (
         <div className='homeRightSide'>
             {
@@ -50,7 +49,16 @@ const FullCart = (props) => {
             <div className='orderList'>
                 {
                     basket.map((item) => (
-                        <CartItem key={item.title} data={item}/>
+                        <CartItem
+                            key={item.title}
+                            orderNote={item.orderNote}
+                            price={item.price}
+                            title={item.title}
+                            image={item.image}
+                            stock={item.stock}
+                            productId={item.productId}
+                            quantity={item.quantity}
+                        />
                     ))
                 }
             </div>
@@ -62,11 +70,11 @@ const FullCart = (props) => {
             <div style={{padding: '20px 0 0 0 '}}>
                 {
                     (!props.isThisForConfirmPayment) &&
-                        <Button
-                            name={'Continue To Payment'}
-                            cancel={false}
-                            admin={false}
-                        />
+                    <Button
+                        name={'Continue To Payment'}
+                        cancel={false}
+                        admin={false}
+                    />
                 }
             </div>
         </div>
@@ -75,6 +83,6 @@ const FullCart = (props) => {
 
 export default FullCart
 
-FullCart.propTypes={
-    isThisForConfirmPayment:PropTypes.bool
+FullCart.propTypes = {
+    isThisForConfirmPayment: PropTypes.bool
 }

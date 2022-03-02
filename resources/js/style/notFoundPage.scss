@@ -2,13 +2,15 @@
 
 .notFoundPage{
     height: 100vh;
-    background-color: $body-bg2;
+    background-color: $offWhite;
     text-align: center;
+    filter: blur(1px);
 
     h2{
-        font-size: 45px;
+        font-size: 3vw;
         padding-top: 25%;
-        color: $theme;
-        text-shadow: 2px 1px 2px $pasteColor;
+        color: $body-bg1;
+        backdrop-filter: blur(10px);
+        text-shadow: 2px 1px 2px $secondaryColor;
     }
 }

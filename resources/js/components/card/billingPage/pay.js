@@ -8,14 +8,9 @@ import {toast} from 'react-toastify';
 
 const Pay = () => {
 
-    const Notify =async () => toast("Wow so easy!");
-    const [{orderNote, basket, deliveryMethod}, dispatch] = useStateValue()
+    const [{basket}, dispatch] = useStateValue()
     let user = localStorage.getItem('user')
     let navigate = useNavigate()
-
-    useEffect(() => {
-        console.log(orderNote.orderNote)
-    }, [orderNote]);
 
     async function placeOrder() {
 

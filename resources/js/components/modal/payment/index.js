@@ -5,6 +5,7 @@ import '../../../style/items.scss'
 import PaymentInfo from "./partial/paymentInfo";
 
 const PaymentPopUp = () => {
+
     return (
         <div className='payment'>
             <div style={{display:"flex"}}>

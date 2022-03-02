@@ -6,17 +6,19 @@ import DeleteIcon from '../../../assets/icons/Delete.png';
 import PropTypes from "prop-types";
 import {useStateValue} from "../../../states/StateProvider";
 import orderNote from "../../forms/orderNote";
+import {toast} from "react-toastify";
 
 const CartItem = (props) => {
 
     const [{basket, deliveryMethod, orderNote}, dispatch] = useStateValue();
-    const [updatedQuantity, setUpdatedQuantity] = useState(props.data.quantity)
+    const [updatedQuantity, setUpdatedQuantity] = useState(props.quantity)
+    const [note, setNote] = useState('')
 
     function RemoveItem() {
         dispatch({
             type: "REMOVE_FROM_BASKET",
-            quantity: props.data.quantity,
-            id: props.data.productId
+            quantity: props.quantity,
+            id: props.productId
         });
     }
 
@@ -24,40 +26,44 @@ const CartItem = (props) => {
         update().then(r => r)
     }, []);
 
-    useEffect(() => {
+    async function updateCart(){
         dispatch({
             type: "updateCart",
-            id: props.data.productId,
+            id: props.productId,
             method: deliveryMethod.deliveryMethod,
-            note: orderNote.orderNote
         });
-
-    }, [deliveryMethod, orderNote]);
+    }
 
     useEffect(() => {
-        setUpdatedQuantity(props.data.quantity)
+        updateCart().then(r=>{
+            console.log(props.orderNote,basket)
+        })
+    }, [deliveryMethod]);
+
+    useEffect(() => {
+        setUpdatedQuantity(props.quantity)
     }, [basket]);
 
 
     async function update() {
         dispatch({
             type: "INCREMENT_QUANTITY",
-            id: props.data.productId,
+            id: props.productId,
             value: updatedQuantity
         });
     }
 
 
     function Increase() {
-        if (props.data.stock > updatedQuantity) {
+        if (props.stock > updatedQuantity) {
             setUpdatedQuantity(updatedQuantity + 1)
         } else {
-            alert('Out Of Stock!!!')
+            toast.error('Out Of Stock!!!')
         }
     }
 
     function Decrease() {
-        if (props.data.stock > 0 && updatedQuantity > 1) {
+        if (props.stock > 0 && updatedQuantity > 1) {
             setUpdatedQuantity(updatedQuantity - 1)
         }
     }
@@ -69,10 +75,10 @@ const CartItem = (props) => {
 
                 <div className='left'>
                     <div style={{display: 'flex'}}>
-                        <img src={props.data.image}/>
+                        <img src={props.image}/>
                         <div>
-                            <p>{props.data.title}</p>
-                            <h1>${props.data.price.toFixed(2)}</h1>
+                            <p>{props.title}</p>
+                            <h1>${props.price.toFixed(2)}</h1>
                         </div>
                     </div>
                 </div>
@@ -84,13 +90,24 @@ const CartItem = (props) => {
                             {updatedQuantity}
                             <span className='plus' onClick={Increase}>+</span>
                         </h5>
-                        <h2>${(props.data.quantity * props.data.price).toFixed(2)}</h2>
+                        <h2>${(updatedQuantity * props.price).toFixed(2)}</h2>
                     </div>
                 </div>
             </div>
 
             <div className='flex-row-form'>
-                <OrderNote placeholder='Order Note...'/>
+                <input
+                    type="text"
+                    value={props.orderNote}
+                    placeholder='Order Note...'
+                    onChange={(e) =>
+                        dispatch(
+                            {
+                                type: "setOrderNote",
+                                id:props.productId,
+                                note: e.target.value
+                            })}
+                />
                 <img onClick={() => RemoveItem()} src={DeleteIcon} alt='DeleteIcon'/>
             </div>
         </div>
