@@ -18,7 +18,6 @@ const CartItem = (props) => {
         });
     }
 
-
     async function updateCart(){
         dispatch({
             type: "updateCart",
@@ -39,7 +38,6 @@ const CartItem = (props) => {
         });
     }
 
-
       function Increase() {
         if (props.stock > quantity) {
             dispatch({
@@ -47,21 +45,22 @@ const CartItem = (props) => {
                 value: quantity+1,
             });
             update().then(r => r)
+
         } else {
-            toast.error('Out Of Stock!!!')
+            toast.warning('Out Of Stock!!!')
         }
     }
+
 
      function Decrease() {
-        if (props.stock > 0 && quantity > 1) {
-            dispatch({
-                type: "setQuantity",
-                value: quantity-1,
-            });
-            update().then(r => r)
-        }
-    }
-
+         if (props.stock > 0 && quantity > 1) {
+             dispatch({
+                 type: "setQuantity",
+                 value: quantity - 1,
+             });
+             update().then(r => r)
+         }
+     }
 
     return (
         <div className='cartItems'>

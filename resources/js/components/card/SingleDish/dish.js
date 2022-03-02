@@ -69,7 +69,7 @@ const Dish = (props) => {
             })
         }
         else {
-            setError('Maximum Added')
+            toast.error('Maximum Stock Reached')
         }
     }
 
