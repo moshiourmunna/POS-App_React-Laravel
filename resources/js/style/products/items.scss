@@ -36,10 +36,10 @@
             h5 {
                 margin-top: 10%;
                 margin-left: auto;
-                font-size: 1.1vw;
+                font-size: 1vw;
                 background: $body-bg2;
                 border-radius: 8px;
-                padding: .9vh 1.4vw .9vh 1.4vw;
+                padding: 1.1vh 1.1vw .9vh 1.1vw;
                 min-width: 3vw;
                 max-width: 3vw;
             }
@@ -48,8 +48,7 @@
                 padding: 1vw;
                 margin-top: 10%;
                 font-size: 1vw;
-                min-width: 1.1vw;
-                max-width: 1.1vw;
+                width: 1vw;
                 margin-right: -.3vw;
             }
         }
@@ -84,8 +83,8 @@
             margin: 0 10px 0 0;
             color: $appWhite;
             font-size: 1vw;
-            width: 94%;
-            padding: 1vw 1vw 1vh 1.2vw;
+            width: 100%;
+            padding: 1vw 1vw 1vw 1.2vw;
             border-radius: 1vh;
             outline: $theme;
         }
@@ -93,9 +92,8 @@
         img {
             cursor: pointer;
             width: 3vw;
-            height: 4vh;
-            padding-left: 1.2vw;
-            margin-right: .5vw;
+            height: 4.8vh;
+            padding-left: .4vw;
         }
     }
 
