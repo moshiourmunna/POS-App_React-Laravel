@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import '../../../style/items.scss';
+import '../../../style/products/items.scss';
 import '../../../style/forms.scss';
 import OrderNote from "../../forms/orderNote";
 import DeleteIcon from '../../../assets/icons/Delete.png';

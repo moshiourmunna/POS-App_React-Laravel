@@ -1,0 +1,47 @@
+@import "../../style/variables";
+@import "../../style/mixin";
+
+
+.discount {
+    height: 100vh;
+    background-color: $body-bg2;
+    padding: 2vw;
+    @include flexEvenlyCentered;
+
+    h2 {
+        color: $offWhite;
+        font-size: 1.2vw;
+        font-weight: 100;
+        text-shadow: 4px 2px 3px 3px $theme;
+    }
+
+    .discountContainer {
+        width: 30vw;
+
+        form {
+            display: flex;
+            flex-direction: column;
+
+            input{
+                background-color: $body-bg1;
+                color: $appWhite;
+                border-style: none;
+                padding: 1vw;
+                margin-top: .5rem;
+            }
+        button{
+            cursor: pointer;
+            padding: 1vw;
+            width: 100%;
+            margin-top: .5rem;
+            background-color: #475e42;
+        }
+
+            p {
+                color: $theme;
+            }
+        }
+    }
+
+
+}

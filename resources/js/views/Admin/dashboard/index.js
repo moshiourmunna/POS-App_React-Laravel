@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import '../../../style/dashboard.scss';
+import '../../../style/adminPages/dashboard.scss';
 import BusinessSummary from "../../../components/admin/businessSummary";
 import OrderReport from "../../../components/admin/orderReport/orderReport";
 import MostOrdered from "../../../components/admin/mostOrdered";

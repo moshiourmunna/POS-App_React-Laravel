@@ -1,0 +1,125 @@
+@import "resources/js/style/variables";
+@import "resources/js/style/mixin";
+
+.categoryPage {
+    position: relative;
+    text-align: center;
+    //top: 1vh;
+    //left: 37vw;
+    right: 6%;
+    z-index: 1;
+    padding: .5vw;
+    background-color: $body-bg1;
+    width: 50vw;
+    min-height: 80vh;
+    border-radius: 1vw;
+
+    .addedDoneMessage{
+        padding: 10px;
+        font-size: 17px;
+        color: $secondaryColor;
+    }
+
+    .Category-table{
+        max-height: 35vh;
+        overflow-y: scroll;
+        margin-bottom: 20px;
+
+        .title{
+            font-size: 1vw;
+            color: $secondaryColor;
+        }
+        .delete{
+            font-size: 1vw;
+            cursor: pointer;
+            color: $darkTheme;
+        }
+        .statusGreen{
+            font-size: .9vw;
+            color: $pasteColor;
+            cursor: pointer;
+        }
+        .statusRed{
+            font-size: .9vw;
+            cursor: pointer;
+            color: $theme;
+        }
+
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {
+            padding: 8px;
+            border-style: none;
+        }
+
+        #customers tr:nth-child(even){background-color: $body-bg2;}
+
+        //#customers tr:hover {background-color: $body-bg2;}
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: $darkTheme;
+            color: black;
+        }
+    }
+
+    .CategoryPop{
+        padding: 10px;
+        font-size: 1vw;
+        cursor: pointer;
+        color: $offWhite;
+        background-color: $darkTheme;
+        border-radius: 10px;
+    }
+
+    .addCategory {
+        display: flex;
+        flex-direction: column;
+        p{
+            color: $theme;
+            font-size: 1vw;
+            padding: 1vw;
+            margin-left: 1vw;
+        }
+        form {
+
+            .input {
+                @include categoryPageInputs;
+                width: 49%;
+            }
+            .input_red{
+                @include categoryPageInputs;
+                color: red;
+                border-style: solid;
+                border-color: red;
+            }
+
+            select {
+                @include categoryPageInputs;
+            }
+        }
+        button {
+            margin: 1vw;
+            width: 25%;
+            padding: 1vw;
+            font-size: 18px;
+            background: $theme;
+            cursor: pointer;
+            border-radius: 1vw;
+        }
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+}
+
+.categoryAdd:after {
+    background: #0f5132;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import '../../../style/settings.scss';
+import '../../../style/adminPages/settings.scss';
 import '../../../style/rowColumnStyle.scss';
 import LandingData from "../../../components/landingData";
 import ModalContent from "../../../components/modal";

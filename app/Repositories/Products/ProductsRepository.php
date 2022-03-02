@@ -164,8 +164,10 @@ class ProductsRepository implements ProductsInterface
         return $this->baseQuery($category)
             ->select('id', 'title', 'slug', 'published', 'image', 'description', 'price', 'stock', 'discount_id')
             ->with('categories')
+            ->with('discounts')
             ->latest()
             ->get();
+
     }
 
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from "react";
-import '../../style/mostOrdered.scss';
+import '../../style/adminPages/mostOrdered.scss';
 import PropTypes from "prop-types";
 import {BeatLoader} from "react-spinners";
 import Api from "../../api/api";

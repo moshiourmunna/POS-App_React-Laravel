@@ -11,15 +11,17 @@ const LandingData = (props) => {
 
     const [{category, state}] = useStateValue();
     const [loading, setLoading] = useState(false)
+    const [discount, setDiscount] = useState(0)
     const [data, setData] = useState([])
 
     const getProducts = useCallback(
         async () => {
-
             setLoading(true)
             await Api().get(`/products/` + category.title)
                 .then((response) => {
-                    setData(response.data)
+                    console.log('data',response.data)
+                    setData(response.data.products)
+                    setDiscount(response.data.discount)
                     setLoading(false)
                 })
                 .catch((error) => {

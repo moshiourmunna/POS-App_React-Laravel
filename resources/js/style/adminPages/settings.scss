@@ -1,0 +1,102 @@
+@import "resources/js/style/variables";
+
+.settingsContainer {
+    margin-left: 92px;
+    min-height: 100vh;
+    background: $body-bg2;
+
+    h2 {
+        position: absolute;
+        top: 2vh;
+        left: 10vw;
+        font-size: 1.4vw;
+        color: $appWhite;
+        font-weight: 600;
+    }
+
+    .settings {
+        flex: 1;
+        padding: 7% 2% 0 3%;
+        display: flex;
+
+
+        .settingsOptions {
+            width: 25vw;
+            background: $body-bg1;
+
+            a {
+                font-size: 1.3vw;
+                text-decoration: none;
+
+                :hover {
+                    background: $darkTheme;
+                }
+            }
+        }
+
+        .settingsOptionsActive {
+            width: 25vw;
+            background: $darkTheme;
+            a {
+                text-decoration: none;
+            }
+        }
+        .settingsOptionsActive:before{
+            content: "";
+            float: right;
+            color:$theme;
+            border-right: 4px solid $theme;
+            font-size: 10px;
+            min-height: 50px;
+            margin-top: 8%;
+        }
+
+        .settingsRightSide {
+            border-radius: 10px;
+            background: $body-bg1;
+            margin: 0 0 0 2%;
+            padding-left: 2%;
+            padding-right: 2%;
+            width: 62vw;
+            min-height: 80vh;
+            max-height: fit-content;
+
+            hr{
+                margin-bottom: -2px;
+                width: 94.5%;
+                color: $body-bg2;
+                margin-left: 2.5%;
+                height: .1px;
+            }
+        }
+
+        .flex-settingsOptions {
+            display: flex;
+            text-align: left;
+            padding: 1vw;
+
+            h3 {
+                padding-left: 5px;
+                color: $appWhite;
+                font-weight: 500;
+                font-size: 1.1vw;
+            }
+
+            p {
+                padding-left: 2px;
+                font-size: .9vw;
+                color: $offWhite;
+                font-weight: 400;
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+    .settingsOptions {
+        display: none;
+    }
+}
+
+

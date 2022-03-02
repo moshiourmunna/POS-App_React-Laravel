@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import '../../../style/dish.scss';
+import '../../../style/products/dish.scss';
 import PropTypes from "prop-types";
 import {useStateValue} from "../../../states/StateProvider";
-import '../../../style/editProduct.scss';
+import '../../../style/adminPages/editProduct.scss';
 import {useNavigate} from "react-router-dom";
 import {BeatLoader} from "react-spinners";
 import {FiEdit3} from 'react-icons/fi';
@@ -13,9 +13,8 @@ import {toast} from "react-toastify";
 
 const Dish = (props) => {
 
-    const [{basket,deliveryMethod,orderNote}, dispatch] = useStateValue();
+    const [{basket,deliveryMethod}, dispatch] = useStateValue();
     const [quantity, setQuantity] = useState(1)
-    let clicked=1
     const [allReadyAdded, setAllReadyAdded] = useState([])
     const [loading, setLoading] = useState(false)
     const [toggle, setToggle] = useState(false)
@@ -34,6 +33,7 @@ const Dish = (props) => {
             return b.productId === props.data.id
         })
         setAllReadyAdded(res)
+
     }, [basket]);
 
     async function addToCart() {
@@ -53,7 +53,8 @@ const Dish = (props) => {
                         quantity: quantity,
                         stock:props.data.stock,
                         deliveryMethod: deliveryMethod.deliveryMethod,
-                        orderNote:''
+                        orderNote:'',
+                        discount:props.data.discounts.percentage
                     },
                 })
         }

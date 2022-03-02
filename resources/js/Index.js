@@ -10,6 +10,7 @@ import Register from "./views/forms/register";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import NotFound from "./views/notFound";
+import Discount from "./views/Admin/discount";
 
 
 function App() {
@@ -27,9 +28,10 @@ function App() {
                 <Route path='*' exact={true} element={<NotFound/>} />
 
                 {/*Protected Routes*/}
-                <Route path="/Settings" element={admin ? <Settings/> : <Navigate to="/POS"/>}/>
-                <Route path="/dashboard" element={admin ? <Dashboard/> : <Navigate to="/POS"/>}/>
-                <Route exact path="/POS" element={!admin ? <Home/> : <Navigate to="/dashboard"/>}/>
+                <Route path="/Settings" element={admin ? <Settings/> : <Navigate to="/"/>}/>
+                <Route path="/dashboard" element={admin ? <Dashboard/> : <Navigate to="/"/>}/>
+                <Route exact path="/" element={!admin ? <Home/> : <Navigate to="/dashboard"/>}/>
+                <Route exact path="/discount" element={admin ? <Discount/> : <Navigate to="/"/>}/>
                 {/*Protected Routes*/}
 
                 <Route path='/register' element={<Register/>}/>

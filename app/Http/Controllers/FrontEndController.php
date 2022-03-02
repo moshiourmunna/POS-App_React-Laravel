@@ -48,7 +48,7 @@ class FrontEndController extends Controller
             'storeProduct' => $storeProduct,
         ];
 
-        return response($response,201);
+        return response($response, 201);
     }
 
     /**
@@ -60,8 +60,16 @@ class FrontEndController extends Controller
     public function show($category)
     {
         $result = $this->productsRepository->publishedProducts($category);
+        $discounts = [];
+        foreach ($result as $data) {
+            $discounts[] = $data->discounts->percentage;
+        }
 
-        return response($result, 201);
+        $response = [
+            'products' => $result,
+            'discount' => $discounts
+        ];
+        return response($response, 201);
     }
 
     /**

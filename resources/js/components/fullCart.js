@@ -1,15 +1,28 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {DeliveryMethod} from "../data/deliveryMethods";
 import CartItem from "./card/cart/cartItem";
-import {getBasketTotal} from "../states/reducer";
+import {getBasketDiscount, getBasketTotal} from "../states/reducer";
 import Button from "./button/Button";
 import {useStateValue} from "../states/StateProvider";
 import PropTypes from "prop-types";
 import Tabs from "./tabs";
+import '../style/cart/fullCart.scss';
 
 const FullCart = (props) => {
 
-    const [{deliveryMethod, basket}] = useStateValue();
+    const [{deliveryMethod, basket}] = useStateValue()
+    const [subTotal, setSubTotal]=useState('')
+    const [discount, setDiscount]=useState('')
+
+    useEffect(() => {
+        let percentage=getBasketDiscount(basket)
+        let sum=getBasketTotal(basket)
+        let res=sum-(percentage/100)
+        setSubTotal(res)
+        setDiscount(percentage/100)
+    }, [basket]);
+
+
     return (
         <div className='homeRightSide'>
             {
@@ -64,8 +77,8 @@ const FullCart = (props) => {
             </div>
             <hr/>
             <div className='orderSubmitTab'>
-                <p>Discount <span>$0</span></p>
-                <p>SubTotal <span>${getBasketTotal(basket).toFixed(2)}</span></p>
+                <p>Discount <span>${discount}</span></p>
+                <p>SubTotal <span>${subTotal}</span></p>
             </div>
             <div style={{padding: '20px 0 0 0 '}}>
                 {

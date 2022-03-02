@@ -1,0 +1,30 @@
+@import "resources/js/style/variables";
+
+.mostOrdered {
+    width: auto;
+    padding-top: 2vh;
+    background: inherit;
+    display: flex;
+    text-align: left;
+    img {
+        width: 20%;
+        height: 20%;
+    }
+
+    .flex-column {
+        margin: 0 0 0 10px;
+        display: flex;
+        flex-direction: column;
+
+        h4 {
+            color: $appWhite;
+            font-size: 1.1vw;
+            font-weight: 400;
+        }
+
+        p {
+            font-size: 1vw;
+            color: $offWhite;
+        }
+    }
+}

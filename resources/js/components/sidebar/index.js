@@ -19,7 +19,7 @@ const sidebar = () => {
     function logout() {
         window.localStorage.removeItem('user')
         // navigate('/POS')
-        window.location.replace('/POS')
+        window.location.replace('/')
     }
 
 

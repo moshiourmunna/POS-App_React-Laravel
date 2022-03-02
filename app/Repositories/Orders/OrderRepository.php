@@ -4,6 +4,7 @@
 namespace App\Repositories\Orders;
 
 
+use App\Models\Discount;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -51,7 +52,7 @@ class OrderRepository implements OrderInterface
 
     public function update($request, int $id)
     {
-       return $this->model::where('id',$id)->update(['status'=>$request->status]);
+        return $this->model::where('id', $id)->update(['status' => $request->status]);
     }
 
     public function delete($id)
@@ -124,5 +125,17 @@ class OrderRepository implements OrderInterface
             ->get();
     }
 
+    public function createDiscount($request)
+    {
+
+        return Discount::create(
+            [
+                'name' => $request->name,
+                'percentage'=>$request->percentage,
+                'validity'=>$request->validity,
+                'published'=>0,
+            ]
+        );
+    }
 
 }

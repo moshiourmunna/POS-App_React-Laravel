@@ -1,11 +1,10 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
-import TextareaAutosize from 'react-textarea-autosize'
-import '../../../style/addProduct.scss'
+import '../../../style/adminPages/addProduct.scss'
 import {BsImage} from "react-icons/bs";
 import Api from "../../../api/api";
 import {useNavigate} from "react-router";
 import {useStateValue} from "../../../states/StateProvider";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 
 const AddProducts = (props) => {
 

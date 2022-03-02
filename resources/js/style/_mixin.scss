@@ -1,5 +1,11 @@
 @import "variables";
 
+@mixin flexEvenlyCentered(){
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 @mixin centerItems(){
     position: fixed;
     top: 50%;

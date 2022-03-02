@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontEndController;
@@ -24,6 +25,8 @@ Route::group([
     Route::post('/updateOrder/{id}',[OrderController::class, 'update']);
     Route::post('/storeOrder',[OrderController::class, 'store']);
     Route::get('/getMostOrdered/{filter}',[OrderController::class, 'mostOrdered']);
+
+    Route::post('/storeDiscount',[DiscountController::class, 'store']);
 
     Route::post('/store',[FrontEndController::class, 'store']);
     Route::post('/update/{id}',[FrontEndController::class, 'update']);

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import '../../style/home.scss';
+import '../../style/userPages/home.scss';
 import {useStateValue} from "../../states/StateProvider";
 import ModalContent from "../../components/modal";
 import FullCart from "../../components/fullCart";

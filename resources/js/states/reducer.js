@@ -13,6 +13,9 @@ export const initialState = {
 export const getBasketTotal = (basket) =>
     basket?.reduce((amount, item) => (item.price * item.quantity) + amount, 0);
 
+export const getBasketDiscount = (basket) =>
+    basket?.reduce((amount, item) => (item.discount* item.quantity) + amount, 0);
+
 const reducer = (state, action) => {
     console.log(action);
     switch (action.type) {
@@ -37,6 +40,15 @@ const reducer = (state, action) => {
                 basket: state.basket.map(item => item.productId === action.id ? {
                     ...item,
                     deliveryMethod: action.method,
+                } : item),
+            };
+
+        case "setOrderNote":
+            return {
+                ...state,
+                basket: state.basket.map(item => item.productId === action.id ? {
+                    ...item,
+                    orderNote: action.note
                 } : item),
             };
 
@@ -81,14 +93,7 @@ const reducer = (state, action) => {
                 ...state,
                 filterDay: action.item
             }
-            case "setOrderNote":
-                return {
-                    ...state,
-                    basket: state.basket.map(item => item.productId === action.id ? {
-                        ...item,
-                        orderNote: action.note
-                    } : item),
-                };
+
         case "SetModal":
             return {
                 ...state,

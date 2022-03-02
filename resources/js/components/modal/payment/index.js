@@ -1,7 +1,7 @@
 import React from "react";
-import '../../../style/payment.scss';
+import '../../../style/userPages/payment.scss';
 import FullCart from "../../fullCart";
-import '../../../style/items.scss'
+import '../../../style/products/items.scss'
 import PaymentInfo from "./partial/paymentInfo";
 
 const PaymentPopUp = () => {

@@ -15,8 +15,10 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id')->nullable();
+            $table->string('name')->nullable();
+            $table->integer('validity')->nullable();
             $table->integer('percentage')->nullable();
+            $table->boolean('published')->nullable();
             $table->timestamps();
         });
     }

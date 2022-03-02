@@ -1,0 +1,92 @@
+@import '../variables';
+@import '../mixin';
+
+.homeRightSide {
+
+    width: 40vw;
+    height: 90vh;
+    padding: 30px;
+
+    hr {
+        color: $body-bg2;
+    }
+
+    .flex-row-list {
+        color: $offWhite;
+        width: auto;
+        display: flex;
+        justify-content: space-evenly;
+        list-style: none;
+        padding-bottom: 1vh;
+
+        li {
+            color: $offWhite;
+            padding: 1vh 0 0 0;
+            font-size: 1vw;
+        }
+
+        .toRight {
+            display: flex;
+            margin-left: auto;
+
+            li {
+                display: flex;
+                color: $offWhite;
+                padding: 1.5vh 1vw 0 1vw;
+                font-size: 1vw;
+            }
+        }
+    }
+
+    h2 {
+        color: $appWhite;
+        text-align: left;
+        font-weight: 400;
+        font-size: 1.5vw;
+        padding: 2.1% 0 0 0;
+    }
+
+    .flex-row-home {
+        width: 100%;
+        display: flex;
+        padding: 1vw 1vw 1vw 0;
+
+        li {
+            list-style: none;
+            color: $appWhite;
+            font-weight: 300;
+        }
+    }
+
+    .orderList {
+        min-height: 10vh;
+        max-height: 40vh;
+        width: auto;
+        overflow-y: scroll;
+        scrollbar-width: none;
+    }
+
+    .orderList::-webkit-scrollbar {
+        display: none;
+    }
+
+    .orderSubmitTab {
+        padding: 1vh 0 0 0;
+        text-align: left;
+        width: 100%;
+
+        p {
+            font-size: 1.1vw;
+            color: $offWhite;
+            font-weight: 300;
+            padding-top: 1vh;
+        }
+
+        span {
+            font-size: 1.1vw;
+            float: right;
+            margin-right: .4vw;
+            font-weight: 700;
+        }
+    }
+}
