@@ -8,13 +8,12 @@ import {toast} from "react-toastify";
 
 const CartItem = (props) => {
 
-    const [{basket, deliveryMethod}, dispatch] = useStateValue();
-    const [updatedQuantity, setUpdatedQuantity] = useState(props.quantity)
+    const [{basket, deliveryMethod,quantity}, dispatch] = useStateValue();
 
     function RemoveItem() {
         dispatch({
             type: "REMOVE_FROM_BASKET",
-            quantity: props.quantity,
+            quantity: quantity,
             id: props.productId
         });
     }
@@ -36,14 +35,17 @@ const CartItem = (props) => {
         dispatch({
             type: "INCREMENT_QUANTITY",
             id: props.productId,
-            value: updatedQuantity
+            value: quantity
         });
     }
 
 
       function Increase() {
-        if (props.stock > updatedQuantity) {
-             setUpdatedQuantity(updatedQuantity + 1)
+        if (props.stock > quantity) {
+            dispatch({
+                type: "setQuantity",
+                value: quantity+1,
+            });
             update().then(r => r)
         } else {
             toast.error('Out Of Stock!!!')
@@ -51,8 +53,11 @@ const CartItem = (props) => {
     }
 
      function Decrease() {
-        if (props.stock > 0 && updatedQuantity > 1) {
-             setUpdatedQuantity(updatedQuantity - 1)
+        if (props.stock > 0 && quantity > 1) {
+            dispatch({
+                type: "setQuantity",
+                value: quantity-1,
+            });
             update().then(r => r)
         }
     }
@@ -76,10 +81,10 @@ const CartItem = (props) => {
                     <div style={{display: 'flex'}}>
                         <h5>
                             <span className='minus' onClick={Decrease}>-</span>
-                            {(props.quantity)}
+                            {quantity}
                             <span className='plus' onClick={Increase}>+</span>
                         </h5>
-                        <h2>${(props.quantity * props.price).toFixed(2)}</h2>
+                        <h2>${(quantity * props.price).toFixed(2)}</h2>
                     </div>
                 </div>
             </div>

@@ -88,7 +88,7 @@ const reducer = (state, action) => {
             case "setQuantity":
             return {
                 ...state,
-                quantity: action.item
+                quantity: action.value
             }
         case "SetDeliveryMethod":
             return {

@@ -13,8 +13,7 @@ import {toast} from "react-toastify";
 
 const Dish = (props) => {
 
-    const [{basket,deliveryMethod}, dispatch] = useStateValue();
-    const [quantity, setQuantity] = useState(1)
+    const [{basket,deliveryMethod,quantity}, dispatch] = useStateValue();
     const [allReadyAdded, setAllReadyAdded] = useState([])
     const [loading, setLoading] = useState(false)
     const [toggle, setToggle] = useState(false)
@@ -38,7 +37,10 @@ const Dish = (props) => {
 
     async function addToCart() {
 
-        setQuantity(quantity+1)
+        dispatch({
+            type: "setQuantity",
+            value: quantity+1,
+        });
         if (quantity <= props.data.stock && allReadyAdded.length<1) {
             (!admin) &&
             dispatch(
