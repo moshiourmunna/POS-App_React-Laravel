@@ -13,7 +13,8 @@ import {toast} from "react-toastify";
 
 const Dish = (props) => {
 
-    const [{basket,deliveryMethod,quantity}, dispatch] = useStateValue();
+    const [{basket,deliveryMethod}, dispatch] = useStateValue();
+    const [quantity, setQuantity] = useState(1)
     const [allReadyAdded, setAllReadyAdded] = useState([])
     const [loading, setLoading] = useState(false)
     const [toggle, setToggle] = useState(false)
@@ -37,10 +38,7 @@ const Dish = (props) => {
 
     async function addToCart() {
 
-        dispatch({
-            type: "setQuantity",
-            value: quantity+1,
-        });
+        setQuantity(quantity+1)
         if (quantity <= props.data.stock && allReadyAdded.length<1) {
             (!admin) &&
             dispatch(
@@ -60,7 +58,7 @@ const Dish = (props) => {
                     },
                 })
         }
-         else if(quantity <= props.data.stock && allReadyAdded.length>0 ){
+        else if(quantity <= props.data.stock && allReadyAdded.length>0 ){
             (!admin) &&
             dispatch({
                 type:'INCREMENT_QUANTITY',
@@ -105,15 +103,15 @@ const Dish = (props) => {
         >
             {
                 (toggle) &&
-                    <div className='editProduct'>
-                        <p onClick={editSubmission}>Cancel</p>
-                        <div className='modal-content'>
-                            <AddProducts
-                                data={props.data}
-                                category={props.data.categories}
-                            />
-                        </div>
+                <div className='editProduct'>
+                    <p onClick={editSubmission}>Cancel</p>
+                    <div className='modal-content'>
+                        <AddProducts
+                            data={props.data}
+                            category={props.data.categories}
+                        />
                     </div>
+                </div>
             }
             {
                 (props.data) ?
@@ -132,7 +130,7 @@ const Dish = (props) => {
                         </div>
                         {
                             (error) &&
-                                <p style={{marginTop:'-60%', width:'16vw'}}>{error}</p>
+                            <p style={{marginTop:'-60%', width:'16vw'}}>{error}</p>
                         }
                         <div className={(props.Admin) ? 'editDish' : 'hidden'}>
                             <button

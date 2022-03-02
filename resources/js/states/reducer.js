@@ -2,7 +2,6 @@ export const initialState = {
     basket: [],
     user: {},
     state:0,
-    quantity:1,
     deliveryMethod:'',
     filterDay:'Today',
     category: {title:0},
@@ -35,13 +34,12 @@ const reducer = (state, action) => {
                 } : item),
             };
 
-            case "updateCart":
+        case "updateCart":
             return {
                 ...state,
                 basket: state.basket.map(item => item.productId === action.id ? {
                     ...item,
                     deliveryMethod: action.method,
-                    quantity: action.quantity
                 } : item),
             };
 
@@ -85,17 +83,12 @@ const reducer = (state, action) => {
                 ...state,
                 state: action.item
             }
-            case "setQuantity":
-            return {
-                ...state,
-                quantity: action.value
-            }
         case "SetDeliveryMethod":
             return {
                 ...state,
                 deliveryMethod: action.item
             }
-            case "SetFilterMethod":
+        case "SetFilterMethod":
             return {
                 ...state,
                 filterDay: action.item
@@ -106,7 +99,7 @@ const reducer = (state, action) => {
                 ...state,
                 modal: action.item
             }
-            case "SetPayMethod":
+        case "SetPayMethod":
             return {
                 ...state,
                 payMethod: action.item

@@ -1,23 +1,26 @@
 import React, {useEffect, useState} from "react";
 import '../../../style/products/items.scss';
 import '../../../style/forms.scss';
+import OrderNote from "../../forms/orderNote";
 import DeleteIcon from '../../../assets/icons/Delete.png';
 import PropTypes from "prop-types";
 import {useStateValue} from "../../../states/StateProvider";
+import orderNote from "../../forms/orderNote";
 import {toast} from "react-toastify";
 
 const CartItem = (props) => {
 
-    const [{basket, deliveryMethod,quantity}, dispatch] = useStateValue();
+    const [{basket, deliveryMethod, orderNote}, dispatch] = useStateValue();
+    const [updatedQuantity, setUpdatedQuantity] = useState(props.quantity)
+    const [note, setNote] = useState('')
 
     function RemoveItem() {
         dispatch({
             type: "REMOVE_FROM_BASKET",
-            quantity: quantity,
+            quantity: props.quantity,
             id: props.productId
         });
     }
-
     async function updateCart(){
         dispatch({
             type: "updateCart",
@@ -27,40 +30,41 @@ const CartItem = (props) => {
     }
 
     useEffect(() => {
-        updateCart().then(r=>r)
+        updateCart().then(r=>{
+            console.log(props.orderNote,basket)
+        })
     }, [deliveryMethod]);
+
+    useEffect(() => {
+        setUpdatedQuantity(updatedQuantity)
+    }, [basket,updatedQuantity]);
+
 
     async function update() {
         dispatch({
             type: "INCREMENT_QUANTITY",
             id: props.productId,
-            value: quantity
+            value: updatedQuantity
         });
     }
 
-      function Increase() {
-        if (props.stock > quantity) {
-            dispatch({
-                type: "setQuantity",
-                value: quantity+1,
-            });
-            update().then(r => r)
 
+    async function Increase() {
+        if (props.stock > props.quantity) {
+            await setUpdatedQuantity(updatedQuantity + 1)
+            update().then(r=>r)
         } else {
             toast.warning('Out Of Stock!!!')
         }
     }
 
+    async function Decrease() {
+        if (props.stock > 0 && updatedQuantity > 1) {
+            await setUpdatedQuantity(updatedQuantity - 1)
+            update().then(r=>r)
+        }
+    }
 
-     function Decrease() {
-         if (props.stock > 0 && quantity > 1) {
-             dispatch({
-                 type: "setQuantity",
-                 value: quantity - 1,
-             });
-             update().then(r => r)
-         }
-     }
 
     return (
         <div className='cartItems'>
@@ -80,10 +84,10 @@ const CartItem = (props) => {
                     <div style={{display: 'flex'}}>
                         <h5>
                             <span className='minus' onClick={Decrease}>-</span>
-                            {quantity}
+                            {props.quantity}
                             <span className='plus' onClick={Increase}>+</span>
                         </h5>
-                        <h2>${(quantity * props.price).toFixed(2)}</h2>
+                        <h2>${(props.quantity * props.price).toFixed(2)}</h2>
                     </div>
                 </div>
             </div>
