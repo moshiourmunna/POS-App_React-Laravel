@@ -6,7 +6,7 @@
     height: 100vh;
     background-color: $body-bg2;
     padding: 2vw;
-    @include flexEvenlyCentered;
+    @include flexEvenly;
 
     h2 {
         color: $offWhite;
@@ -16,24 +16,30 @@
     }
 
     .discountContainer {
-        width: 30vw;
+        margin: 7vw 0 0 0;
+        padding: 2vw;
+        background-color: $body-bg1;
+        width: 40vw;
+        height: 60vh;
 
         form {
             display: flex;
             flex-direction: column;
 
             input{
-                background-color: $body-bg1;
+                background-color: $body-bg2;
                 color: $appWhite;
                 border-style: none;
                 padding: 1vw;
-                margin-top: .5rem;
+                border-radius: 1vw;
+                margin-top: 1rem;
             }
         button{
             cursor: pointer;
             padding: 1vw;
             width: 100%;
-            margin-top: .5rem;
+            border-radius: 1vw;
+            margin-top: 1rem;
             background-color: #475e42;
         }
 
@@ -41,6 +47,12 @@
                 color: $theme;
             }
         }
+    }
+    .pastDiscounts{
+        padding: 1vw;
+        width: 30vw;
+        height: 80vh;
+        background-color: $body-bg1;
     }
 
 

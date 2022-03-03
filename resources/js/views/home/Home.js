@@ -10,11 +10,11 @@ import LandingData from "../../components/landingData";
 const Home = () => {
 
     const [state, setState] = useState(false)
-    const [{basket}] = useStateValue();
+    const [{basket,quantity}] = useStateValue();
 
     useEffect(() => {
         setState(!state)
-    }, [basket]);
+    }, [basket,quantity]);
 
     return (
         <div className='home-Container'>

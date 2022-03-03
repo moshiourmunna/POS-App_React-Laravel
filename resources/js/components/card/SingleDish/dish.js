@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import '../../../style/products/dish.scss';
 import PropTypes from "prop-types";
 import {useStateValue} from "../../../states/StateProvider";
@@ -10,6 +10,7 @@ import {RiDeleteBin5Fill} from "react-icons/ri";
 import Api from "../../../api/api";
 import AddProducts from "../../modal/addProducts";
 import {toast} from "react-toastify";
+import {IoMdCloseCircle} from 'react-icons/io';
 
 const Dish = (props) => {
 
@@ -23,7 +24,15 @@ const Dish = (props) => {
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem('user'));
     let admin = user?.admin;
+    const modalRef = useRef();
 
+    useEffect(() => {
+        document.addEventListener('mousedown', (e) => {
+            if (!modalRef.current.contains(e.target)) {
+                setToggle(false)
+            }
+        })
+    }, []);
 
     function editSubmission() {
         setToggle(!toggle)
@@ -106,8 +115,8 @@ const Dish = (props) => {
             {
                 (toggle) &&
                 <div className='editProduct'>
-                    <p onClick={editSubmission}>Cancel</p>
-                    <div className='modal-content'>
+                    <p onClick={editSubmission}><IoMdCloseCircle size='3vw'/></p>
+                    <div ref={modalRef} className='modal-content'>
                         <AddProducts
                             data={props.data}
                             category={props.data.categories}

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use Illuminate\Http\Request;
 use App\Repositories\Orders\OrderRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class OrderController extends Controller
 {
@@ -19,11 +21,11 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index(): \Illuminate\Http\Response
+    public function index($status,$customer): Response
     {
-        $result = $this->orderRepository->OrderInfo();
+        $result = $this->orderRepository->OrderInfoWithFilter($status,$customer);
 
         return response($result, 201);
     }
@@ -31,7 +33,7 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -41,8 +43,8 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return Order[]|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @param Request $request
+     * @return Application|ResponseFactory|Response
      */
     public function store(Request $request)
     {
@@ -52,14 +54,15 @@ class OrderController extends Controller
             'storeOrder' => $storeOrder
         ];
 
-        return response($response,201);
+        return response($response, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
+
     public function show()
     {
 
@@ -68,7 +71,7 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit()
     {
@@ -78,37 +81,43 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): Response
     {
-        $updated= $this->orderRepository->update($request,$id);
-        return response($updated,201);
+        $updated = $this->orderRepository->update($request, $id);
+        return response($updated, 201);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return Response
      */
-    public function destroy($id)
+    public function destroy($id): Response
     {
         $this->orderRepository->delete($id);
-        return response('Successfully Deleted',201);
+
+        return response('Successfully Deleted', 201);
     }
 
-    public function mostOrdered($filter){
+    public function mostOrdered($filter)
+    {
 
-        if($filter==='all'){
-            $mostOrdered=$this->orderRepository->mostOrdered();
-        }
-        else{
-            $mostOrdered=$this->orderRepository->mostOrderedToday();
+        if ($filter === 'all') {
+            $mostOrdered = $this->orderRepository->mostOrdered();
+        } else {
+            $mostOrdered = $this->orderRepository->mostOrderedToday();
         }
 
-        return response($mostOrdered,201);
+        return response($mostOrdered, 201);
+    }
+
+    public function businessSummery(){
+       $result= $this->orderRepository->businessSummery();
+       return response($result,201);
     }
 }

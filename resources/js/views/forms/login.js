@@ -41,7 +41,7 @@ const Login = () => {
             window.location.replace('/dashboard')
 
         } else {
-            navigate('/POS')
+            navigate('/')
             // window.location.replace('/POS')
         }
         }

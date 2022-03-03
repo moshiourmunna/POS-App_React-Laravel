@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 
 const CartItem = (props) => {
 
-    const [{basket, deliveryMethod,quantity}, dispatch] = useStateValue();
+    const [{basket, deliveryMethod, quantity}, dispatch] = useStateValue();
     const [Q, setQ] = useState(props.quantity)
 
     function RemoveItem() {
@@ -19,7 +19,7 @@ const CartItem = (props) => {
         });
     }
 
-    async function updateCart(){
+    async function updateCart() {
         dispatch({
             type: "updateCart",
             id: props.productId,
@@ -28,7 +28,7 @@ const CartItem = (props) => {
     }
 
     useEffect(() => {
-        updateCart().then(r=>r)
+        updateCart().then(r => r)
     }, [deliveryMethod]);
 
     async function update() {
@@ -42,10 +42,10 @@ const CartItem = (props) => {
     function Increase() {
         if (props.stock > quantity) {
 
-            setQ(Q+1)
+            setQ(Q + 1)
             dispatch({
                 type: "setQuantity",
-                value: Q+1,
+                value: Q + 1,
             });
             update().then(r => r)
 
@@ -57,10 +57,10 @@ const CartItem = (props) => {
 
     function Decrease() {
         if (props.stock > 0 && quantity > 1) {
-            setQ(Q-1)
+            setQ(Q - 1)
             dispatch({
                 type: "setQuantity",
-                value: Q - 1,
+                value: props.quantity - 1,
             });
             update().then(r => r)
         }
@@ -84,10 +84,10 @@ const CartItem = (props) => {
                     <div style={{display: 'flex'}}>
                         <h5>
                             <span className='minus' onClick={Decrease}>-</span>
-                            {Q}
+                            {props.quantity}
                             <span className='plus' onClick={Increase}>+</span>
                         </h5>
-                        <h2>${(Q * props.price).toFixed(2)}</h2>
+                        <h2>${(props.quantity * props.price).toFixed(2)}</h2>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@ const CartItem = (props) => {
                         dispatch(
                             {
                                 type: "setOrderNote",
-                                id:props.productId,
+                                id: props.productId,
                                 note: e.target.value
                             })}
                 />

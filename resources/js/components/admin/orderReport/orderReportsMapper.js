@@ -43,7 +43,7 @@ const orderReportsMapper = (props) => {
 
     return (
         <tbody>
-        <tr>
+        <tr className={(props.name!=='undefined undefined')?'':'hide'}>
             {
                 (props.loading) ?
                     <BeatLoader size={10} color={'#a2a2a2'}/>

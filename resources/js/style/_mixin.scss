@@ -6,6 +6,11 @@
     align-items: center;
 }
 
+@mixin flexEvenly(){
+    display: flex;
+    justify-content: space-evenly;
+}
+
 @mixin centerItems(){
     position: fixed;
     top: 50%;

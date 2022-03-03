@@ -53,8 +53,8 @@ const AddProducts = (props) => {
         Data.append('status', status);
         Data.append('category', category);
 
-        await Api().post('/store', Data
-        ).then((response) => {
+        await Api().post('/store', Data)
+            .then((response) => {
             console.log(response)
             if (response.status === 201) {
                 setResponse()

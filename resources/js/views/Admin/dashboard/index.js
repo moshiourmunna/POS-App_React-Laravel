@@ -12,15 +12,14 @@ const Dashboard = () => {
 
     const rawDate = new Date();
     const date = rawDate.toDateString()
-
-    const [order, setOrder] = useState([])
     const [mostOrdered, setMostOrdered] = useState([])
     const [revenue, setRevenue] = useState(0)
     const [orderedDishCount, setOrderedDishCount] = useState(0)
-    const [customers, setCustomers] = useState(0)
+    const [customers, setCustomers] = useState([])
     const [loading, setLoading] = useState(false)
     const [loadingMostOrdered, setLoadingMostOrdered] = useState(false)
     const [filter, setFilter] = useState('all')
+    const [uniqueCustomers, setUniqueCustomer] = useState([])
 
     const getMostOrdered = useCallback(
         async () => {
@@ -34,21 +33,14 @@ const Dashboard = () => {
         [filter],
     );
 
-    useEffect(() => {
-        getMostOrdered().then(r => r)
-    }, [getMostOrdered]);
-
-
-    const getOrderInfo = useCallback(
+    const getBusinessSummery = useCallback(
         async () => {
             setLoading(true)
-            await Api().get('/getOrderInfo')
+            await Api().get(`/businessSummery`)
                 .then((response) => {
-                    console.log('orderItems', response.data.getOrderInfo)
-                    setOrder(response.data.getOrderInfo)
-                    setRevenue(response.data.revenue)
-                    setOrderedDishCount(response.data.orderedDishCount)
                     setCustomers(response.data.customers)
+                    setOrderedDishCount(response.data.orderedDishCount)
+                    setRevenue(response.data.revenue)
                     setLoading(false)
                 })
         },
@@ -56,8 +48,18 @@ const Dashboard = () => {
     );
 
     useEffect(() => {
-        getOrderInfo().then(r => r)
-    }, [getOrderInfo]);
+        getBusinessSummery().then(r => r)
+    }, [getBusinessSummery]);
+
+    useEffect(() => {
+        getMostOrdered().then(r => r)
+    }, [getMostOrdered]);
+
+    useEffect(() => {
+        const unique = [];
+        customers?.map(x => unique.filter(a => a.user_id === x.user_id).length > 0 ? null : unique.push(x));
+        setUniqueCustomer(unique)
+    }, [customers]);
 
 
     return (
@@ -66,17 +68,17 @@ const Dashboard = () => {
                 <h2>Dashboard</h2>
                 <h3>{date}</h3>
                 <br/>
-                <hr width='63.5%' color='#595959' style={{height: '.1px'}}/>
+                <hr width='65%' color='#595959' style={{height: '.1px'}}/>
             </div>
             <div className='dashboardFlex'>
                 <div className='dashboardLeft'>
                     <div className='businessCardsFlex'>
                         <BusinessSummary data={revenue} money loading={loading} title={'Total Revenue'}/>
                         <BusinessSummary data={orderedDishCount} order loading={loading} title={'Total Dish Ordered'}/>
-                        <BusinessSummary data={customers} loading={loading} title={'Total Customer'}/>
+                        <BusinessSummary  data={uniqueCustomers.length} loading={loading} title={'Total Customer'}/>
                     </div>
                     <div className='orderSummery'>
-                        <OrderReport loading={loading} order={order}/>
+                        <OrderReport customers={uniqueCustomers}/>
                     </div>
                 </div>
                 <div className='dashboardRight'>
@@ -98,12 +100,12 @@ const Dashboard = () => {
                         <br/>
                         <hr/>
                         {
-                            (loading)?
-                                <div style={{height:'15.1vh', marginTop:'35%', marginLeft:'30%'}}>
+                            (loading) ?
+                                <div style={{height: '15.1vh', marginTop: '35%', marginLeft: '30%'}}>
                                     <BeatLoader size={20} color={'#a2a2a2'}/>
                                 </div>
                                 :
-                                mostOrdered.map((data)=>(
+                                mostOrdered.map((data) => (
                                     <MostOrdered
                                         loading={loadingMostOrdered}
                                         key={data.id}

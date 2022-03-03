@@ -1,22 +1,28 @@
 @import "resources/js/style/variables";
 @import "resources/js/style/mixin";
 
-.editProduct{
+.editProduct {
 
-    background-color: rgb(101, 84, 81,.3); /* Black w/ opacity */
+    background-color: rgb(101, 84, 81, .3); /* Black w/ opacity */
     @include centerItems;
     width: 100%;
+    height: 100vh;
     z-index: 4;
-    margin-top: 2vh;
 
-    .modal-content{
-        background-color: $body-bg1;
+    .modal-content {
+        border-radius: 2vw;
+        height: 100vh;
         margin: auto;
+        background-color: $body-bg1;
         padding: 20px;
         border: 1px solid $body-bg2;
         width: 80%;
     }
-    p{
+
+    p {
+        padding: 1rem;
+        float: left;
+        margin-left: 10vw;
         color: $appWhite;
         font-size: 1.2vw;
         font-weight: 700;

@@ -10,7 +10,6 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Http\Request;
 
 class OrderRepository implements OrderInterface
 {
@@ -67,44 +66,28 @@ class OrderRepository implements OrderInterface
         return $this->model->orderBy('position', 'asc')->withCount('articles')->paginate($perPage);
     }
 
-    public function OrderInfo(): array
+    public function OrderInfoWithFilter($status, $userId): array
     {
-        $getOrderInfo = $this->model::wherehas('orderItems')->with(['orderItems' => function ($q) {
-            $q->with(['products' => function ($sq) {
-                $sq->select('id', 'title', 'price');
-            }]);
-        }])->with(['users' => function ($q) {
-            $q->select('id', 'first_name', 'last_name');
-        }])
+        $getOrderInfo = $this->model::wherehas('orderItems')
+            ->when($status !== 'all', function ($q) use ($status) {
+                if ($status !== 'all') {
+                    return $q->where('status', $status);
+                }
+            })
+            ->with(['orderItems' => function ($q) {
+                $q->with(['products' => function ($sq) {
+                    $sq->select('id', 'title', 'price');
+                }]);
+            }])->with(['users' => function ($q) use ($userId) {
+                if ($userId != 'all') {
+                    $q->select('id', 'first_name', 'last_name')->where('id', $userId);
+                }
+            }])
+            ->orderBy('updated_at', 'DESC')
             ->get();
-
-//        $customers=Order::distinct('user_id')->count('name');
-
-        $totalPayment = [];
-        $orderedDishes = [];
-        $customer = [];
-
-        foreach ($getOrderInfo as $orders) {
-            if (!in_array($orders->user_id, $customer)) {
-                $customer[] = $orders->user_id;
-            }
-            foreach ($orders->orderItems as $item) {
-                $totalPayment[] = $item->products->price * $item->quantity;
-                $orderedDishes[] = $item->quantity;
-            }
-        }
-
-        $revenue = array_sum($totalPayment);
-        $orderedDishCount = array_sum($orderedDishes);
-        $customers = count($customer);
-
 
         return [
             'getOrderInfo' => $getOrderInfo,
-            'revenue' => $revenue,
-            'orderedDishCount' => $orderedDishCount,
-            'customers' => $customers,
-            'totalPayment' => $totalPayment
         ];
     }
 
@@ -131,11 +114,38 @@ class OrderRepository implements OrderInterface
         return Discount::create(
             [
                 'name' => $request->name,
-                'percentage'=>$request->percentage,
-                'validity'=>$request->validity,
-                'published'=>0,
+                'percentage' => $request->percentage,
+                'validity' => $request->validity,
+                'published' => 0,
             ]
         );
+    }
+
+    public function businessSummery(): array
+    {
+
+        $products = Product::where('published', 0)->select('sold', 'price')->get();
+
+        $totalPayment = [];
+        $orderedDishes = [];
+
+        foreach ($products as $product) {
+            $totalPayment[] = $product->price * $product->sold;
+            $orderedDishes[] = $product->sold;
+        }
+        $revenue = array_sum($totalPayment);
+        $orderedDishCount = array_sum($orderedDishes);
+
+        $customers = Order::with(['users' => function ($q) {
+            $q->select('first_name', 'last_name', 'id')->distinct();
+        }])
+            ->get();
+        return [
+            'revenue' => $revenue,
+            'orderedDishCount' => $orderedDishCount,
+            'customers' => $customers,
+        ];
+
     }
 
 }

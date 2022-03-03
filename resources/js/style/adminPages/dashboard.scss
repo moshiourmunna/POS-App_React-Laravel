@@ -6,12 +6,13 @@
     background: $body-bg2;
     text-align: left;
 
-    h2{
+    h2 {
         font-size: 2vw;
         color: $appWhite;
         font-weight: 500;
     }
-    h3{
+
+    h3 {
         font-size: 1vw;
         color: $offWhite;
         font-weight: 500;
@@ -36,7 +37,7 @@
 
         .orderSummery {
             border-radius: 1vh;
-            margin:3%;
+            margin: 3%;
             padding: 3%;
             background: $body-bg1;
 
@@ -45,8 +46,12 @@
                 .flexHeader {
                     display: flex;
                     justify-content: space-between;
-                    margin-bottom: 3vh;
+                    margin-bottom: 2vh;
                     padding-left: 1.3%;
+
+                    .hide {
+                        display: none;
+                    }
 
                     h2 {
                         color: $appWhite;
@@ -55,6 +60,7 @@
                     }
 
                     button {
+                        margin-top: -1vh;
                         color: $appWhite;
                         background: $body-bg1;
                         padding: .8vw;
@@ -80,7 +86,14 @@
                     height: 46vh;
                     overflow: scroll;
                     scrollbar-width: none;
+
+                    .hide {
+                        display: none;
+                    }
+
+
                 }
+
                 .orderInfo::-webkit-scrollbar {
                     display: none;
                 }
@@ -91,18 +104,21 @@
     .dashboardRight {
         flex: .3;
         margin: -5% 1% 0 1%;
-        h1{
+
+        h1 {
             font-size: 1.1vw;
             color: $appWhite;
             font-weight: 400;
         }
+
         .mostOrderedCard {
             padding: 7%;
             border-radius: 1vh;
             height: 46vh;
             background: $body-bg1;
             margin: 3%;
-            h1{
+
+            h1 {
                 padding-top: 5%;
             }
         }
@@ -112,15 +128,13 @@
             padding: 7%;
             margin: 3%;
             border-radius: 1vh;
-            h1{
+
+            h1 {
                 padding-top: 5%;
             }
         }
     }
 }
-
-
-
 
 
 table {
@@ -133,37 +147,40 @@ td {
     max-width: 17vw;
 }
 
-p{
-    font-size: 1.1vw;
+p {
+    font-size: 1vw;
 }
 
 td, th, select, form, option {
     color: $offWhite;
-    font-size: 1.1vw;
+    font-size: 1vw;
     text-align: left;
     padding: .8vw;
     border-style: none;
     border-radius: 1vw;
 }
-.StatusCompletedInfo{
+
+.StatusCompletedInfo {
     text-align: center;
     padding: 6px;
     border-radius: 1vw;
-    background: rgb(80, 209, 170,.1);
+    background: rgb(80, 209, 170, .1);
     color: $pasteColor;
 
 }
-.StatusPendingInfo{
+
+.StatusPendingInfo {
     text-align: center;
     padding: 6px;
     font-size: 1vw;
-    background: rgb(234, 124, 105,.1);
+    background: rgb(234, 124, 105, .1);
     color: $theme;
 }
-.StatusCookingInfo{
+
+.StatusCookingInfo {
     text-align: center;
     font-size: 1vw;
     padding: 6px;
-    background: rgb(91, 56, 54,.1);
+    background: rgb(91, 56, 54, .1);
     color: $secondaryColor;
 }

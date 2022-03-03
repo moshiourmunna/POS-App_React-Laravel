@@ -41,7 +41,7 @@ const Discount = () => {
                     <button type='submit'>Save Discount</button>
                 </form>
             </div>
-            <div>
+            <div className='pastDiscounts'>
                 <h2>Past Discounts</h2>
             </div>
         </div>
