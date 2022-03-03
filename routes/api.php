@@ -17,17 +17,21 @@ Route::get('/getAllCategory',[CategoryController::class, 'allCategories']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/getOrderInfo/{statusFilter}/{customerFilter}',[OrderController::class, 'index']);
 
 Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
+
+    Route::get('/getOrderInfo/{statusFilter}/{customerFilter}',[OrderController::class, 'index']);
     Route::post('/updateOrder/{id}',[OrderController::class, 'update']);
     Route::post('/storeOrder',[OrderController::class, 'store']);
     Route::get('/getMostOrdered/{filter}',[OrderController::class, 'mostOrdered']);
     Route::get('/businessSummery',[OrderController::class, 'businessSummery']);
 
+    Route::get('/getDiscounts',[DiscountController::class, 'show']);
     Route::post('/storeDiscount',[DiscountController::class, 'store']);
+    Route::post('/updateDiscount/{id}',[DiscountController::class, 'update']);
+    Route::delete('/deleteDiscount/{id}',[DiscountController::class, 'destroy']);
 
     Route::post('/store',[FrontEndController::class, 'store']);
     Route::post('/update/{id}',[FrontEndController::class, 'update']);

@@ -21,12 +21,13 @@
         background-color: $body-bg1;
         width: 40vw;
         height: 60vh;
+        border-radius: 1vw 5vw 1vw 1vw;
 
         form {
             display: flex;
             flex-direction: column;
 
-            input{
+            input {
                 background-color: $body-bg2;
                 color: $appWhite;
                 border-style: none;
@@ -34,25 +35,84 @@
                 border-radius: 1vw;
                 margin-top: 1rem;
             }
-        button{
-            cursor: pointer;
-            padding: 1vw;
-            width: 100%;
-            border-radius: 1vw;
-            margin-top: 1rem;
-            background-color: #475e42;
-        }
+
+            button {
+                cursor: pointer;
+                padding: 1vw;
+                width: 100%;
+                border-radius: 1vw;
+                margin-top: 1rem;
+                background-color: #475e42;
+            }
 
             p {
                 color: $theme;
             }
         }
     }
-    .pastDiscounts{
-        padding: 1vw;
+
+    .pastDiscounts {
         width: 30vw;
         height: 80vh;
         background-color: $body-bg1;
+        border-radius: 1vw 1vw 1vw 5vw;
+        padding: 2vw;
+
+        hr{
+            height: 1px;
+            background-color: $body-bg2;
+            border: none;
+        }
+
+        .discountInfo {
+            height: 70vh;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            overflow-y: scroll;
+            padding: 2vh 0 0 0;
+            form{
+                text-align: center;
+                select{
+                    margin-right: 3vw;
+                    width: 8vw;
+                    option{
+                        background-color: $body-bg1;
+                        color: $offWhite;
+                    }
+                }
+            }
+
+        }
+        .discountInfo::-webkit-scrollbar {
+            display: none;
+        }
+
+        h1 {
+            font-size: 2vw;
+            color: $offWhite;
+        }
+
+        h2 {
+            font-size: 1.5vw;
+            color: $pasteColor;
+        }
+
+        p {
+            color: $secondaryColor;
+            font-size: 1.5vw;
+        }
+
+        .red {
+            background-color: $theme;
+            color: $body-bg1;
+
+        }
+
+        .green {
+            background-color: #475e42;
+            color: $body-bg1;
+        }
+
     }
 
 

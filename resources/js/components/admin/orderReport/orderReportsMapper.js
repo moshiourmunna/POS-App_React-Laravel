@@ -17,17 +17,16 @@ const orderReportsMapper = (props) => {
         e.preventDefault()
         const Data = new FormData();
         Data.append('status', updatedStatus);
-
         setLoading(true)
+
         await Api().post(`/updateOrder/${props.orderId}`, Data)
             .then((response) => {
                 setLoading(false)
             })
-            .catch(e =>{
-                if(e.response.status===500){
+            .catch(e => {
+                if (e.response.status === 500) {
                     toast.error('OOps! Something went wrong!! Please try clicking again')
-                }
-                else{
+                } else {
                     toast.error('OOps! Something went wrong!!')
                 }
             })
@@ -43,7 +42,7 @@ const orderReportsMapper = (props) => {
 
     return (
         <tbody>
-        <tr className={(props.name!=='undefined undefined')?'':'hide'}>
+        <tr className={(props.name !== 'undefined undefined') ? '' : 'hide'}>
             {
                 (props.loading) ?
                     <BeatLoader size={10} color={'#a2a2a2'}/>
@@ -59,13 +58,13 @@ const orderReportsMapper = (props) => {
             ))}</td>
             <td> ${(total).toFixed(2)}</td>
             <td>
-                <form  onSubmit={updateOrder}>
+                <form onSubmit={updateOrder}>
                     <select
                         className={(updatedStatus === 'delivered') ? 'StatusCompletedInfo' : (updatedStatus === 'processing') ? 'StatusPendingInfo' : (updatedStatus === 'sent') ? 'StatusCookingInfo' : 'StatusPendingInfo'}
                         value={updatedStatus}
                         onChange={
-                             async (e) => {
-                              await setUpdatedStatus(e.target.value)
+                            async (e) => {
+                                await setUpdatedStatus(e.target.value)
                                 selectForm.current.click()
                             }
                         }
@@ -75,7 +74,7 @@ const orderReportsMapper = (props) => {
                         <option value='sent'>Sent</option>
                         <option value='delivered'>Delivered</option>
                     </select>
-                    <button ref={selectForm} style={{display:'none'}} type='submit'> Update</button>
+                    <button ref={selectForm} style={{display: 'none'}} type='submit'> Update</button>
                 </form>
             </td>
         </tr>

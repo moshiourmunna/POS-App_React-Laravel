@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
 use App\Repositories\Orders\OrderRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class DiscountController extends Controller
 {
@@ -20,7 +22,7 @@ class DiscountController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -30,7 +32,7 @@ class DiscountController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -40,8 +42,8 @@ class DiscountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -52,19 +54,18 @@ class DiscountController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Discount  $discount
-     * @return \Illuminate\Http\Response
+     * @return Discount[]|Collection
      */
-    public function show(Discount $discount)
+    public function show()
     {
-        //
+        return Discount::all();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Discount  $discount
-     * @return \Illuminate\Http\Response
+     * @param Discount $discount
+     * @return Response
      */
     public function edit(Discount $discount)
     {
@@ -74,23 +75,25 @@ class DiscountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Discount  $discount
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return Response
      */
-    public function update(Request $request, Discount $discount)
+    public function update(Request $request, $id): Response
     {
-        //
+        $updated = $this->orderRepository->updateDiscount($request, $id);
+        return response($updated, 201);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Discount  $discount
-     * @return \Illuminate\Http\Response
+     * @param Discount $discount
+     * @return Response
      */
-    public function destroy(Discount $discount)
+    public function destroy($id)
     {
-        //
+        $response = $this->orderRepository->deleteDiscount($id);
+        return response($response, 201);
     }
 }

@@ -108,19 +108,6 @@ class OrderRepository implements OrderInterface
             ->get();
     }
 
-    public function createDiscount($request)
-    {
-
-        return Discount::create(
-            [
-                'name' => $request->name,
-                'percentage' => $request->percentage,
-                'validity' => $request->validity,
-                'published' => 0,
-            ]
-        );
-    }
-
     public function businessSummery(): array
     {
 
@@ -146,6 +133,30 @@ class OrderRepository implements OrderInterface
             'customers' => $customers,
         ];
 
+    }
+
+    public function createDiscount($request)
+    {
+        return Discount::create(
+            [
+                'name' => $request->name,
+                'percentage' => $request->percentage,
+                'validity' => $request->validity,
+                'published' => 0,
+            ]
+        );
+    }
+
+    public function updateDiscount($request, $id)
+    {
+        return Discount::where('id', $id)->update(['published' => $request->status]);
+    }
+
+    public function deleteDiscount($id)
+    {
+        $discount = Discount::findOrFail($id);
+//        $discount->products()->detach();
+        return $discount->delete();
     }
 
 }

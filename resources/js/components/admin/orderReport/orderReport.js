@@ -44,7 +44,7 @@ const OrderReport = (props) => {
         <div className='orderReports'>
 
             <div className='flexHeader' ref={modalRef}>
-                <h2>Order Report</h2>
+                <h2 className={(!toggle)?'':'hide'}>Order Report</h2>
                 <button onClick={toggleHandler} style={{fontSize: '1.2vw'}}>
                     <span style={{margin: '5px'}}>
                         <RiListSettingsLine/>
@@ -69,7 +69,7 @@ const OrderReport = (props) => {
                                     }
                                 }
                             >
-                                <option>Filter By Status</option>
+                                <option value='all'>Filter By Status</option>
                                 <option value="processing">Processing</option>
                                 <option value="sent">Sent</option>
                                 <option value="delivered">Delivered</option>
@@ -87,7 +87,7 @@ const OrderReport = (props) => {
                                     }
                                 }
                             >
-                                <option>Filter By Customer</option>
+                                <option value='all'>Filter By Customer</option>
                                 {
                                     props.customers.map((customer) => (
                                         <option

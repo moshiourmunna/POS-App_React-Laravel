@@ -62,7 +62,9 @@ class FrontEndController extends Controller
         $result = $this->productsRepository->publishedProducts($category);
         $discounts = [];
         foreach ($result as $data) {
-            $discounts[] = $data->discounts->percentage;
+            if($data->discounts){
+                $discounts[] = $data->discounts->percentage;
+            }
         }
         $discount = array_sum($discounts);
 

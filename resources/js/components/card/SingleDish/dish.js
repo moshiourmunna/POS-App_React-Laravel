@@ -48,7 +48,6 @@ const Dish = (props) => {
 
     async function addToCart() {
 
-
         if (quantity <= props.data.stock && allReadyAdded.length<1) {
             (!admin) &&
             dispatch(

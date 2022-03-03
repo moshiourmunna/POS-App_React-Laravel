@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Discount;
 use App\Repositories\Orders\OrderRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -90,6 +91,7 @@ class OrderController extends Controller
         $updated = $this->orderRepository->update($request, $id);
         return response($updated, 201);
     }
+
 
     /**
      * Remove the specified resource from storage.

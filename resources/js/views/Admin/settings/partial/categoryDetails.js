@@ -1,12 +1,8 @@
 import React, {useCallback, useEffect, useState} from "react";
 import Api from "../../../../api/api";
-import {AiFillDelete} from "react-icons/ai";
 import {useStateValue} from "../../../../states/StateProvider";
-import {BeatLoader} from "react-spinners";
-import {BsToggle2Off, BsToggle2On} from "react-icons/bs";
 import CategoryDetailsCard from "../../../../components/card/categoryDetails";
 import {toast} from "react-toastify";
-import Button from "../../../../components/button/Button";
 
 const CategoryDetails = () => {
 
