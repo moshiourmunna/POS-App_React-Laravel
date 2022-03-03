@@ -141,8 +141,8 @@ class OrderRepository implements OrderInterface
             [
                 'name' => $request->name,
                 'percentage' => $request->percentage,
-                'validity' => $request->validity,
-                'published' => 0,
+                'validity' => 5,
+                'published' => $request->validity,
             ]
         );
     }

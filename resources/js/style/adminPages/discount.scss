@@ -16,11 +16,11 @@
     }
 
     .discountContainer {
-        margin: 7vw 0 0 0;
-        padding: 2vw;
+        margin: 7vw 0 0 7vw;
+        padding: 5vw;
         background-color: $body-bg1;
         width: 40vw;
-        height: 60vh;
+        height: 50vh;
         border-radius: 1vw 5vw 1vw 1vw;
 
         form {
@@ -28,8 +28,8 @@
             flex-direction: column;
 
             input {
-                background-color: $body-bg2;
-                color: $appWhite;
+                background-color: rgba(#9288E0FF,.1);
+                color: $offWhite;
                 border-style: none;
                 padding: 1vw;
                 border-radius: 1vw;
@@ -39,7 +39,6 @@
             button {
                 cursor: pointer;
                 padding: 1vw;
-                width: 100%;
                 border-radius: 1vw;
                 margin-top: 1rem;
                 background-color: #475e42;
@@ -54,37 +53,36 @@
     .pastDiscounts {
         width: 30vw;
         height: 80vh;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        overflow-y: scroll;
         background-color: $body-bg1;
         border-radius: 1vw 1vw 1vw 5vw;
         padding: 2vw;
 
-        hr{
+        hr {
             height: 1px;
             background-color: $body-bg2;
             border: none;
         }
 
         .discountInfo {
-            height: 70vh;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-            overflow-y: scroll;
             padding: 2vh 0 0 0;
-            form{
+
+            form {
                 text-align: center;
-                select{
+
+                select {
                     margin-right: 3vw;
                     width: 8vw;
-                    option{
+
+                    option {
                         background-color: $body-bg1;
                         color: $offWhite;
                     }
                 }
             }
 
-        }
-        .discountInfo::-webkit-scrollbar {
-            display: none;
         }
 
         h1 {
@@ -115,5 +113,8 @@
 
     }
 
+    .pastDiscounts::-webkit-scrollbar {
+        display: none;
+    }
 
 }

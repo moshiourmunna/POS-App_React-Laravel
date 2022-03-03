@@ -34,36 +34,38 @@ const DiscountsList = (props) => {
     }
 
     async function DeleteDiscount(id) {
-        await Api().delete(`/deleteDiscount/${id}`)
-            .then((response) => {
-                console.log('res',response)
-                dispatch(
-                    {
-                        type: "setState",
-                        item: {
-                            title: 1
-                        },
-                    })
-                if(response.status===201){
-                    toast.success(`Deleted Discount ${props.name} Successfully`)
-                }
-                else{
-                    toast.error('OOOps! Something Went Wrong')
-                }
-            })
-            .catch(e=>{
-                console.log('error',e)
-                if(e.response.status===500){
-                    toast.error('OOOps! Something Went Wrong')
-                }
-            })
+        let confirmDelete = confirm("Are You Sure You Want to delete?");
+        setLoading(true)
+        if (confirmDelete) {
+            await Api().delete(`/deleteDiscount/${id}`)
+                .then((response) => {
+                    dispatch(
+                        {
+                            type: "setState",
+                            item: {
+                                title: 1
+                            },
+                        })
+                    if (response.status === 201) {
+                        toast.success(`Deleted Discount ${props.name} Successfully`)
+                    } else {
+                        toast.error('OOOps! Something Went Wrong')
+                    }
+                })
+                .catch(e => {
+                    console.log('error', e)
+                    if (e.response.status === 500) {
+                        toast.error('OOOps! Something Went Wrong')
+                    }
+                })
+        }
     }
 
     return (
         <div>
             <div className='discountInfo'>
                 <div
-                    style={{cursor: 'pointer',float:'right'}}
+                    style={{cursor: 'pointer', float: 'right'}}
                     onClick={() => DeleteDiscount(props.id)}
                 >
                     <IoMdCloseCircle size='3vw' color='#EA7C69'/>

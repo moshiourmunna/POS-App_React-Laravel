@@ -25,13 +25,14 @@
             resize: none;
             min-height: 100px;
             overflow-y: scroll;
+            background-color: rgba(#9288E0FF,.1);
         }
 
         .select {
             margin: 10px;
             padding: 10px;
             border-radius: 8px;
-            background-color: $body-bg2;
+            background-color: rgba(#9288E0FF,.1);
             color: $appWhite;
             border-style: none;
         }
@@ -39,7 +40,7 @@
         .input, .auto_height {
             margin: 10px;
             padding: 10px;
-            background-color: $body-bg2;
+            background-color: rgba(#9288E0FF,.1);
             color: $appWhite;
             border-style: none;
             border-radius: 8px;

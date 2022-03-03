@@ -14,13 +14,14 @@ import {IoMdCloseCircle} from 'react-icons/io';
 
 const Dish = (props) => {
 
-    const [{basket,deliveryMethod}, dispatch] = useStateValue();
+    const [{basket, deliveryMethod}, dispatch] = useStateValue();
     const [quantity, setQuantity] = useState(1)
     const [Q, setQ] = useState(1)
     const [allReadyAdded, setAllReadyAdded] = useState([])
     const [loading, setLoading] = useState(false)
     const [toggle, setToggle] = useState(false)
     const [error, setError] = useState('')
+    const [discount, setDiscount] = useState(0)
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem('user'));
     let admin = user?.admin;
@@ -43,12 +44,14 @@ const Dish = (props) => {
             return b.productId === props.data.id
         })
         setAllReadyAdded(res)
-
+        if (props.data.discounts?.percentage) {
+            setDiscount(props.data.discounts.percentage)
+        }
     }, [basket]);
 
     async function addToCart() {
 
-        if (quantity <= props.data.stock && allReadyAdded.length<1) {
+        if (quantity <= props.data.stock && allReadyAdded.length < 1) {
             (!admin) &&
             dispatch(
                 {
@@ -60,10 +63,10 @@ const Dish = (props) => {
                         price: props.data.price,
                         image: props.data.image,
                         quantity: quantity,
-                        stock:props.data.stock,
+                        stock: props.data.stock,
                         deliveryMethod: deliveryMethod.deliveryMethod,
-                        orderNote:'',
-                        discount:props.data.discounts.percentage
+                        orderNote: '',
+                        discount: discount
                     },
                 })
         }
@@ -101,8 +104,7 @@ const Dish = (props) => {
                 .catch(e => {
                     setError(e)
                 })
-        }
-        else{
+        } else {
             setLoading(false)
         }
     }
@@ -125,23 +127,21 @@ const Dish = (props) => {
             }
             {
                 (props.data) ?
-                    (!toggle)&&
+                    (!toggle) &&
                     <div className={(props.Admin) ? 'adminDesign' : 'userDesign'}>
-                        {
-                            (!props.data.image) ?
-                                <BeatLoader size={10} color={'#50D1AA'}/>
-                                :
-                                <img src={props.data.image}/>
-                        }
+
+                        <div className={(props.data.discounts)?'coupon':'opacityNone'}>
+                            <h5>{props.data.discounts?.name}</h5>
+                            <h1> Enjoy {props.data.discounts?.percentage}% Off!!</h1>
+                        </div>
+
+                        <img src={props.data.image}/>
                         <div className={(allReadyAdded.length > 0 && !props.Admin) ? 'containerAdded' : 'container'}>
                             <h3>{props.data.title}</h3>
                             <h4>${props.data.price}</h4>
                             <h5>{props.data.stock} {props.Availability}</h5>
                         </div>
-                        {
-                            (error) &&
-                            <p style={{marginTop:'-60%', width:'16vw'}}>{error}</p>
-                        }
+
                         <div className={(props.Admin) ? 'editDish' : 'hidden'}>
                             <button
                                 onClick={editSubmission}

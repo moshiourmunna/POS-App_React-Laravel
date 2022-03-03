@@ -32,6 +32,7 @@ const Discount = () => {
                     })
                 if (response.status === 201) {
                     toast.success('New Discount Added!!')
+                    register('','')
                     setLoading(false)
                 }
             })
@@ -57,8 +58,8 @@ const Discount = () => {
     return (
         <div className='discount'>
             <div className='discountContainer'>
-                <h2> Create a discount</h2>
 
+                <h2> Create a discount</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input
                         placeholder='Name...'
@@ -67,14 +68,16 @@ const Discount = () => {
                     {errors.name && <p>A name for your discount is required</p>}
                     <input
                         placeholder='Percentage...'
-                        {...register('percentage', {required: true, pattern: /\d+/})}
+                        {...register('percentage', {required: true, pattern: /[0-1]+/})}
                     />
-                    {errors.percentage && <p>Enter A valid integer amount</p>}
+                    {errors.percentage && <p>Enter A valid percentage amount</p>}
                     <input
-                        placeholder='Number of days valid...'
+                        placeholder='Status...(0 for published, 1 for unpublished)'
+                        type='number'
+                        max='100'
                         {...register('validity', {required: true, pattern: /\d+/})}
                     />
-                    {errors.validity && <p>Enter a number for days valid</p>}
+                    {errors.validity && <p>Enter either 0 or 1 (0 for published, 1 for unpublished)</p>}
                     <button type='submit'>
                         {
                             (!loading)?
