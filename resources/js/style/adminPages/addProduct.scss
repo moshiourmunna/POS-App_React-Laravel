@@ -8,12 +8,12 @@
 
     h1 {
         color: $appWhite;
-        font-size: 15px;
-        margin-bottom: 5px;
+        font-size: 2vw;
+        margin-bottom: 1vh;
 
         span{
             color: $theme;
-            font-size: 13px;
+            font-size: 1.8vw;
         }
     }
 
@@ -21,6 +21,9 @@
         display: grid;
         grid-template-columns: auto auto;
         grid-gap: 20px;
+        width: 66vw;
+        align-items: center;
+
         textarea{
             resize: none;
             min-height: 100px;

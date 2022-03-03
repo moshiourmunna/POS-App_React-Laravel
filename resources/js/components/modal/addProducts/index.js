@@ -15,6 +15,7 @@ const AddProducts = (props) => {
     const [category, setCategory] = useState()
     const [stock, setStock] = useState('')
     const [discount, setDiscount] = useState('')
+    const [discounts, setDiscounts] = useState([])
     const [status, setStatus] = useState(0)
     const [File, setFile] = useState('');
     const [res, setResponse] = useState('');
@@ -35,11 +36,26 @@ const AddProducts = (props) => {
                 .catch(e => setErrors(e))
         },
         [],
+    )
+
+    const getDiscounts = useCallback(
+        async () => {
+            await Api().get(`/getDiscounts`)
+                .then((response) => {
+                    setDiscounts(response.data)
+                })
+                .catch(e => setErrors(e))
+        },
+        [],
     );
 
     useEffect(() => {
         getCategories().then(r => r)
     }, [getCategories]);
+
+    useEffect(() => {
+        getDiscounts().then(r => r)
+    }, [getDiscounts]);
 
 
     async function upload() {
@@ -86,7 +102,7 @@ const AddProducts = (props) => {
             if (e.response.status === 401) {
                 navigate('/login')
             } else if (e.response.status === 500) {
-                toast.error('OOPS, Seems Like The Product Title Already Exists')
+                toast.error('OOPs, Something Went Wrong')
             }
         })
 
@@ -293,23 +309,30 @@ const AddProducts = (props) => {
                     }
                     onChange={(e) => stockHandler(e)}/>
 
-                <input
-                    className={(errors?.discount) ? 'input_red' : 'input'}
-                    type='text'
-                    placeholder={
-                        (errors?.discount) ?
-                            errors?.discount
-                            :
-                            "* Product Discount ID"
-                    }
-                    name='discount'
+                <select
+                    className={(errors?.discount) ? 'select_red' : 'select'}
+                    id='discount'
+                    name="discount"
+                    onChange={(e) => setDiscount(e.target.value)}
                     value={
                         !(errors?.discount) ?
                             discount
                             :
                             ''
                     }
-                    onChange={(e) => discountHandler(e)}/>
+                >
+                    <option> * Select Discount</option>
+                    <option value={0}> None</option>
+                    {
+                        discounts.map((offer) => (
+                            <option
+                                key={offer.id}
+                                value={offer.id}>
+                                {offer.name}
+                            </option>
+                        ))
+                    }
+                </select>
 
                 <input
                     className={(errors?.price) ? 'input_red' : 'input'}
