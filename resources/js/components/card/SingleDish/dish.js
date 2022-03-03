@@ -130,7 +130,7 @@ const Dish = (props) => {
                     (!toggle) &&
                     <div className={(props.Admin) ? 'adminDesign' : 'userDesign'}>
 
-                        <div className={(props.data.discounts)?'coupon':'opacityNone'}>
+                        <div className={(props.data.discounts && !props.Admin)?'coupon':'opacityNone'}>
                             <h5>{props.data.discounts?.name}</h5>
                             <h1> Enjoy {props.data.discounts?.percentage}% Off!!</h1>
                         </div>

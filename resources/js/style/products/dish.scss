@@ -87,7 +87,7 @@
 .coupon {
     padding-bottom: 1.3vw;
     width: 8vw;
-    height: 2vh;
+    height: 0;
     float: right;
 
     h5 {
@@ -110,6 +110,7 @@
 }
 
 .opacityNone {
+    height: 2vh;
     opacity: 0;
 }
 
