@@ -14,11 +14,11 @@
         margin-right: 92px;
         min-height: fit-content;
         background: $body-bg2;
-        width: 60vw;
+        width: 56vw;
         padding-bottom: 15vh;
 
         hr {
-            width: 94.5%;
+            width: 93%;
             margin-left: 2.5%;
             margin-bottom: -2px;
             color: #525252;
@@ -27,7 +27,7 @@
         .flex-split {
             display: flex;
             justify-content: space-between;
-            padding: 2vw 0 0 0;
+            padding: 2vw 2vw 0 0;
 
             h2 {
                 width: 14vw;

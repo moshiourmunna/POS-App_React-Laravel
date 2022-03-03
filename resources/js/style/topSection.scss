@@ -5,6 +5,7 @@
     padding: 1vh 2vw 0 2vw;
     height: auto;
     text-align: left;
+    width: 91%;
 
     .dropDownIcon {
         display: none;
@@ -46,10 +47,10 @@
             background: $body-bg1;
             color: $appWhite;
             border-style: solid;
-            font-size: .9vw;
+            font-size: 1vw;
             border-width: thin;
             border-color: #68696c;
-            padding: 5px;
+            padding: 1vw;
             width: fit-content;
         }
 
@@ -59,12 +60,12 @@
         }
 
         input {
-            width: 200px;
-            margin-top: 10px;
+            width: 15vw;
+            margin-top: 1vh;
             background: #2D303E;
-            padding: 10px;
+            padding: .5vw;
             font-size: 1.1vw;
-            border-radius: 8px;
+            border-radius: 1vw;
             border-style: solid;
             border-width: 1px;
             border-color: #676767;
@@ -74,11 +75,13 @@
 
     .header {
         padding-top:2vw;
+
         .headerUl {
+
+            margin-left: -2vw;
             display: flex;
-            width: 70%;
-            margin-left: -3vw;
             justify-content: space-between;
+            width: 38vw;
 
             .activeLink {
                 a {
@@ -86,13 +89,14 @@
                     color: $theme;
                     cursor: pointer;
                     font-weight: 600;
-                    font-size: 1.1vw;
+                    font-size: 1vw;
                 }
 
                 hr {
                     margin-top: 23px;
+                    background-color: #EA7C69;
                     color: #EA7C69;
-                    width: 2vw;
+                    width: 3vw;
                 }
             }
 

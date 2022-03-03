@@ -51,7 +51,7 @@ const LandingData = (props) => {
 
             {
                 (loading) ?
-                    <div style={{marginTop: '20%'}}>
+                    <div style={{marginTop: '20%', width:'56vw'}}>
                         <BeatLoader size={30} color={'#a2a2a2'}/>
                     </div>
                     :
