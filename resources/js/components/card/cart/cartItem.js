@@ -35,18 +35,13 @@ const CartItem = (props) => {
         dispatch({
             type: "INCREMENT_QUANTITY",
             id: props.productId,
-            value: quantity
+            value: Q
         });
     }
 
     function Increase() {
-        if (props.stock > quantity) {
-
+        if (props.stock > props.quantity) {
             setQ(Q + 1)
-            dispatch({
-                type: "setQuantity",
-                value: Q + 1,
-            });
             update().then(r => r)
 
         } else {
@@ -56,12 +51,8 @@ const CartItem = (props) => {
 
 
     function Decrease() {
-        if (props.stock > 0 && quantity > 1) {
+        if (props.stock > 0 && props.quantity > 1) {
             setQ(Q - 1)
-            dispatch({
-                type: "setQuantity",
-                value: props.quantity - 1,
-            });
             update().then(r => r)
         }
     }

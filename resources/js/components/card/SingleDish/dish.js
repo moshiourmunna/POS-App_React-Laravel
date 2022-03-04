@@ -62,7 +62,7 @@ const Dish = (props) => {
                         title: props.data.title,
                         price: props.data.price,
                         image: props.data.image,
-                        quantity: quantity,
+                        quantity: 1,
                         stock: props.data.stock,
                         deliveryMethod: deliveryMethod.deliveryMethod,
                         orderNote: '',
