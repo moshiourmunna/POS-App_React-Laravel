@@ -8,8 +8,8 @@ import {toast} from "react-toastify";
 
 const CartItem = (props) => {
 
-    const [{basket, deliveryMethod, quantity}, dispatch] = useStateValue();
-    const [Q, setQ] = useState(props.quantity)
+    const [{deliveryMethod, quantity}, dispatch] = useStateValue();
+    const [updatedQuantity, setUpdatedQuantity] = useState(props.quantity)
 
     function RemoveItem() {
         dispatch({
@@ -29,21 +29,24 @@ const CartItem = (props) => {
 
     useEffect(() => {
         updateCart().then(r => r)
-    }, [deliveryMethod]);
+    }, [deliveryMethod])
 
     async function update() {
         dispatch({
             type: "INCREMENT_QUANTITY",
             id: props.productId,
-            value: Q
+            value: updatedQuantity
         });
     }
 
-    function Increase() {
-        if (props.stock > props.quantity) {
-            setQ(Q + 1)
-            update().then(r => r)
+    useEffect(() => {
+        update().then(r => r)
+    }, [updatedQuantity])
 
+
+    function Increase() {
+        if (props.stock > updatedQuantity) {
+            setUpdatedQuantity(updatedQuantity + 1)
         } else {
             toast.warning('Out Of Stock!!!')
         }
@@ -51,9 +54,8 @@ const CartItem = (props) => {
 
 
     function Decrease() {
-        if (props.stock > 0 && props.quantity > 1) {
-            setQ(Q - 1)
-            update().then(r => r)
+        if (props.stock > 0 && updatedQuantity > 1) {
+            setUpdatedQuantity(updatedQuantity - 1)
         }
     }
 
