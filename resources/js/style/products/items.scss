@@ -24,32 +24,38 @@
             width: 48%;
 
             .minus {
-                @include plusMinusCart($theme);
+                @include plusMinusCart($offWhite);
                 padding-right: .5vw;
+                border-right: 1px solid $body-bg2;;
 
             }
 
             .plus {
-                @include plusMinusCart($pasteColor)
+                @include plusMinusCart($offWhite);
+                padding-left: .5vw;
+                border-left:  1px solid $body-bg2;
             }
 
             h5 {
                 margin-top: 10%;
                 margin-left: auto;
-                font-size: 1vw;
-                background: $body-bg2;
+                font-size: .9vw;
+                background: rgba(#2D303E,.1);
                 border-radius: 8px;
-                padding: 1.1vh 1.1vw .9vh 1.1vw;
-                min-width: 3vw;
-                max-width: 3vw;
+                padding: 1.1vh 2vw .9vh 1.1vw;
+                width: 2.8vw;
+                margin-right: .3vw;
+                .quantity{
+                    padding: .4vw;
+                }
             }
 
             h2 {
-                padding: 1vw;
+                padding: 1vw 1vw .8vw 1vw;
                 margin-top: 10%;
                 font-size: .9vw;
                 width: 1vw;
-                margin-right: -.3vw;
+                margin-right: -.2vw;
             }
         }
 
@@ -84,16 +90,17 @@
             color: $appWhite;
             font-size: 1vw;
             width: 100%;
-            padding: 1vw 1vw 1vw 1.2vw;
+            padding: 1vw 1vw .8vw 1.2vw;
             border-radius: 1vh;
             outline: $theme;
         }
 
         img {
+            margin-left: .6vw;
             cursor: pointer;
             width: 3vw;
             height: 4.8vh;
-            padding-left: .4vw;
+            margin-right: .4vw;
         }
     }
 

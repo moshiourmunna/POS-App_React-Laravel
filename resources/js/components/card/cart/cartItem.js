@@ -77,7 +77,7 @@ const CartItem = (props) => {
                     <div style={{display: 'flex'}}>
                         <h5>
                             <span className='minus' onClick={Decrease}>-</span>
-                            {props.quantity}
+                            <span className='quantity'>{props.quantity}</span>
                             <span className='plus' onClick={Increase}>+</span>
                         </h5>
                         <h2>${(props.quantity * props.price).toFixed(2)}</h2>
