@@ -111,26 +111,72 @@ class OrderRepository implements OrderInterface
     public function businessSummery(): array
     {
 
-        $products = Product::where('published', 0)->select('sold', 'price')->get();
+        $products = Product::where('published', 0)->select('sold', 'price', 'updated_at')->get();
 
         $totalPayment = [];
         $orderedDishes = [];
 
+        $totalPaymentLastWeek = [];
+        $totalPaymentPastWeek = [];
+
+        $orderedDishesLastWeek = [];
+        $orderedDishesPastWeek = [];
+
         foreach ($products as $product) {
+            if ($product->updated_at > Carbon::now()->subDays(2)) {
+                $totalPaymentLastWeek[] = $product->price * $product->sold;
+                $orderedDishesLastWeek[] = $product->sold;
+            }
+            if ($product->updated_at >now()->subDays(3) && $product->updated_at < now()->subDays(2)) {
+                $totalPaymentPastWeek[] = $product->price * $product->sold;
+                $orderedDishesPastWeek[] = $product->sold;
+            }
             $totalPayment[] = $product->price * $product->sold;
             $orderedDishes[] = $product->sold;
         }
-        $revenue = array_sum($totalPayment);
+
+        $revenueLastWeek = array_sum($totalPaymentLastWeek);
+        $revenuePastWeek = array_sum($totalPaymentPastWeek);
+        $revenueStat = ($revenuePastWeek - $revenueLastWeek) / $revenueLastWeek * 100;
+
+        $dishCountLastWeek = array_sum($orderedDishesLastWeek);
+        $dishCountPastWeek = array_sum($orderedDishesPastWeek);
+        $dishStat = ($dishCountPastWeek - $dishCountLastWeek) / $dishCountLastWeek * 100;
+
         $orderedDishCount = array_sum($orderedDishes);
+        $revenue = array_sum($totalPayment);
+
+        $customersLastWeek=[];
+        $customersPastWeek=[];
 
         $customers = Order::with(['users' => function ($q) {
             $q->select('first_name', 'last_name', 'id')->distinct();
         }])
             ->get();
+
+        foreach ($customers as $customer){
+            if ($customer->updated_at > Carbon::now()->subDays(2)) {
+                if(!in_array($customer->user_id, $customersLastWeek, true)){
+                    $customersLastWeek[] = $customer->user_id;
+                }
+            }
+            if ($customer->updated_at >now()->subDays(3) && $customer->updated_at < now()->subDays(2)) {
+                if(!in_array($customer->user_id, $customersPastWeek, true)){
+                    $customersPastWeek[] = $customer->user_id;
+                }
+            }
+        }
+        $customersLastWeek = count($customersLastWeek);
+        $customersPastWeek= count($customersPastWeek);
+        $customersStat = ($customersPastWeek - $customersLastWeek) / $customersLastWeek * 100;
+
         return [
             'revenue' => $revenue,
+            'revenueStat' => $revenueStat,
+            'dishStat' => $dishStat,
             'orderedDishCount' => $orderedDishCount,
             'customers' => $customers,
+            'customersStat'=>$customersStat
         ];
 
     }

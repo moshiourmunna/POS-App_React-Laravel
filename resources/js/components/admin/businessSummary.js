@@ -38,11 +38,11 @@ const BusinessSummary = (props) => {
                 </div>
 
                 {
-                    (props.data >= 0) ?
+                    (props.stat >= 0) ?
                         (!props.loading) ?
                             <>
                                 <p className='positive'>
-                                    +{props.data}%
+                                    +{(props.stat).toFixed(0)}%
                                 </p>
                                 <div className='iconBackgroundSmallPositive'>
                                     <ArrowUpIcon
@@ -59,7 +59,7 @@ const BusinessSummary = (props) => {
                         :
                         <>
                             <p className='negative'>
-                                -{props.data}%
+                                {(props.stat).toFixed(0)}%
                             </p>
                             <div className='iconBackgroundSmallNegative'>
                                 <ArrowDownIcon
@@ -95,4 +95,5 @@ BusinessSummary.propTypes = {
     money: PropTypes.bool,
     order: PropTypes.bool,
     loading: PropTypes.bool,
+    stat: PropTypes.number,
 }

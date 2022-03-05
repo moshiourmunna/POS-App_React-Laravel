@@ -104,15 +104,14 @@ const Dish = (props) => {
                 .catch(e => {
                     setError(e)
                 })
-        } else {
+        }
+        else {
             setLoading(false)
         }
     }
 
     return (
-        <div className='dish'
-             onClick={addToCart}
-        >
+        <div className='dish' onClick={addToCart}>
             {
                 (toggle) &&
                 <div className='editProduct'>

@@ -14,8 +14,11 @@ const Dashboard = () => {
     const date = rawDate.toDateString()
     const [mostOrdered, setMostOrdered] = useState([])
     const [revenue, setRevenue] = useState(0)
+    const [revenueStat, setRevenueStat] = useState(0)
     const [orderedDishCount, setOrderedDishCount] = useState(0)
+    const [dishCountStat, setDishCountStat] = useState(0)
     const [customers, setCustomers] = useState([])
+    const [customersStat, setCustomersStat] = useState(0)
     const [loading, setLoading] = useState(false)
     const [loadingMostOrdered, setLoadingMostOrdered] = useState(false)
     const [filter, setFilter] = useState('all')
@@ -41,6 +44,9 @@ const Dashboard = () => {
                     setCustomers(response.data.customers)
                     setOrderedDishCount(response.data.orderedDishCount)
                     setRevenue(response.data.revenue)
+                    setDishCountStat(response.data.dishStat)
+                    setRevenueStat(response.data.revenueStat)
+                    setCustomersStat(response.data.customersStat)
                     setLoading(false)
                 })
         },
@@ -73,9 +79,9 @@ const Dashboard = () => {
             <div className='dashboardFlex'>
                 <div className='dashboardLeft'>
                     <div className='businessCardsFlex'>
-                        <BusinessSummary data={revenue} money loading={loading} title={'Total Revenue'}/>
-                        <BusinessSummary data={orderedDishCount} order loading={loading} title={'Total Dish Ordered'}/>
-                        <BusinessSummary  data={uniqueCustomers.length} loading={loading} title={'Total Customer'}/>
+                        <BusinessSummary data={revenue} stat={revenueStat} money loading={loading} title={'Total Revenue'}/>
+                        <BusinessSummary data={orderedDishCount} stat={dishCountStat} order loading={loading} title={'Total Dish Ordered'}/>
+                        <BusinessSummary  data={uniqueCustomers.length} stat={customersStat} loading={loading} title={'Total Customer'}/>
                     </div>
                     <div className='orderSummery'>
                         <OrderReport customers={uniqueCustomers}/>

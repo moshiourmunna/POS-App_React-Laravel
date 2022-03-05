@@ -11,15 +11,15 @@ import '../style/cart/fullCart.scss';
 const FullCart = (props) => {
 
     const [{deliveryMethod, basket}] = useStateValue()
-    const [subTotal, setSubTotal]=useState('')
-    const [discount, setDiscount]=useState('')
+    const [subTotal, setSubTotal] = useState('')
+    const [discount, setDiscount] = useState('')
 
     useEffect(() => {
-        let percentage=getBasketDiscount(basket)
-        let sum=getBasketTotal(basket)
-        let res=sum-(percentage/100)
+        let percentage = getBasketDiscount(basket)
+        let sum = getBasketTotal(basket)
+        let res = sum - (percentage / 100)
         setSubTotal(res)
-        setDiscount(percentage/100)
+        setDiscount(percentage / 100)
     }, [basket]);
 
 
@@ -45,20 +45,16 @@ const FullCart = (props) => {
             </div>
 
             <div className='flex-row-list'>
-                <li>
-                    Item
-                </li>
+                <li>Item</li>
                 <div className='toRight'>
-                    <li>
-                        Quantity
-                    </li>
-                    <li>
-                        Price
-                    </li>
+                    <li>Quantity</li>
+                    <li>Price</li>
                 </div>
             </div>
+
             <hr/>
             <br/>
+
             <div className='orderList'>
                 {
                     basket.map((item) => (
@@ -76,20 +72,19 @@ const FullCart = (props) => {
                 }
             </div>
             <hr/>
+
             <div className='orderSubmitTab'>
                 <p>Discount <span>${parseFloat(discount).toFixed(2)}</span></p>
                 <p>SubTotal <span>${parseFloat(subTotal).toFixed(2)}</span></p>
             </div>
+
             <div style={{padding: '20px 0 0 0 '}}>
                 {
                     (!props.isThisForConfirmPayment) &&
-                    <Button
-                        name={'Continue To Payment'}
-                        cancel={false}
-                        admin={false}
-                    />
+                    <Button name={'Continue To Payment'} cancel={false} admin={false}/>
                 }
             </div>
+
         </div>
     )
 }

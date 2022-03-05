@@ -18,10 +18,7 @@ const PaymentMethodList = (props) => {
     return (
         <div>
             <Link to={props.route}>
-            <li
-                className={(url.pathname!==props.route)?'payIcon':'activePayIcon'}
-                onClick={handleChange}
-            >
+            <li onClick={handleChange} className={(url.pathname!==props.route)?'payIcon':'activePayIcon'}>
                 {props.icon}
             </li>
             </Link>
