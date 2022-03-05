@@ -1,16 +1,16 @@
-import React, {useCallback, useEffect, useState} from "react";
-import '../../../style/adminPages/dashboard.scss';
-import BusinessSummary from "../../../components/admin/businessSummary";
-import OrderReport from "../../../components/admin/orderReport/orderReport";
-import MostOrdered from "../../../components/admin/mostOrdered";
-import DeliveryMethod from "../../../components/deliveryMethod";
-import Button from "../../../components/button/Button";
-import Api from "../../../api/api";
-import {BeatLoader} from "react-spinners";
+import React, {useCallback, useEffect, useState} from "react"
+import '../../../style/adminPages/dashboard.scss'
+import BusinessSummary from "../../../components/admin/businessSummary"
+import OrderReport from "../../../components/admin/orderReport/orderReport"
+import MostOrdered from "../../../components/admin/mostOrdered"
+import DeliveryMethod from "../../../components/deliveryMethod"
+import Button from "../../../components/button/Button"
+import Api from "../../../api/api"
+import {BeatLoader} from "react-spinners"
 
 const Dashboard = () => {
 
-    const rawDate = new Date();
+    const rawDate = new Date()
     const date = rawDate.toDateString()
     const [mostOrdered, setMostOrdered] = useState([])
     const [revenue, setRevenue] = useState(0)
@@ -21,7 +21,7 @@ const Dashboard = () => {
     const [customersStat, setCustomersStat] = useState(0)
     const [loading, setLoading] = useState(false)
     const [loadingMostOrdered, setLoadingMostOrdered] = useState(false)
-    const [filter, setFilter] = useState('all')
+    const [filter, setFilter] = useState('today')
     const [uniqueCustomers, setUniqueCustomer] = useState([])
 
     const getMostOrdered = useCallback(
@@ -33,7 +33,7 @@ const Dashboard = () => {
                     setLoadingMostOrdered(false)
                 })
         },
-        [filter],
+        [filter]
     );
 
     const getBusinessSummery = useCallback(
@@ -111,6 +111,13 @@ const Dashboard = () => {
                                     <BeatLoader size={20} color={'#a2a2a2'}/>
                                 </div>
                                 :
+                                (!mostOrdered)?
+                                    <div style={{height:'28vh', textAlign:'center'}}>
+                                        <h2 style={{paddingTop:'25%', color:'#EA7C69'}}>
+                                            No Orders During The Period!!
+                                        </h2>
+                                    </div>
+                                    :
                                 mostOrdered.map((data) => (
                                     <MostOrdered
                                         loading={loadingMostOrdered}
@@ -123,8 +130,8 @@ const Dashboard = () => {
                         }
 
                         <br/>
-                        {/*<hr/>*/}
-                        <Button name='View All' cancel={true} admin={true}/>
+                        <hr/>
+                        {/*<Button name='View All' cancel={true} admin={true}/>*/}
                     </div>
                     <div className='orderTypesCard'>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>

@@ -118,6 +118,11 @@
             background: $body-bg1;
             margin: 3%;
 
+            hr {
+                background-color: $body-bg2;
+                color: $body-bg2;
+            }
+
             h1 {
                 padding-top: 5%;
             }

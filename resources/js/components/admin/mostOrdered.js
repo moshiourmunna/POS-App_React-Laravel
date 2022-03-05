@@ -1,8 +1,7 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React from "react";
 import '../../style/adminPages/mostOrdered.scss';
 import PropTypes from "prop-types";
 import {BeatLoader} from "react-spinners";
-import Api from "../../api/api";
 
 const mostOrdered = (props) => {
     return (
@@ -20,9 +19,7 @@ const mostOrdered = (props) => {
                             <p>{props.sold} Dishes Ordered</p>
                         </div>
                     </>
-
             }
-
         </div>
     )
 }
