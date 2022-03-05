@@ -155,12 +155,12 @@ class OrderRepository implements OrderInterface
             ->get();
 
         foreach ($customers as $customer){
-            if ($customer->updated_at > Carbon::now()->subDays(2)) {
+            if ($customer->created_at > Carbon::now()->subDays(2)) {
                 if(!in_array($customer->user_id, $customersLastWeek, true)){
                     $customersLastWeek[] = $customer->user_id;
                 }
             }
-            if ($customer->updated_at >now()->subDays(3) && $customer->updated_at < now()->subDays(2)) {
+            if ($customer->created_at >now()->subDays(3) && $customer->created_at < now()->subDays(2)) {
                 if(!in_array($customer->user_id, $customersPastWeek, true)){
                     $customersPastWeek[] = $customer->user_id;
                 }
