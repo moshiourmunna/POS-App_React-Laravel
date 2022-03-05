@@ -2,7 +2,7 @@
 @import "variables";
 
 .topSection {
-    padding: 1vh 2vw 0 2vw;
+    padding: 2vh 2vw 0 2vw;
     height: auto;
     text-align: left;
     width: 91%;
@@ -18,7 +18,7 @@
 
     h1 {
         font-size: 1.5vw;
-        color: $appWhite;
+        color: $theme;
         font-weight: 500;
     }
 

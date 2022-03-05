@@ -62,14 +62,14 @@ const CategoryDetailsCard = (props) => {
                     <div style={{marginLeft: '0px'}}>
                         {
                             (props.published === 0) ?
-                                <BsToggle2On size='22px'/>
+                                <BsToggle2On size='1.5em'/>
                                 :
-                                <BsToggle2Off size='22px'/>
+                                <BsToggle2Off size='1.5em'/>
                         }
                     </div>
                 </td>
                 <td className='delete'>
-                    <AiFillDelete size='20px' onClick={() => Delete(props.id)}/>
+                    <AiFillDelete size='1.5em' onClick={() => Delete(props.id)}/>
                 </td>
             </tr>
 

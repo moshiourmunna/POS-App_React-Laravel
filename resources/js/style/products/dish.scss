@@ -53,7 +53,7 @@
     }
 
     .containerAdded {
-        @include dishContainer(rgb(234, 124, 105, .1))
+        @include dishContainer(rgb(234, 124, 105, .2))
     }
 
     .editDish {

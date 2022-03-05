@@ -7,9 +7,9 @@ const AddMore = (props) => {
 
     return (
         <div className='addButton'>
-            <button
-                style={{ background:props.background, color:props.color}}
-            ><VscAdd size='2vw'/></button>
+            <button style={{ background:props.background, color:props.color}}>
+                <VscAdd size='2.5em'/>
+            </button>
             <p>{props.name}</p>
         </div>
     )

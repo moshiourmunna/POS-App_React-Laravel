@@ -73,7 +73,6 @@ const AddProducts = (props) => {
 
         await Api().post('/store', Data)
             .then((response) => {
-                console.log(response)
                 if (response.status === 201) {
                     setLoading(false)
                     toast.success('Product Added Successfully!')
@@ -210,10 +209,10 @@ const AddProducts = (props) => {
     }
 
     useEffect(() => {
-        if (File && title && price && discount && stock && discount) {
+        if (File && title && price && stock && category && status) {
             setReady(true)
         }
-    }, [File, title, price, discount, stock]);
+    }, [File, title, price, stock,status,category]);
 
 
     return (
@@ -323,7 +322,7 @@ const AddProducts = (props) => {
                             ''
                     }
                 >
-                    <option> * Select Discount</option>
+                    <option> Select Discount</option>
                     <option value={0}> None</option>
                     {
                         discounts.map((offer) => (

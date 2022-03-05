@@ -10,6 +10,7 @@ import CategoryDetails from "../views/Admin/settings/partial/categoryDetails";
 import {useStateValue} from "../states/StateProvider";
 import '../style/adminPages/editCategory.scss';
 import '../style/topSection.scss';
+import {toast} from "react-toastify";
 
 const TopSection = (props) => {
 
@@ -28,7 +29,7 @@ const TopSection = (props) => {
                     setCategories(response.data)
                     setLoading(false)
                 })
-                .catch(e => console.log('first e',e))
+                .catch(e => toast.error('something went wrong'))
         },
         [state],
     );
@@ -46,7 +47,7 @@ const TopSection = (props) => {
                         <div className='rightSide'>
                             <Search/>
                         </div>
-                        <h1>Jaeger Resto</h1>
+                        <h1>POS APPLICATION</h1>
                         <h2>{date}</h2>
                     </div>
                     :

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import '../../style/userPages/home.scss';
 import {useStateValue} from "../../states/StateProvider";
 import ModalContent from "../../components/modal";
-import FullCart from "../../components/fullCart";
+import FullCart from "../../components/cart/fullCart";
 import '../../style/rowColumnStyle.scss';
 import PropTypes from "prop-types";
 import LandingData from "../../components/landingData";

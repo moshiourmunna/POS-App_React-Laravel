@@ -30,9 +30,8 @@
     input {
         padding: 1.2vw 1vw 1vw 1vw;
         width: 25vw;
-        height: 1vw;
         font-size: 1vw;
-        border-radius: .4vw;
+        border-radius: .6vw;
         border-style: hidden;
         color: $appWhite;
         background-color: rgba(#9288E0FF,.1);
@@ -41,10 +40,9 @@
     button {
         cursor: pointer;
         width: 100%;
-        padding: 5px;
-        height: 5vh;
+        padding: 1vw;
         font-size: 1vw;
-        border-radius: 5px;
+        border-radius: .6vw;
         color: rgb(12, 44, 15);
         background-color: rgb(182, 181, 180);
     }

@@ -1,7 +1,7 @@
 import React from "react";
 import {PaymentMethods} from "../../../../data/paymentMethods";
 import PaymentMethodList from "../../../card/paymentMethodList";
-import Pay from "../../../card/billingPage/pay";
+import Pay from "../../../billingPage/pay";
 
 const PaymentInfo = () => {
 

@@ -22,7 +22,7 @@ const CategoryDetails = () => {
                     setCategories(response.data)
                     setLoading(false)
                 })
-                .catch(e => console.log('first e', e))
+                .catch(e => toast.error('Something Went Wrong!'))
         },
         [state],
     );
@@ -52,11 +52,9 @@ const CategoryDetails = () => {
                     })
             } else {
                 setResponse(response.statusText)
-                console.log(response)
             }
         }).catch((e) => {
-            console.log(e.response.data.errors?.name)
-            setErrors(e.response.data?.errors)
+            toast.error(e.response.data?.errors)
         })
             .finally(setToggle(false))
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Dish from "../../../components/card/SingleDish/dish";
+import Dish from "../../../components/SingleDish/dish";
 import PropTypes from "prop-types";
 import AddMore from "../../../components/button/AddMore";
 import {useStateValue} from "../../../states/StateProvider";
@@ -26,14 +26,12 @@ const CentralData = (props) => {
 
     useEffect(() => {
         const endOffset = itemOffset + perPage;
-        console.log(`Loading items from ${itemOffset} to ${endOffset}`);
         setCurrentItems(items.slice(itemOffset, endOffset));
         setPageCount(Math.ceil(items.length / perPage));
     }, [itemOffset, perPage]);
 
     const handlePageClick = (event) => {
         const newOffset = (event.selected * perPage) % items.length;
-        console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
         setItemOffset(newOffset);
     };
 

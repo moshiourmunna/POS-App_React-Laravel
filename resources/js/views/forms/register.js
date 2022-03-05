@@ -26,13 +26,11 @@ const Register = () => {
 
         await axios.post(`${api}/register`, Data
         ).then((response) => {
-            console.log(response.data)
             window.localStorage.setItem('user', JSON.stringify(response.data));
             // navigate('/home')
             window.location.replace('/login')
 
         }).catch((e) => {
-            console.log('errors:', e.response.data.errors)
             setErrors(e.response.data.errors)
         })
 

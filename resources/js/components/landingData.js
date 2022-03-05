@@ -29,7 +29,6 @@ const LandingData = (props) => {
             if (key.match(/^ *$/) === null) {
                 await Api().get(`/products/${category.title}/${key}`)
                     .then((response) => {
-                        console.log('query', query)
                         setData(response.data.products)
                         setDiscount(response.data.discount)
                         setLoading(false)

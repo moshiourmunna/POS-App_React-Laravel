@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import {BeatLoader} from "react-spinners";
 import '../../../style/forms.scss'
 import Api from "../../../api/api";
+import {toast} from "react-toastify";
 
 const OrderReport = (props) => {
 
@@ -21,11 +22,10 @@ const OrderReport = (props) => {
             setLoading(true)
             await Api().get(`/getOrderInfo/${statusFilter}/${customerFilter}/`)
                 .then((response) => {
-                    console.log('customers', response.data.customers)
                     setOrder(response.data.getOrderInfo)
                     setLoading(false)
                 })
-                .catch(e => console.log('error', e))
+                .catch(e =>toast.error('Something Went Wrong'))
         },
         [statusFilter, customerFilter],
     );
@@ -91,7 +91,9 @@ const OrderReport = (props) => {
                                 {
                                     props.customers.map((customer) => (
                                         <option
-                                            value={customer.user_id}>{customer.users.first_name} {customer.users.last_name}</option>
+                                            key={customer.user_id}
+                                            value={customer.user_id}>{customer.users.first_name} {customer.users.last_name}
+                                        </option>
                                     ))
                                 }
                             </select>

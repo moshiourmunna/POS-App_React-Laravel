@@ -68,7 +68,7 @@ const DiscountsList = (props) => {
                     style={{cursor: 'pointer', float: 'right'}}
                     onClick={() => DeleteDiscount(props.id)}
                 >
-                    <IoMdCloseCircle size='3vw' color='#a2a2a2'/>
+                    <IoMdCloseCircle size='2.5em' color='#a2a2a2'/>
                 </div>
                 <h2>{props.name}</h2>
                 <p>{props.percentage}%</p>

@@ -21,31 +21,26 @@ const Login = () => {
 
         await axios.post(`${api}/login`, userdata)
             .then((res) => {
-                console.log('res',res)
                 if (res.status === 202) {
                     window.localStorage.setItem('user', JSON.stringify(res.data))
-
                 }
             })
             .catch(e => {
                 toast.error(e.response.data.message)
-                // setNotFound(e.response.data.message)
             })
 
         let user = JSON.parse(window.localStorage.getItem('user'))
         if (user) {
             setErrors(user?.errors)
-            console.log(user?.errors)
-        if (user?.admin === true) {
-            // navigate('/dashboard')
-            window.location.replace('/dashboard')
+            if (user?.admin === true) {
+                // navigate('/dashboard')
+                window.location.replace('/dashboard')
 
-        } else {
-            navigate('/')
-            // window.location.replace('/POS')
+            } else {
+                navigate('/')
+                // window.location.replace('/POS')
+            }
         }
-        }
-
 
     }
 
@@ -74,7 +69,7 @@ const Login = () => {
                 <button style={{backgroundColor: '#75a85d'}} onClick={login}> Log In</button>
                 {
                     (notFound) ?
-                        <p style={{marginLeft:'20%',marginTop:'10px',fontSize:'15px'}}>{notFound}</p>
+                        <p style={{marginLeft: '20%', marginTop: '10px', fontSize: '15px'}}>{notFound}</p>
                         :
                         ''
                 }
