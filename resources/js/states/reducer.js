@@ -109,7 +109,7 @@ const reducer = (state, action) => {
         case "SetQuery":
             return {
                 ...state,
-                query: action.item
+                query: action.query
             }
         case "SetPayMethod":
             return {

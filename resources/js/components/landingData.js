@@ -38,7 +38,7 @@ const LandingData = (props) => {
                         toast.error('OOPS! something went wrong')
                     })
             }
-        }, (query!=='all')?700:0)
+        }, (query!=='all' && category.title===0)?400:0)
 
         return () => clearTimeout(delayQuery)
 

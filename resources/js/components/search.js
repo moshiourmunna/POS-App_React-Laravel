@@ -5,15 +5,6 @@ const Search = () => {
 
     const [{query,category}, dispatch] = useStateValue();
 
-
-    // useEffect(() => {
-    //     const delayDebounceFn = setTimeout(() => {
-    //        //req
-    //     }, 1000)
-    //     return () => clearTimeout(delayDebounceFn)
-    // }, [getProducts]);
-
-
     function formHandler(e){
         dispatch(
             {
@@ -25,7 +16,7 @@ const Search = () => {
         dispatch(
             {
                 type: "SetQuery",
-                item:e.target.value
+                query:e.target.value
             })
     }
 
