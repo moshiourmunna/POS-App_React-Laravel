@@ -123,11 +123,11 @@ class OrderRepository implements OrderInterface
         $orderedDishesPastWeek = [];
 
         foreach ($products as $product) {
-            if ($product->updated_at > Carbon::now()->subDays(2)) {
+            if ($product->updated_at > Carbon::now()->subDays(1)) {
                 $totalPaymentLastWeek[] = $product->price * $product->sold;
                 $orderedDishesLastWeek[] = $product->sold;
             }
-            if ($product->updated_at >now()->subDays(3) && $product->updated_at < now()->subDays(2)) {
+            if ($product->updated_at < now()->subDays(1) && $product->updated_at > now()->subDays(2)) {
                 $totalPaymentPastWeek[] = $product->price * $product->sold;
                 $orderedDishesPastWeek[] = $product->sold;
             }
@@ -137,37 +137,37 @@ class OrderRepository implements OrderInterface
 
         $revenueLastWeek = array_sum($totalPaymentLastWeek);
         $revenuePastWeek = array_sum($totalPaymentPastWeek);
-        $revenueStat = ($revenuePastWeek - $revenueLastWeek) / $revenueLastWeek * 100;
+        $revenueStat = ($revenueLastWeek - $revenuePastWeek) / $revenueLastWeek * 100;
 
         $dishCountLastWeek = array_sum($orderedDishesLastWeek);
         $dishCountPastWeek = array_sum($orderedDishesPastWeek);
-        $dishStat = ($dishCountPastWeek - $dishCountLastWeek) / $dishCountLastWeek * 100;
+        $dishStat = ($dishCountLastWeek - $dishCountPastWeek) / $dishCountLastWeek * 100;
 
         $orderedDishCount = array_sum($orderedDishes);
         $revenue = array_sum($totalPayment);
 
-        $customersLastWeek=[];
-        $customersPastWeek=[];
+        $customersLastWeek = [];
+        $customersPastWeek = [];
 
         $customers = Order::with(['users' => function ($q) {
             $q->select('first_name', 'last_name', 'id')->distinct();
         }])
             ->get();
 
-        foreach ($customers as $customer){
-            if ($customer->created_at > Carbon::now()->subDays(2)) {
-                if(!in_array($customer->user_id, $customersLastWeek, true)){
+        foreach ($customers as $customer) {
+            if ($customer->created_at > Carbon::now()->subDays(1)) {
+                if (!in_array($customer->user_id, $customersLastWeek, true)) {
                     $customersLastWeek[] = $customer->user_id;
                 }
             }
-            if ($customer->created_at >now()->subDays(3) && $customer->created_at < now()->subDays(2)) {
-                if(!in_array($customer->user_id, $customersPastWeek, true)){
+            if ($customer->created_at < now()->subDays(1) && $customer->created_at > now()->subDays(2)) {
+                if (!in_array($customer->user_id, $customersPastWeek, true)) {
                     $customersPastWeek[] = $customer->user_id;
                 }
             }
         }
         $customersLastWeek = count($customersLastWeek);
-        $customersPastWeek= count($customersPastWeek);
+        $customersPastWeek = count($customersPastWeek);
         $customersStat = ($customersPastWeek - $customersLastWeek) / $customersLastWeek * 100;
 
         return [
@@ -176,7 +176,7 @@ class OrderRepository implements OrderInterface
             'dishStat' => $dishStat,
             'orderedDishCount' => $orderedDishCount,
             'customers' => $customers,
-            'customersStat'=>$customersStat
+            'customersStat' => $customersStat
         ];
 
     }

@@ -210,7 +210,7 @@ const AddProducts = (props) => {
     }
 
     useEffect(() => {
-        if (File && title && price && discount && stock) {
+        if (File && title && price && discount && stock && discount) {
             setReady(true)
         }
     }, [File, title, price, discount, stock]);
