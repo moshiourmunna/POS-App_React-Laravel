@@ -24,7 +24,7 @@ const LandingData = (props) => {
     }
 
     useEffect(() => {
-        const delayDebounceFn = setTimeout(async () => {
+        const delayQuery = setTimeout(async () => {
             setLoading(true)
             if (key.match(/^ *$/) === null) {
                 await Api().get(`/products/${category.title}/${key}`)
@@ -40,7 +40,7 @@ const LandingData = (props) => {
             }
         }, (query!=='all')?700:0)
 
-        return () => clearTimeout(delayDebounceFn)
+        return () => clearTimeout(delayQuery)
 
     }, [query,category.title])
 
