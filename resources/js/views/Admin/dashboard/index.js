@@ -3,7 +3,7 @@ import '../../../style/adminPages/dashboard.scss';
 import BusinessSummary from "../../../components/admin/businessSummary";
 import OrderReport from "../../../components/admin/orderReport/orderReport";
 import MostOrdered from "../../../components/admin/mostOrdered";
-import SelectOption from "../../../components/forms/selectOption";
+import DeliveryMethod from "../../../components/deliveryMethod";
 import Button from "../../../components/button/Button";
 import Api from "../../../api/api";
 import {BeatLoader} from "react-spinners";
@@ -129,7 +129,7 @@ const Dashboard = () => {
                     <div className='orderTypesCard'>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <h1>Most Type Of Order</h1>
-                            <SelectOption admin={true}/>
+                            <DeliveryMethod admin={true}/>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import Api from "../../../../api/api";
 import {useStateValue} from "../../../../states/StateProvider";
-import CategoryDetailsCard from "../../../../components/card/categoryDetails";
+import CategoryDetailsCard from "../../../../components/admin/categoryDetails";
 import {toast} from "react-toastify";
 
 const CategoryDetails = () => {

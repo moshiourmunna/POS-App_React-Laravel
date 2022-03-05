@@ -21,6 +21,7 @@ const AddProducts = (props) => {
     const [res, setResponse] = useState('');
     const [Url, setUrl] = useState('');
     const [ready, setReady] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState([]);
     const [categories, setCategories] = useState([]);
     const ref = useRef();
@@ -59,6 +60,7 @@ const AddProducts = (props) => {
 
 
     async function upload() {
+        setLoading(true)
         const Data = new FormData();
         Data.append('file', File);
         Data.append('title', title);
@@ -71,44 +73,45 @@ const AddProducts = (props) => {
 
         await Api().post('/store', Data)
             .then((response) => {
-            console.log(response)
-            if (response.status === 201) {
-                setResponse()
-                toast.success('Product Added Successfully!')
-                setTitle('')
-                setDiscount('')
-                setStock('')
-                setPrice('')
-                setDescription('')
-                setFile('')
-                setUrl('')
-                dispatch({
-                    type: "SetModal",
-                    item: false
-                })
-                dispatch(
-                    {
-                        type: "setState",
-                        item: {
-                            title: 1
-                        },
+                console.log(response)
+                if (response.status === 201) {
+                    setLoading(false)
+                    toast.success('Product Added Successfully!')
+                    setTitle('')
+                    setDiscount('')
+                    setStock('')
+                    setPrice('')
+                    setDescription('')
+                    setFile('')
+                    setUrl('')
+                    dispatch({
+                        type: "SetModal",
+                        item: false
                     })
+                    dispatch(
+                        {
+                            type: "setState",
+                            item: {
+                                title: 1
+                            },
+                        })
 
-            } else {
-                toast.error('OOPs, Something Went Wrong')
-            }
-        }).catch((e) => {
-            setErrors(e.response.data.errors)
-            if (e.response.status === 401) {
-                navigate('/login')
-            } else if (e.response.status === 500) {
-                toast.error('OOPs, Something Went Wrong')
-            }
-        })
+                } else {
+                    toast.error('OOPs, Something Went Wrong')
+                }
+            }).catch((e) => {
+                setErrors(e.response.data.errors)
+                if (e.response.status === 401) {
+                    navigate('/login')
+                } else if (e.response.status === 500) {
+                    toast.error('OOPs, Something Went Wrong')
+                }
+            })
 
     }
 
     async function update() {
+        setLoading(true)
         const Data = new FormData();
         Data.append('file', File);
         Data.append('title', title);
@@ -121,8 +124,8 @@ const AddProducts = (props) => {
 
         await Api().post(`/update/` + props.data.id, Data
         ).then((response) => {
-            console.log(response)
             if (response.status === 200) {
+                setLoading(false)
                 toast.success('Product Updated Successfully!')
                 setTitle('')
                 setDiscount('')
@@ -139,8 +142,7 @@ const AddProducts = (props) => {
                         },
                     })
             } else {
-                setResponse(response.statusText)
-                console.log(response)
+                toast.error('OOOPS...Something Went Wrong')
             }
         }).catch((e) => {
             setErrors(e.response.data.errors)
@@ -401,9 +403,15 @@ const AddProducts = (props) => {
                     onClick={(props?.data) ? update : upload}>
                     {
                         (props.data) ?
-                            'Update Product'
+                            (!loading) ?
+                                'Update Product'
+                                :
+                                'Updating...'
                             :
-                            ' Add Product'
+                            (!loading) ?
+                                ' Add Product'
+                                :
+                                'Adding...'
                     }
                 </button>
             </div>

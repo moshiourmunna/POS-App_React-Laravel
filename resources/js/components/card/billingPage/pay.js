@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import SelectOption from "../../forms/selectOption";
+import DeliveryMethod from "../../deliveryMethod";
 import Button from "../../button/Button";
 import {useStateValue} from "../../../states/StateProvider";
 import Api from "../../../api/api";
@@ -11,13 +11,15 @@ const Pay = () => {
     const [{basket}, dispatch] = useStateValue()
     let user = localStorage.getItem('user')
     let navigate = useNavigate()
+    const [loading,setLoading]=useState(false)
 
     async function placeOrder() {
-
+        setLoading(true)
         if (user) {
             await Api().post('/storeOrder', basket)
                 .then((response) => {
                     if (response.status === 201) {
+                        setLoading(false)
                         toast('Order Placed Successfully')
                         dispatch({
                             type: 'EMPTY_BASKET'
@@ -27,7 +29,7 @@ const Pay = () => {
                             item:false
                         })
                     }
-                    else{
+                else{
                         toast.error('OOps! Something Went Wrong')
                     }
                 })
@@ -67,7 +69,7 @@ const Pay = () => {
             <p style={{padding: '10px', marginLeft: '5px'}}>Order Type</p>
 
             <div style={{margin: '0% 0 10px 25%'}}>
-                <SelectOption/>
+                <DeliveryMethod/>
             </div>
 
             <div className='confirmPay'>
@@ -81,6 +83,7 @@ const Pay = () => {
                 </div>
                 <div onClick={() => placeOrder()}>
                     <Button
+                        loading={loading}
                         order={true}
                         name={'Confirm Payment'}
                         cancel={false}

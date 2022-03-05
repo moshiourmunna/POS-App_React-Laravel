@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import '../../style/button.scss';
 import {useStateValue} from "../../states/StateProvider";
+import {BeatLoader} from "react-spinners";
 
 const Button = (props) => {
 
@@ -14,8 +15,6 @@ const Button = (props) => {
                 type: "SetModal",
                 item: true
             })
-
-        console.log('clicked')
     }
 
     return (
@@ -26,7 +25,12 @@ const Button = (props) => {
                 disabled={!props.cancel ? disabled : !disabled}
                 className={!props.cancel ? 'button-glow' : 'button-dim'}
                 >
-            {props.name}
+                    {
+                        (!props.loading)?
+                            props.name
+                            :
+                            <BeatLoader size={10} color={'#a2a2a2'}/>
+                    }
                 </button>:
                 (!props.admin) ?
                     <button
@@ -34,7 +38,12 @@ const Button = (props) => {
                         className={basket.length > 0 && deliveryMethod.deliveryMethod && !props.cancel ? 'button-glow' : 'button-dim'}
                         onClick={submit}
                     >
-                        {props.name}
+                        {
+                            (!props.loading)?
+                                props.name
+                                :
+                                <BeatLoader size={10} color={'#a2a2a2'}/>
+                        }
                     </button>
                     : (!props.addProduct) ?
                     <button
@@ -42,7 +51,13 @@ const Button = (props) => {
                         className={!props.cancel ? 'button-glow' : 'button-dim'}
                         onClick={submit}
                     >
-                        {props.name}
+                        {
+                            (!props.loading)?
+                                props.name
+                                :
+                                <BeatLoader size={10} color={'#a2a2a2'}/>
+                        }
+
                     </button>
                         :
                     ''
@@ -55,5 +70,6 @@ export default Button
 Button.propTypes = {
     name: PropTypes.string,
     cancel: PropTypes.bool,
-    admin: PropTypes.bool
+    admin: PropTypes.bool,
+    loading:PropTypes.bool
 }

@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import TopSection from "./topSection";
-import SelectOption from "./forms/selectOption";
+import DeliveryMethod from "./deliveryMethod";
 import {BeatLoader} from "react-spinners";
 import CentralData from "../views/home/partial/centralData";
 import {useStateValue} from "../states/StateProvider";
@@ -45,7 +45,7 @@ const LandingData = (props) => {
                 (!props.admin) &&
                 <div className='flex-split'>
                     <h2>Choose Dishes</h2>
-                    <li><SelectOption admin={props.admin}/></li>
+                    <li><DeliveryMethod admin={props.admin}/></li>
                 </div>
             }
 

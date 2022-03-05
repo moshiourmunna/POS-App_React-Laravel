@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import Search from "./forms/search";
+import Search from "./search";
 import Categories from "./card/categories";
 import {IoIosArrowDropdownCircle} from 'react-icons/io';
 import PropTypes from "prop-types";

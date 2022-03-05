@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {DeliveryMethod} from "../data/deliveryMethods";
 import CartItem from "./card/cart/cartItem";
 import {getBasketDiscount, getBasketTotal} from "../states/reducer";
 import Button from "./button/Button";
@@ -7,6 +6,7 @@ import {useStateValue} from "../states/StateProvider";
 import PropTypes from "prop-types";
 import Tabs from "./tabs";
 import '../style/cart/fullCart.scss';
+import {DeliveryMethods} from "../data/deliveryMethods";
 
 const FullCart = (props) => {
 
@@ -36,7 +36,7 @@ const FullCart = (props) => {
             }
             <div className='flex-row-home'>
                 {
-                    DeliveryMethod.map((method) => (
+                    DeliveryMethods.map((method) => (
                         <li key={method.id}>
                             <Tabs title={method.title} condition={deliveryMethod.deliveryMethod}/>
                         </li>
