@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/products/{category}', [FrontEndController::class, 'show']);
+Route::get('/products/{category}/{query}', [FrontEndController::class, 'show']);
 Route::get('/getCategory',[CategoryController::class, 'index']);
 Route::get('/getAllCategory',[CategoryController::class, 'allCategories']);
 

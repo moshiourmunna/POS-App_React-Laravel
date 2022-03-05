@@ -19,7 +19,7 @@ const TopSection = (props) => {
     const [loading, setLoading] = useState(true);
     const [categoryDiv, setCategoryDiv] = useState(false);
     const [categories, setCategories] = useState([]);
-    const [{state}] = useStateValue();
+    const [{state,query}] = useStateValue();
 
     const getCategories = useCallback(
         async () => {

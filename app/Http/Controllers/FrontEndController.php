@@ -57,9 +57,9 @@ class FrontEndController extends Controller
      * @param \App\Models\Discount $discount
      * @return \Illuminate\Http\Response
      */
-    public function show($category)
+    public function show($category, $query)
     {
-        $result = $this->productsRepository->publishedProducts($category);
+        $result = $this->productsRepository->publishedProducts($category,$query);
         $discounts = [];
         foreach ($result as $data) {
             if($data->discounts){

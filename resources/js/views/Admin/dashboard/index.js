@@ -114,7 +114,7 @@ const Dashboard = () => {
                                 (!mostOrdered)?
                                     <div style={{height:'28vh', textAlign:'center'}}>
                                         <h2 style={{paddingTop:'25%', color:'#EA7C69'}}>
-                                            No Orders During The Period!!
+                                            No Orders Were Made Today!!
                                         </h2>
                                     </div>
                                     :

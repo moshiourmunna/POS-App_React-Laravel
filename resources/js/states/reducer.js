@@ -1,21 +1,22 @@
 export const initialState = {
     basket: [],
     user: {},
-    state:0,
-    quantity:1,
-    deliveryMethod:'',
-    filterDay:'Today',
-    category: {title:0},
+    state: 0,
+    quantity: 1,
+    deliveryMethod: '',
+    filterDay: 'Today',
+    category: {title: 0},
+    query: 'all',
     modal: false,
-    payMethod:0,
-    orderNote:''
+    payMethod: 0,
+    orderNote: ''
 };
 
 export const getBasketTotal = (basket) =>
     basket?.reduce((amount, item) => (item.price * item.quantity) + amount, 0);
 
 export const getBasketDiscount = (basket) =>
-    basket?.reduce((amount, item) => (item.discount* item.quantity) + amount, 0);
+    basket?.reduce((amount, item) => (item.discount * item.quantity) + amount, 0);
 
 const reducer = (state, action) => {
     console.log(action);
@@ -104,6 +105,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 modal: action.item
+            }
+        case "SetQuery":
+            return {
+                ...state,
+                query: action.item
             }
         case "SetPayMethod":
             return {

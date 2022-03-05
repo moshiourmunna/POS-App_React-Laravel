@@ -6,36 +6,43 @@ import CentralData from "../views/home/partial/centralData";
 import {useStateValue} from "../states/StateProvider";
 import Api from "../api/api";
 import PropTypes from "prop-types";
+import {toast} from "react-toastify";
 
 const LandingData = (props) => {
 
-    const [{category, state}] = useStateValue();
+    const [{category, state, query}] = useStateValue();
     const [loading, setLoading] = useState(false)
     const [discount, setDiscount] = useState(0)
     const [data, setData] = useState([])
+    let key = 'all'
 
-    const getProducts = useCallback(
-        async () => {
-            setLoading(true)
-            await Api().get(`/products/` + category.title)
-                .then((response) => {
-                    console.log('data',response.data)
-                    setData(response.data.products)
-                    setDiscount(response.data.discount)
-                    setLoading(false)
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-        },
-        [category.title, state],
-    );
-
+    if (query) {
+        key = query
+    }
+    if (!/\S/.test(query)) {
+        key = 'all'
+    }
 
     useEffect(() => {
-        getProducts().then(r => r)
-    }, [getProducts]);
+        const delayDebounceFn = setTimeout(async () => {
+            setLoading(true)
+            if (key.match(/^ *$/) === null) {
+                await Api().get(`/products/${category.title}/${key}`)
+                    .then((response) => {
+                        console.log('query', query)
+                        setData(response.data.products)
+                        setDiscount(response.data.discount)
+                        setLoading(false)
+                    })
+                    .catch((error) => {
+                        toast.error('OOPS! something went wrong')
+                    })
+            }
+        }, (query!=='all')?700:0)
 
+        return () => clearTimeout(delayDebounceFn)
+
+    }, [query,category.title])
 
     return (
         <div>
@@ -51,7 +58,7 @@ const LandingData = (props) => {
 
             {
                 (loading) ?
-                    <div style={{marginTop: '20%', width:'56vw'}}>
+                    <div style={{marginTop: '20%', width: '56vw'}}>
                         <BeatLoader size={30} color={'#a2a2a2'}/>
                     </div>
                     :

@@ -1,15 +1,40 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {useStateValue} from "../states/StateProvider";
 
-const Search = (props) => {
+const Search = () => {
 
-    function formHandler(){
+    const [{query,category}, dispatch] = useStateValue();
+
+
+    // useEffect(() => {
+    //     const delayDebounceFn = setTimeout(() => {
+    //        //req
+    //     }, 1000)
+    //     return () => clearTimeout(delayDebounceFn)
+    // }, [getProducts]);
+
+
+    function formHandler(e){
+        dispatch(
+            {
+                type: "setCategory",
+                item: {
+                    title: category.title
+                },
+            })
+        dispatch(
+            {
+                type: "SetQuery",
+                item:e.target.value
+            })
     }
+
     return (
         <div>
             <input
-                onChange={formHandler}
+                onChange={(e)=>formHandler(e)}
                 type='search'
-                // value=''
+                value={(query!=='all')?query:''}
                 placeholder='Search...'
             />
         </div>

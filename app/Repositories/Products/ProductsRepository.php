@@ -159,14 +159,19 @@ class ProductsRepository implements ProductsInterface
         });
     }
 
-    public function publishedProducts($category)
+    public function publishedProducts($category, $query)
     {
         return $this->baseQuery($category)
-            ->select('id', 'title', 'slug', 'published', 'image', 'description', 'price', 'stock', 'discount_id')
+            ->select('id', 'title', 'published', 'image', 'price', 'stock', 'discount_id')
             ->with('categories')
             ->with(['discounts' => function ($q) {
                     $q->where('published', 0);
             }])
+            ->when($query, function ($q) use ($query) {
+                if($query!=='all' && $query!==null){
+                    $q->where('title', 'like', "%$query%");
+                }
+            })
             ->latest()
             ->get();
 

@@ -4,7 +4,7 @@ import {BeatLoader} from "react-spinners";
 
 const Categories = (props) => {
 
-    const [{category}, dispatch] = useStateValue();
+    const [{category,query}, dispatch] = useStateValue();
 
     function clickHandler() {
         dispatch(
@@ -13,6 +13,11 @@ const Categories = (props) => {
                 item: {
                     title: props.keys
                 },
+            })
+        dispatch(
+            {
+                type: "SetQuery",
+                item:'all'
             })
     }
 
