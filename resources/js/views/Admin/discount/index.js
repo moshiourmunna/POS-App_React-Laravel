@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import '../../../style/adminPages/discount.scss';
 import {useForm} from 'react-hook-form';
 import Api from "../../../api/api";
@@ -16,8 +16,15 @@ const Discount = () => {
     const {
         register,
         handleSubmit,
-        formState: {errors},
-    } = useForm();
+        formState,
+        reset,
+        formState: {
+            errors, touchedFields
+        },
+    } = useForm({
+        mode: "onChange"
+    });
+    const {isValid} = formState;
 
     const onSubmit = async (data) => {
         await Api().post('/storeDiscount', data)
@@ -32,8 +39,8 @@ const Discount = () => {
                     })
                 if (response.status === 201) {
                     toast.success('New Discount Added!!')
-                    register('','')
                     setLoading(false)
+                    reset()
                 }
             })
     };
@@ -59,33 +66,31 @@ const Discount = () => {
         <div className='discount'>
             <div className='discountContainer'>
 
-                <h2> Create a discount</h2>
+                <h1> Create A Discount</h1>
+                <hr/>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input
                         placeholder='Name...'
                         {...register('name', {required: true})}
                     />
-                    {errors.name && <p>A name for your discount is required</p>}
+                    {errors.name && touchedFields && <p>A name for your discount is required</p>}
                     <input
                         placeholder='Percentage...'
-                        {...register('percentage', {required: true, pattern: /[0-1]+/})}
-                    />
-                    {errors.percentage && <p>Enter A valid percentage amount</p>}
-                    <input
-                        placeholder='Status...(0 for published, 1 for unpublished)'
                         type='number'
                         max='100'
-                        {...register('validity', {required: true, pattern: /\d+/})}
+                        {...register('percentage', {required: true, pattern: /[0-9]+/})}
                     />
-                    {errors.validity && <p>Enter either 0 or 1 (0 for published, 1 for unpublished)</p>}
-                    <button type='submit'>
-                        {
-                            (!loading)?
-                                'Save Discount'
-                                :
-                                <BeatLoader size={5} color={'#EA7C69'}/>
-                        }
-                    </button>
+                    {errors.percentage && touchedFields && <p>Enter A valid percentage amount</p>}
+                    <select
+                        {...register("validity", {required: true})}>
+                        <option value="">Select Status...</option>
+                        <option value={0}>Published</option>
+                        <option value={1}>UnPublished</option>
+                    </select>
+                    {errors.validity && touchedFields &&
+                        <p>Enter either 0 or 1 (0 for published, 1 for unpublished)</p>}
+                    <input className={(isValid) ? 'enabled' : 'disabled'} disabled={!isValid} type="submit"
+                           value='Save Discount'/>
                 </form>
 
             </div>
@@ -107,7 +112,6 @@ const Discount = () => {
                         :
                         <BeatLoader size={10} color={'#a2a2a2'}/>
                 }
-
             </div>
         </div>
     )

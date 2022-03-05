@@ -68,7 +68,7 @@ const DiscountsList = (props) => {
                     style={{cursor: 'pointer', float: 'right'}}
                     onClick={() => DeleteDiscount(props.id)}
                 >
-                    <IoMdCloseCircle size='3vw' color='#EA7C69'/>
+                    <IoMdCloseCircle size='3vw' color='#a2a2a2'/>
                 </div>
                 <h2>{props.name}</h2>
                 <p>{props.percentage}%</p>
@@ -92,7 +92,6 @@ const DiscountsList = (props) => {
                     </select>
                     <button ref={selectForm} style={{display: 'none'}} type='submit'> Update</button>
                 </form>
-                <hr/>
             </div>
         </div>
     )

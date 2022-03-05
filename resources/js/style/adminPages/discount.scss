@@ -8,11 +8,11 @@
     padding: 2vw;
     @include flexEvenly;
 
-    h2 {
-        color: $offWhite;
-        font-size: 1.2vw;
+    h1 {
+        color: $secondaryColor;
+        font-size: 2vw;
         font-weight: 100;
-        text-shadow: 4px 2px 3px 3px $theme;
+        margin-bottom: 1vh;
     }
 
     .discountContainer {
@@ -27,7 +27,7 @@
             display: flex;
             flex-direction: column;
 
-            input {
+            input,select {
                 background-color: rgba(#9288E0FF,.1);
                 color: $offWhite;
                 border-style: none;
@@ -35,9 +35,16 @@
                 border-radius: 1vw;
                 margin-top: 1rem;
             }
+            .enabled{
+                background-color: #475e42;
+                cursor: pointer;
+            }
+            .disabled{
+                opacity: .8;
+                cursor: none;
+            }
 
             button {
-                cursor: pointer;
                 padding: 1vw;
                 border-radius: 1vw;
                 margin-top: 1rem;
@@ -60,12 +67,6 @@
         border-radius: 1vw 1vw 1vw 5vw;
         padding: 2vw;
 
-        hr {
-            height: 1px;
-            background-color: $body-bg2;
-            border: none;
-        }
-
         .discountInfo {
             padding: 2vh 0 0 0;
 
@@ -85,11 +86,6 @@
 
         }
 
-        h1 {
-            font-size: 2vw;
-            color: $offWhite;
-        }
-
         h2 {
             font-size: 1.5vw;
             color: $pasteColor;
@@ -101,14 +97,12 @@
         }
 
         .red {
-            background-color: $theme;
-            color: $body-bg1;
+            background-color: $darkTheme;
 
         }
 
         .green {
             background-color: #475e42;
-            color: $body-bg1;
         }
 
     }
@@ -117,4 +111,9 @@
         display: none;
     }
 
+    hr {
+        height: 1px;
+        background-color: $body-bg2;
+        border: none;
+    }
 }

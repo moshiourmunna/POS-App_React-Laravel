@@ -77,8 +77,8 @@ const FullCart = (props) => {
             </div>
             <hr/>
             <div className='orderSubmitTab'>
-                <p>Discount <span>${discount}</span></p>
-                <p>SubTotal <span>${subTotal}</span></p>
+                <p>Discount <span>${parseFloat(discount).toFixed(2)}</span></p>
+                <p>SubTotal <span>${parseFloat(subTotal).toFixed(2)}</span></p>
             </div>
             <div style={{padding: '20px 0 0 0 '}}>
                 {
