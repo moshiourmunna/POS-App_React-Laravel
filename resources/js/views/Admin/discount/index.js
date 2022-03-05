@@ -10,15 +10,12 @@ import {useStateValue} from "../../../states/StateProvider";
 const Discount = () => {
 
     const [loading, setLoading] = useState(false)
+    const [getLoading, setGetLoading] = useState(false)
     const [{state}, dispatch] = useStateValue()
     const [discounts, setDiscounts] = useState([])
 
     const {
-        register,
-        handleSubmit,
-        formState,
-        reset,
-        formState: {
+        register, handleSubmit, formState, reset, formState: {
             errors, touchedFields
         },
     } = useForm({
@@ -27,43 +24,37 @@ const Discount = () => {
     const {isValid} = formState;
 
     const onSubmit = async (data) => {
+        setLoading(true)
         await Api().post('/storeDiscount', data)
             .then((response) => {
-                setLoading(true)
-                dispatch(
-                    {
-                        type: "setState",
-                        item: {
-                            title: 1
-                        },
-                    })
+                dispatch({
+                    type: "setState", item: {
+                        title: 1
+                    },
+                })
                 if (response.status === 201) {
                     toast.success('New Discount Added!!')
-                    setLoading(false)
                     reset()
+                    setLoading(false)
                 }
             })
     };
 
-    const Discounts = useCallback(
-        async () => {
-            setLoading(true)
-            await Api().get('/getDiscounts')
-                .then((response) => {
-                    setDiscounts(response.data)
-                    setLoading(false)
-                })
-        },
-        [state],
-    );
+    const Discounts = useCallback(async () => {
+        setGetLoading(true)
+        await Api().get('/getDiscounts')
+            .then((response) => {
+                setDiscounts(response.data)
+                setGetLoading(false)
+            })
+    }, [state]);
 
     useEffect(() => {
         Discounts().then(r => r)
     }, [Discounts]);
 
 
-    return (
-        <div className='discount'>
+    return (<div className='discount'>
             <div className='discountContainer'>
 
                 <h1> Create A Discount</h1>
@@ -88,9 +79,11 @@ const Discount = () => {
                         <option value={1}>UnPublished</option>
                     </select>
                     {errors.validity && touchedFields &&
-                        <p>Enter either 0 or 1 (0 for published, 1 for unpublished)</p>}
-                    <input className={(isValid) ? 'enabled' : 'disabled'} disabled={!isValid} type="submit"
-                           value='Save Discount'/>
+                        <p>please select one</p>}
+                    <input
+                        className={(isValid) ? 'enabled' : 'disabled'}
+                        disabled={!isValid} type="submit"
+                        value={(!loading) ? 'Save Discount' : 'saving...'}/>
                 </form>
 
             </div>
@@ -99,22 +92,20 @@ const Discount = () => {
                 <h1>Past Discounts</h1>
                 <hr/>
                 {
-                    (!loading) ?
-                        discounts.map((discount) => (
-                            <DiscountsList
-                                key={discount.id}
-                                percentage={discount.percentage}
-                                name={discount.name}
-                                id={discount.id}
-                                status={discount.published}
-                            />
-                        ))
+                    (!getLoading) ? discounts.map((discount) => (<DiscountsList
+                        key={discount.id}
+                        percentage={discount.percentage}
+                        name={discount.name}
+                        id={discount.id}
+                        status={discount.published}
+                    />))
                         :
-                        <BeatLoader size={10} color={'#a2a2a2'}/>
+                        <div style={{height:'10vh', marginTop:'40%'}}>
+                            <BeatLoader size={20} color={'#a2a2a2'}/>
+                        </div>
                 }
             </div>
-        </div>
-    )
+        </div>)
 }
 
 export default Discount
