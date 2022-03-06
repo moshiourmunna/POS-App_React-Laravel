@@ -107,7 +107,6 @@ class OrderRepository implements OrderInterface
             ->limit(3)
             ->get();
     }
-
     public function businessSummery(): array
     {
 
@@ -131,7 +130,7 @@ class OrderRepository implements OrderInterface
         $orderedDishesLastWeek = [];
         $orderedDishesPastWeek = [];
 
-        $customers =[];
+        $customers = [];
         $customersLastWeek = [];
         $customersPastWeek = [];
 
@@ -141,7 +140,7 @@ class OrderRepository implements OrderInterface
                     $totalPaymentLastWeek[] = $orderItem->quantity * $orderItem->products->price;
                     $orderedDishesLastWeek[] = $orderItem->quantity;
                 }
-                if ($orderItem->created_at <= now()->subDays(1) && $orderItem->created_at > now()->subDays(3)) {
+                if ($orderItem->created_at <= now()->subDays(2) && $orderItem->created_at > now()->subDays(3)) {
                     $totalPaymentPastWeek[] = $orderItem->quantity * $orderItem->products->price;
                     $orderedDishesPastWeek[] = $orderItem->quantity;
                 }
@@ -159,24 +158,40 @@ class OrderRepository implements OrderInterface
 
                 $totalPayment[] = $orderItem->quantity * $orderItem->products->price;
                 $orderedDishes[] = $orderItem->quantity;
-                $customers[]=$order->users;
+                $customers[] = $order->users;
             }
         }
 
         $revenueLastWeek = array_sum($totalPaymentLastWeek);
         $revenuePastWeek = array_sum($totalPaymentPastWeek);
-        $revenueStat = ($revenueLastWeek - $revenuePastWeek) / $revenueLastWeek * 100;
+
+        if ($revenuePastWeek != 0) {
+            $revenueStat = ($revenueLastWeek - $revenuePastWeek) / $revenuePastWeek * 100;
+        } else {
+            $revenueStat = $revenueLastWeek * 100;
+        }
 
         $dishCountLastWeek = array_sum($orderedDishesLastWeek);
         $dishCountPastWeek = array_sum($orderedDishesPastWeek);
-        $dishStat = ($dishCountLastWeek - $dishCountPastWeek) / $dishCountLastWeek * 100;
+
+        if ($dishCountPastWeek != 0) {
+            $dishStat = ($dishCountLastWeek - $dishCountPastWeek) / $dishCountPastWeek * 100;
+        } else {
+            $dishStat = $dishCountLastWeek * 100;
+        }
 
         $orderedDishCount = array_sum($orderedDishes);
         $revenue = array_sum($totalPayment);
 
         $customersLastWeek = count($customersLastWeek);
         $customersPastWeek = count($customersPastWeek);
-        $customersStat = ($customersPastWeek - $customersLastWeek) / $customersLastWeek * 100;
+
+        if ($customersPastWeek != 0) {
+            $customersStat = ($customersLastWeek - $customersPastWeek) / $customersPastWeek * 100;
+        } else {
+            $customersStat = $customersLastWeek * 100;
+        }
+
 
         return [
             'revenue' => $revenue,
