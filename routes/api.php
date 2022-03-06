@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontEndController;
 use Illuminate\Http\Request;
@@ -17,16 +18,19 @@ Route::get('/getAllCategory',[CategoryController::class, 'allCategories']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/businessSummery',[OrderController::class, 'businessSummery']);
 
 Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
 
+    Route::get('/getUsers',[UserController::class, 'show']);
+    Route::post('/updateUser/{id}/{role}',[UserController::class, 'update']);
+
     Route::get('/getOrderInfo/{statusFilter}/{customerFilter}',[OrderController::class, 'index']);
     Route::post('/updateOrder/{id}',[OrderController::class, 'update']);
     Route::post('/storeOrder',[OrderController::class, 'store']);
     Route::get('/getMostOrdered/{filter}',[OrderController::class, 'mostOrdered']);
+    Route::get('/businessSummery',[OrderController::class, 'businessSummery']);
 
     Route::get('/getDiscounts',[DiscountController::class, 'show']);
     Route::post('/storeDiscount',[DiscountController::class, 'store']);

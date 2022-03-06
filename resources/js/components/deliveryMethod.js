@@ -5,7 +5,7 @@ import {DeliveryMethods} from "../data/deliveryMethods";
 
 const DeliveryMethod = (props) => {
 
-    const [{deliveryMethod,filterDay}, dispatch] = useStateValue();
+    const [{deliveryMethod, filterDay}, dispatch] = useStateValue();
 
     return (
         <div className='selectOption'>
@@ -14,23 +14,12 @@ const DeliveryMethod = (props) => {
                     <select
                         value={deliveryMethod.deliveryMethod}
                         onChange={(e) =>
-                            dispatch(
-                                {
-                                    type: "SetDeliveryMethod",
-                                    item:
-                                        {
-                                            deliveryMethod: e.target.value
-                                        }
-                                    ,
-                                })}
+                            dispatch({type: "SetDeliveryMethod", item: {deliveryMethod: e.target.value}})}
                     >
                         <option style={{display: 'none'}}>*Delivery Method</option>
                         {
                             DeliveryMethods.map((a) => (
-                                <option
-                                    key={a.id}
-                                    value={a.title}
-                                >
+                                <option key={a.id} value={a.title}>
                                     {a.title}
                                 </option>
                             ))
@@ -41,23 +30,10 @@ const DeliveryMethod = (props) => {
                     <select
                         value={filterDay.filterDay}
                         onChange={(e) =>
-                            dispatch(
-                                {
-                                    type: "SetFilterMethod",
-                                    item:
-                                        {
-                                            filterDay: e.target.value
-                                        }
-                                    ,
-                                })}
-
+                            dispatch({type: "SetFilterMethod", item: {filterDay: e.target.value}})}
                     >
-                        <option value='Today'>
-                            Today
-                        </option>
-                        <option value='all'>
-                            All
-                        </option>
+                        <option value='Today'>Today</option>
+                        <option value='all'>All</option>
                     </select>
             }
 

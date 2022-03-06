@@ -138,11 +138,11 @@ class OrderRepository implements OrderInterface
         foreach ($orders as $order) {
             foreach ($order->orderItems as $orderItem) {
                 if ($orderItem->created_at >= Carbon::now()->subDays(1)) {
-                    $totalPaymentLastWeek[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity);
+                    $totalPaymentLastWeek[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity*$orderItem->products->price);
                     $orderedDishesLastWeek[] = $orderItem->quantity;
                 }
                 if ($orderItem->created_at <= now()->subDays(2) && $orderItem->created_at > now()->subDays(3)) {
-                    $totalPaymentPastWeek[] = $orderItem->quantity * $orderItem->products->price;
+                    $totalPaymentPastWeek[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity*$orderItem->products->price);
                     $orderedDishesPastWeek[] = $orderItem->quantity;
                 }
 

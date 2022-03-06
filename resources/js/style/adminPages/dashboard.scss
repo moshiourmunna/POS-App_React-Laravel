@@ -137,6 +137,23 @@
             h1 {
                 padding-top: 5%;
             }
+
+            .users {
+                display: flex;
+                justify-content: space-between;
+                padding: 2vh 0 2vh 0;
+                select{
+                    background-color: $body-bg1;
+                    color: $pasteColor;
+                }
+                p {
+                    padding: 2vh 0 2vh 0;
+                    font-size: 1vw;
+                    max-width: 8vw;
+                    color: $secondaryColor;
+                }
+            }
+
         }
     }
 }

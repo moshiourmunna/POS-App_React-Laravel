@@ -7,6 +7,7 @@ import DeliveryMethod from "../../../components/deliveryMethod"
 import Button from "../../../components/button/Button"
 import Api from "../../../api/api"
 import {BeatLoader} from "react-spinners"
+import UserManagement from "../../../components/admin/userManagement";
 
 const Dashboard = () => {
 
@@ -23,6 +24,7 @@ const Dashboard = () => {
     const [loadingMostOrdered, setLoadingMostOrdered] = useState(false)
     const [filter, setFilter] = useState('today')
     const [uniqueCustomers, setUniqueCustomer] = useState([])
+    const [users, setUsers] = useState([])
 
     const getMostOrdered = useCallback(
         async () => {
@@ -52,6 +54,22 @@ const Dashboard = () => {
         },
         [],
     );
+
+    const getUsers = useCallback(
+        async () => {
+            setLoading(true)
+            await Api().get(`/getUsers`)
+                .then((response) => {
+                    setUsers(response.data)
+                    setLoading(false)
+                })
+        },
+        []
+    );
+
+    useEffect(() => {
+        getUsers().then(r => r)
+    }, [getUsers]);
 
     useEffect(() => {
         getBusinessSummery().then(r => r)
@@ -135,8 +153,21 @@ const Dashboard = () => {
                     </div>
                     <div className='orderTypesCard'>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <h1>Most Type Of Order</h1>
-                            <DeliveryMethod admin={true}/>
+                            <h1>User</h1>
+                            <h1>Role</h1>
+                        </div>
+                        <div>
+                            {
+                                users.map((user)=>(
+                                    (user.email!=='posAdmin@gmail.com')&&
+                                    <UserManagement
+                                        key={user.id}
+                                        userId={user.id}
+                                        email={user.email}
+                                        role={user.role}
+                                    />
+                                ))
+                            }
                         </div>
                     </div>
                 </div>
