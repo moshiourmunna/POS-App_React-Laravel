@@ -33,7 +33,7 @@ class OrderRepository implements OrderInterface
             $orderItem->product_id = $element["productId"];
             $orderItem->quantity = $element["quantity"];
             $orderItem->instruction = $element["orderNote"];
-            $orderItem->discount = 0;
+            $orderItem->discount = $element["discount"];
             $orderItem->delivery_method = $element["deliveryMethod"];
             $orderItem->save();
 
@@ -107,6 +107,7 @@ class OrderRepository implements OrderInterface
             ->limit(3)
             ->get();
     }
+
     public function businessSummery(): array
     {
 
@@ -137,7 +138,7 @@ class OrderRepository implements OrderInterface
         foreach ($orders as $order) {
             foreach ($order->orderItems as $orderItem) {
                 if ($orderItem->created_at >= Carbon::now()->subDays(1)) {
-                    $totalPaymentLastWeek[] = $orderItem->quantity * $orderItem->products->price;
+                    $totalPaymentLastWeek[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity);
                     $orderedDishesLastWeek[] = $orderItem->quantity;
                 }
                 if ($orderItem->created_at <= now()->subDays(2) && $orderItem->created_at > now()->subDays(3)) {
@@ -156,7 +157,7 @@ class OrderRepository implements OrderInterface
                     }
                 }
 
-                $totalPayment[] = $orderItem->quantity * $orderItem->products->price;
+                $totalPayment[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity*$orderItem->products->price);
                 $orderedDishes[] = $orderItem->quantity;
                 $customers[] = $order->users;
             }

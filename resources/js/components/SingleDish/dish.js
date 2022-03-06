@@ -45,7 +45,7 @@ const Dish = (props) => {
         })
         setAllReadyAdded(res)
         if (props.data.discounts?.percentage) {
-            setDiscount(props.data.discounts.percentage)
+            setDiscount(props.data.discounts?.percentage)
         }
     }, [basket]);
 

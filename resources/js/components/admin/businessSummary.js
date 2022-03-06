@@ -78,9 +78,9 @@ const BusinessSummary = (props) => {
                     </h2>
                     :
                 (props.money) ?
-                    <h2 className='summeryData'>${props.data}</h2>
+                    <h2 className='summeryData'>${props.data.toFixed(0)}</h2>
                     :
-                    <h2 className='summeryData'>{props.data}</h2>
+                    <h2 className='summeryData'>{props.data.toFixed(0)}</h2>
             }
             <p>{props.title}</p>
         </div>
