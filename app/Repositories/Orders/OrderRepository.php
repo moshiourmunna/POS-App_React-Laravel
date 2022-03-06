@@ -111,7 +111,16 @@ class OrderRepository implements OrderInterface
     public function businessSummery(): array
     {
 
-        $products = Product::where('published', 0)->select('sold', 'price', 'updated_at')->get();
+        $orders = $this->model::wherehas('orderItems')
+            ->with(['orderItems' => function ($q) {
+                $q->with(['products' => function ($sq) {
+                    $sq->select('id', 'title', 'price');
+                }]);
+            }])
+            ->with(['users' => function ($q) {
+                $q->select('first_name', 'last_name', 'id');
+            }])
+            ->get();
 
         $totalPayment = [];
         $orderedDishes = [];
@@ -122,17 +131,36 @@ class OrderRepository implements OrderInterface
         $orderedDishesLastWeek = [];
         $orderedDishesPastWeek = [];
 
-        foreach ($products as $product) {
-            if ($product->updated_at > Carbon::now()->subDays(1)) {
-                $totalPaymentLastWeek[] = $product->price * $product->sold;
-                $orderedDishesLastWeek[] = $product->sold;
+        $customers =[];
+        $customersLastWeek = [];
+        $customersPastWeek = [];
+
+        foreach ($orders as $order) {
+            foreach ($order->orderItems as $orderItem) {
+                if ($orderItem->created_at >= Carbon::now()->subDays(1)) {
+                    $totalPaymentLastWeek[] = $orderItem->quantity * $orderItem->products->price;
+                    $orderedDishesLastWeek[] = $orderItem->quantity;
+                }
+                if ($orderItem->created_at <= now()->subDays(1) && $orderItem->created_at > now()->subDays(3)) {
+                    $totalPaymentPastWeek[] = $orderItem->quantity * $orderItem->products->price;
+                    $orderedDishesPastWeek[] = $orderItem->quantity;
+                }
+
+                if ($order->created_at > Carbon::now()->subDays(1)) {
+                    if (!in_array($order->users->user_id, $customersLastWeek, true)) {
+                        $customersLastWeek[] = $order->users->user_id;
+                    }
+                }
+                if ($order->created_at < now()->subDays(1) && $order->created_at > now()->subDays(2)) {
+                    if (!in_array($order->users->user_id, $customersPastWeek, true)) {
+                        $customersPastWeek[] = $order->users->user_id;
+                    }
+                }
+
+                $totalPayment[] = $orderItem->quantity * $orderItem->products->price;
+                $orderedDishes[] = $orderItem->quantity;
+                $customers[]=$order->users;
             }
-            if ($product->updated_at < now()->subDays(1) && $product->updated_at > now()->subDays(2)) {
-                $totalPaymentPastWeek[] = $product->price * $product->sold;
-                $orderedDishesPastWeek[] = $product->sold;
-            }
-            $totalPayment[] = $product->price * $product->sold;
-            $orderedDishes[] = $product->sold;
         }
 
         $revenueLastWeek = array_sum($totalPaymentLastWeek);
@@ -146,26 +174,6 @@ class OrderRepository implements OrderInterface
         $orderedDishCount = array_sum($orderedDishes);
         $revenue = array_sum($totalPayment);
 
-        $customersLastWeek = [];
-        $customersPastWeek = [];
-
-        $customers = Order::with(['users' => function ($q) {
-            $q->select('first_name', 'last_name', 'id')->distinct();
-        }])
-            ->get();
-
-        foreach ($customers as $customer) {
-            if ($customer->created_at > Carbon::now()->subDays(1)) {
-                if (!in_array($customer->user_id, $customersLastWeek, true)) {
-                    $customersLastWeek[] = $customer->user_id;
-                }
-            }
-            if ($customer->created_at < now()->subDays(1) && $customer->created_at > now()->subDays(2)) {
-                if (!in_array($customer->user_id, $customersPastWeek, true)) {
-                    $customersPastWeek[] = $customer->user_id;
-                }
-            }
-        }
         $customersLastWeek = count($customersLastWeek);
         $customersPastWeek = count($customersPastWeek);
         $customersStat = ($customersPastWeek - $customersLastWeek) / $customersLastWeek * 100;

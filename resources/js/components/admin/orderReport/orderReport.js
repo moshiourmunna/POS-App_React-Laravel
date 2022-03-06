@@ -91,8 +91,8 @@ const OrderReport = (props) => {
                                 {
                                     props.customers.map((customer) => (
                                         <option
-                                            key={customer.user_id}
-                                            value={customer.user_id}>{customer.users.first_name} {customer.users.last_name}
+                                            key={customer.id}
+                                            value={customer.id}>{customer.first_name} {customer.last_name}
                                         </option>
                                     ))
                                 }

@@ -63,7 +63,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const unique = [];
-        customers?.map(x => unique.filter(a => a.user_id === x.user_id).length > 0 ? null : unique.push(x));
+        customers?.map(x => unique.filter(a => a.id === x.id).length > 0 ? null : unique.push(x));
         setUniqueCustomer(unique)
     }, [customers]);
 

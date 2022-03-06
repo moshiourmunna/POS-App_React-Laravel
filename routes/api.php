@@ -17,6 +17,7 @@ Route::get('/getAllCategory',[CategoryController::class, 'allCategories']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/businessSummery',[OrderController::class, 'businessSummery']);
 
 Route::group([
     'middleware' => ['auth:sanctum']
@@ -26,7 +27,6 @@ Route::group([
     Route::post('/updateOrder/{id}',[OrderController::class, 'update']);
     Route::post('/storeOrder',[OrderController::class, 'store']);
     Route::get('/getMostOrdered/{filter}',[OrderController::class, 'mostOrdered']);
-    Route::get('/businessSummery',[OrderController::class, 'businessSummery']);
 
     Route::get('/getDiscounts',[DiscountController::class, 'show']);
     Route::post('/storeDiscount',[DiscountController::class, 'store']);
