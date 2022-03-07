@@ -18,9 +18,9 @@ const Routes = [
     {
         id:2,
         icon: <DiscountIcon color={'#EA7C69'} width={'30'} height={'25'}/>,
-        path: '/discount',
+        path: '/orders',
         activeIcon: <DiscountIcon color={'white'} width={'30'} height={'25'}/>,
-        pathName:'Discount'
+        pathName:'Orders'
     },
 
     {

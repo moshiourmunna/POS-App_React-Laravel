@@ -31,6 +31,7 @@ Route::group([
     Route::post('/storeOrder',[OrderController::class, 'store']);
     Route::get('/getMostOrdered/{filter}',[OrderController::class, 'mostOrdered']);
     Route::get('/businessSummery',[OrderController::class, 'businessSummery']);
+    Route::get('/orders/{status}/{userId}',[OrderController::class, 'show']);
 
     Route::get('/getDiscounts',[DiscountController::class, 'show']);
     Route::post('/storeDiscount',[DiscountController::class, 'store']);

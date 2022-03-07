@@ -1,0 +1,59 @@
+@import "../../style/variables";
+@import "../../style/mixin";
+
+.userOrders {
+    min-height: 100vh;
+    max-height: fit-content;
+    background-color: $body-bg2;
+    padding: 5vw;
+    margin-left: 92px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+
+    .newOrder{
+        color: $offWhite;
+    }
+
+    .OrderContainer {
+        text-align: left;
+        color: $appWhite;
+        padding: 1vw;
+        height: 21vh;
+        border-radius: 1vw;
+        box-shadow: .3vw .5vw $body-bg1;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        margin: 1vw;
+        background: rgba(#1F1D2B, .5);
+        hr{
+            background-color: $body-bg2;
+            color: $body-bg2;
+        }
+        .productTitle {
+            color: $offWhite;
+        }
+
+        .orderId {
+            font-size: 1.2vw;
+        }
+        .price{
+            font-weight: 600;
+        }
+    }
+}
+
+p {
+    margin: .2vw;
+}
+.delivered {
+    color: $pasteColor;
+}
+
+.sent {
+    color: $secondaryColor;
+}
+
+.processing {
+    color: $theme;
+}
+

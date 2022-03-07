@@ -64,8 +64,10 @@ class OrderController extends Controller
      * @return Response
      */
 
-    public function show()
+    public function show($status,$userId)
     {
+        $result = $this->orderRepository->OrderInfoWithFilter($status,$userId);
+        return response($result, 201);
 
     }
 

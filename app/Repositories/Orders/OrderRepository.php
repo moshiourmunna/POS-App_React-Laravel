@@ -69,9 +69,12 @@ class OrderRepository implements OrderInterface
     public function OrderInfoWithFilter($status, $userId): array
     {
         $getOrderInfo = $this->model::wherehas('orderItems')
-            ->when($status !== 'all', function ($q) use ($status) {
+            ->when($status !== 'all' || $userId !== 'all', function ($q) use ($status,$userId) {
                 if ($status !== 'all') {
                     return $q->where('status', $status);
+                }
+                if($userId!=='all'){
+                    return $q->where('user_id', $userId);
                 }
             })
             ->with(['orderItems' => function ($q) {
@@ -141,7 +144,7 @@ class OrderRepository implements OrderInterface
                     $totalPaymentLastWeek[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity*$orderItem->products->price);
                     $orderedDishesLastWeek[] = $orderItem->quantity;
                 }
-                if ($orderItem->created_at <= now()->subDays(2) && $orderItem->created_at > now()->subDays(3)) {
+                if ($orderItem->created_at < now()->subDays(1) && $orderItem->created_at > now()->subDays(2)) {
                     $totalPaymentPastWeek[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity*$orderItem->products->price);
                     $orderedDishesPastWeek[] = $orderItem->quantity;
                 }

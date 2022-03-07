@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import NotFound from "./views/notFound";
 import Discount from "./views/Admin/discount";
+import Orders from "./views/orders";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                 <Route exact path="/discount" element={admin ? <Discount/> : <Navigate to="/"/>}/>
                 {/*Protected Routes*/}
 
+                <Route path='/orders' element={<Orders/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/login' element={<Login/>}/>
             </Routes>
