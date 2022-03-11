@@ -10,7 +10,7 @@ const AddMore = (props) => {
             <button style={{ background:props.background, color:props.color}}>
                 <VscAdd size='2.5em'/>
             </button>
-            <p style={{color:props.background}}>{props.name}</p>
+            <p style={{color:'grey'}}>{props.name}</p>
         </div>
     )
 }
