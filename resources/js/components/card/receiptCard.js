@@ -8,7 +8,6 @@ const ReceiptCard = (props) => {
     const [{basket}, dispatch] = useStateValue()
 
     return (
-        <div className='receipt'>
             <div className='receiptBox'>
                 <h2>TOKEN #{basket?.slice(0, 1).map(b => b.orderID)}</h2>
                 <div className='products'>
@@ -26,7 +25,6 @@ const ReceiptCard = (props) => {
                 </div>
                 <p>TOTAL: ${getBasketTotal(basket ? basket : []).toFixed(2)}</p>
             </div>
-        </div>
     )
 }
 
