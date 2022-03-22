@@ -11,9 +11,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
 Route::get('/products/{category}/{query}', [FrontEndController::class, 'show']);
+
 Route::get('/getCategory',[CategoryController::class, 'index']);
 Route::get('/getAllCategory',[CategoryController::class, 'allCategories']);
+
+Route::get('/tables',[OrderController::class, 'tables']);
+Route::get('/latestOrder',[OrderController::class, 'latestOrder']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -31,8 +36,6 @@ Route::group([
     Route::post('/storeOrder',[OrderController::class, 'store']);
     Route::get('/getMostOrdered/{filter}',[OrderController::class, 'mostOrdered']);
     Route::get('/businessSummery',[OrderController::class, 'businessSummery']);
-    Route::get('/latestOrder',[OrderController::class, 'latestOrder']);
-    Route::get('/tables',[OrderController::class, 'tables']);
 
     Route::get('/getDiscounts',[DiscountController::class, 'show']);
     Route::post('/storeDiscount',[DiscountController::class, 'store']);

@@ -232,7 +232,7 @@ class OrderRepository implements OrderInterface
 
     public function latestOrder()
     {
-        return $this->model::select('id')->where('user_id', auth()->user()->id)->latest('created_at')->first();
+        return $this->model::select('id')->latest('created_at')->first();
     }
 
     public function tables()
