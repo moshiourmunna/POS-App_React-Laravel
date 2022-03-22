@@ -5,23 +5,31 @@ import AddMore from "../../../components/button/AddMore";
 import {useStateValue} from "../../../states/StateProvider";
 import ReactPaginate from "react-paginate";
 import {FcPrevious} from "react-icons/fc";
+import Api from "../../../api/api";
 import {FcNext} from "react-icons/fc";
 
 const CentralData = (props) => {
 
+    const [orderID, setOrderID] = useState(0)
     const items = props.data;
     const [{modal}, dispatch] = useStateValue();
+    const [currentItems, setCurrentItems] = useState(null);
+    const [pageCount, setPageCount] = useState(0);
+    const [itemOffset, setItemOffset] = useState(0);
+    const perPage = 6
+
+    useEffect(async () => {
+        await Api().get('/latestOrder')
+            .then(res => {
+                setOrderID(Math.floor(Math.random() * (999999999 - res.data.id + 1) + res.data.id ))
+            })
+    }, []);
 
     function setModal() {
         dispatch({
             type: "SetModal", item: true
         })
     }
-
-    const [currentItems, setCurrentItems] = useState(null);
-    const [pageCount, setPageCount] = useState(0);
-    const [itemOffset, setItemOffset] = useState(0);
-    const perPage = 6
 
 
     useEffect(() => {
@@ -45,6 +53,7 @@ const CentralData = (props) => {
         {currentItems && currentItems.map((data) => (
             <Dish
                 key={data.id}
+                orderID={orderID}
                 id={data.id}
                 data={data}
                 Admin={props.admin}

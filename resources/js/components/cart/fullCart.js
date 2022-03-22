@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import Tabs from "../tabs";
 import '../../style/cart/fullCart.scss';
 import {DeliveryMethods} from "../../data/deliveryMethods";
+import Api from "../../api/api";
 
 const FullCart = (props) => {
 
@@ -23,16 +24,17 @@ const FullCart = (props) => {
     }, [basket]);
 
 
+
     return (
         <div className='homeRightSide'>
             {
                 (props.isThisForConfirmPayment) ?
                     <div style={{padding: '0 0 10px 20px'}}>
                         <h1>Confirmation</h1>
-                        <p> Order #31212</p>
+                        <p> Order #{basket.slice(0,1).map(b=>b.orderID)}</p>
                     </div>
                     :
-                    <h2>Orders #31212 </h2>
+                    <h2>Order #{basket.slice(0,1).map(b=>b.orderID)} </h2>
             }
             <div className='flex-row-home'>
                 {

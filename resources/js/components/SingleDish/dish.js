@@ -16,13 +16,11 @@ const Dish = (props) => {
 
     const [{basket, deliveryMethod}, dispatch] = useStateValue();
     const [quantity, setQuantity] = useState(1)
-    const [Q, setQ] = useState(1)
     const [allReadyAdded, setAllReadyAdded] = useState([])
     const [loading, setLoading] = useState(false)
     const [toggle, setToggle] = useState(false)
     const [error, setError] = useState('')
     const [discount, setDiscount] = useState(0)
-    const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem('user'));
     let admin = user?.admin;
     const modalRef = useRef();
@@ -66,6 +64,7 @@ const Dish = (props) => {
                         stock: props.data.stock,
                         deliveryMethod: deliveryMethod.deliveryMethod,
                         orderNote: '',
+                        orderID:props.orderID,
                         discount: discount
                     },
                 })

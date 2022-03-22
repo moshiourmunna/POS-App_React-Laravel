@@ -3,8 +3,6 @@ import '../../../style/adminPages/dashboard.scss'
 import BusinessSummary from "../../../components/admin/businessSummary"
 import OrderReport from "../../../components/admin/orderReport/orderReport"
 import MostOrdered from "../../../components/admin/mostOrdered"
-import DeliveryMethod from "../../../components/deliveryMethod"
-import Button from "../../../components/button/Button"
 import Api from "../../../api/api"
 import {BeatLoader} from "react-spinners"
 import UserManagement from "../../../components/admin/userManagement";
@@ -20,15 +18,14 @@ const Dashboard = () => {
     const [dishCountStat, setDishCountStat] = useState(0)
     const [customers, setCustomers] = useState([])
     const [customersStat, setCustomersStat] = useState(0)
-    const [loading, setLoading] = useState(false)
-    const [loadingMostOrdered, setLoadingMostOrdered] = useState(false)
+    const [loading, setLoading] = useState(true)
+    const [loadingMostOrdered, setLoadingMostOrdered] = useState(true)
     const [filter, setFilter] = useState('today')
     const [uniqueCustomers, setUniqueCustomer] = useState([])
     const [users, setUsers] = useState([])
 
     const getMostOrdered = useCallback(
         async () => {
-            setLoadingMostOrdered(true)
             await Api().get(`/getMostOrdered/` + filter)
                 .then((response) => {
                     setMostOrdered(response.data)
@@ -40,7 +37,6 @@ const Dashboard = () => {
 
     const getBusinessSummery = useCallback(
         async () => {
-            setLoading(true)
             await Api().get(`/businessSummery`)
                 .then((response) => {
                     setCustomers(response.data.customers)
@@ -85,7 +81,6 @@ const Dashboard = () => {
         setUniqueCustomer(unique)
     }, [customers]);
 
-
     return (
         <div className='dashboardContainer'>
             <div style={{marginLeft: '3.5%'}}>
@@ -129,7 +124,7 @@ const Dashboard = () => {
                                     <BeatLoader size={20} color={'#a2a2a2'}/>
                                 </div>
                                 :
-                                (!mostOrdered)?
+                                (mostOrdered.length===0)?
                                     <div style={{height:'28vh', textAlign:'center'}}>
                                         <h2 style={{paddingTop:'25%', color:'#EA7C69'}}>
                                             No Orders Were Made Today!!

@@ -11,7 +11,8 @@ const Pay = () => {
     const [{basket}, dispatch] = useStateValue()
     let user = localStorage.getItem('user')
     let navigate = useNavigate()
-    const [loading,setLoading]=useState(false)
+    const [loading, setLoading] = useState(false)
+    console.log('basket in payment page: ', basket)
 
     async function placeOrder() {
         setLoading(true)
@@ -24,17 +25,18 @@ const Pay = () => {
                         dispatch({
                             type: 'EMPTY_BASKET'
                         })
+                        localStorage.setItem('cart', JSON.stringify(basket))
                         dispatch({
                             type: 'SetModal',
-                            item:false
+                            item: false
                         })
-                    }
-                else{
+                        navigate('/receipt')
+                    } else {
                         toast.error('OOps! Something Went Wrong')
                     }
                 })
-                .catch(e=>{
-                    if(e.response.status===500){
+                .catch(e => {
+                    if (e.response.status === 500) {
                         toast.error('OOPs! Please Add An Order Note')
                     }
                 })
@@ -84,7 +86,7 @@ const Pay = () => {
                 <div onClick={() => placeOrder()}>
                     <Button
                         loading={loading}
-                        order={true}
+                        normal={true}
                         name={'Confirm Payment'}
                         cancel={false}
                     />

@@ -124,4 +124,9 @@ class OrderController extends Controller
        $result= $this->orderRepository->businessSummery();
        return response($result,201);
     }
+
+    public function latestOrder(){
+       $result= $this->orderRepository->latestOrder();
+       return response($result,201);
+    }
 }

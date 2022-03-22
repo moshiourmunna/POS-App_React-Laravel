@@ -25,6 +25,7 @@ class OrderRepository implements OrderInterface
         $payload = json_decode($request->getContent(), true);
         $order = new Order();
         $order->user_id = auth()->user()->id;
+        $order->id = $payload[0]['orderID'];
         $order->save();
 
         foreach ($payload as $element) {
@@ -32,7 +33,12 @@ class OrderRepository implements OrderInterface
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $element["productId"];
             $orderItem->quantity = $element["quantity"];
-            $orderItem->instruction = $element["orderNote"];
+            if($element["orderNote"]!==''){
+                $orderItem->instruction = $element["orderNote"];
+            }
+            else{
+                $orderItem->instruction = '';
+            }
             $orderItem->discount = $element["discount"];
             $orderItem->delivery_method = $element["deliveryMethod"];
             $orderItem->save();
@@ -206,6 +212,9 @@ class OrderRepository implements OrderInterface
             'customersStat' => $customersStat
         ];
 
+    }
+    public function latestOrder(){
+       return $this->model::select('id')->where('user_id', auth()->user()->id)->latest('created_at')->first();
     }
 
     public function createDiscount($request)

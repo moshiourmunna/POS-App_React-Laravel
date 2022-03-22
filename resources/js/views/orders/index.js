@@ -1,11 +1,10 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Api from "../../api/api";
 import OrderReport from "../../components/card/orderReport";
 import {useNavigate} from "react-router";
 import {toast} from "react-toastify";
 import '../../style/userPages/orderReport.scss';
 import AddMore from "../../components/button/AddMore";
-import {VscAdd} from "react-icons/vsc";
 import {BeatLoader} from "react-spinners";
 
 const Orders = () => {
@@ -18,7 +17,7 @@ const Orders = () => {
     const getOrders = useCallback(
 
         async () => {
-            await Api().get(`/orders/all/${user?.user.id}`)
+            await Api().get(`/getOrderInfo/all/${user?.user.id}`)
                 .then((response) => {
                     setOrders(response.data.getOrderInfo)
                     setLoading(false)

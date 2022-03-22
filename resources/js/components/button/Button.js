@@ -20,7 +20,7 @@ const Button = (props) => {
     return (
         <div className='button'>
             {
-                 (props.order) ?
+                 (props.normal) ?
                 <button
                 disabled={!props.cancel ? disabled : !disabled}
                 className={!props.cancel ? 'button-glow' : 'button-dim'}
