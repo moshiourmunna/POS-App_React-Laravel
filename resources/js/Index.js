@@ -12,8 +12,6 @@ import {ToastContainer} from "react-toastify";
 import NotFound from "./views/notFound";
 import Discount from "./views/Admin/discount";
 import Orders from "./views/orders";
-import Receipt from "./components/receipt";
-
 
 function App() {
 
@@ -37,7 +35,6 @@ function App() {
                 {/*Protected Routes*/}
 
                 <Route path='/orders' element={<Orders/>}/>
-                <Route path='/receipt' element={<Receipt/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/login' element={<Login/>}/>
             </Routes>

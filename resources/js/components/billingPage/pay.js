@@ -1,10 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import DeliveryMethod from "../deliveryMethod";
 import Button from "../button/Button";
 import {useStateValue} from "../../states/StateProvider";
 import Api from "../../api/api";
 import {useNavigate} from "react-router";
 import {toast} from 'react-toastify';
+import {useReactToPrint} from "react-to-print";
+import ReceiptCard from "../card/receiptCard";
+
+class ComponentToPrint extends React.Component {
+    render() {
+        return (
+            <ReceiptCard/>
+        );
+    }
+}
 
 const Pay = () => {
 
@@ -12,7 +22,13 @@ const Pay = () => {
     let user = localStorage.getItem('user')
     let navigate = useNavigate()
     const [loading, setLoading] = useState(false)
-    console.log('basket in payment page: ', basket)
+
+    const componentRef = useRef();
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
+
 
     async function placeOrder() {
         setLoading(true)
@@ -21,16 +37,16 @@ const Pay = () => {
                 .then((response) => {
                     if (response.status === 201) {
                         setLoading(false)
+                        handlePrint()
                         toast('Order Placed Successfully')
                         dispatch({
                             type: 'EMPTY_BASKET'
                         })
-                        localStorage.setItem('cart', JSON.stringify(basket))
                         dispatch({
                             type: 'SetModal',
                             item: false
                         })
-                        navigate('/receipt')
+
                     } else {
                         toast.error('OOps! Something Went Wrong')
                     }
@@ -49,7 +65,6 @@ const Pay = () => {
 
     return (
         <div className='cardPay'>
-
             <p>Cardholder Name</p>
             <input type='text' placeholder='Cardholder..'/>
 
@@ -91,7 +106,9 @@ const Pay = () => {
                         cancel={false}
                     />
                 </div>
-
+            </div>
+            <div style={{display:'none'}}>
+                <ComponentToPrint ref={componentRef} />
             </div>
         </div>
     )
