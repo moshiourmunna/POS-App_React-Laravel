@@ -21,7 +21,7 @@ const CentralData = (props) => {
     useEffect(async () => {
         await Api().get('/latestOrder')
             .then(res => {
-                setOrderID(Math.floor(Math.random() * (999999999 - res.data.id + 1) + res.data.id ))
+                setOrderID(res.data.id+Math.floor(Math.random() * (99999999 - 888888+ 1) + 888888))
             })
     }, []);
 
@@ -30,7 +30,6 @@ const CentralData = (props) => {
             type: "SetModal", item: true
         })
     }
-
 
     useEffect(() => {
         const endOffset = itemOffset + perPage;

@@ -101,8 +101,6 @@ const OrderReport = (props) => {
                         </form>
                     </>
                 }
-
-
             </div>
             <div className='orderInfo'>
                 {
@@ -125,6 +123,7 @@ const OrderReport = (props) => {
                                 orders.map((order) => (
                                     <OrderReportsMapper
                                         key={order.id}
+                                        tableID={order.tableID}
                                         orderId={order.id}
                                         loading={loading}
                                         name={`${order.users?.first_name} ${order.users?.last_name}`}

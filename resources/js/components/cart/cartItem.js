@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 
 const CartItem = (props) => {
 
-    const [{deliveryMethod, quantity}, dispatch] = useStateValue();
+    const [{deliveryMethod,table, quantity}, dispatch] = useStateValue();
     const [updatedQuantity, setUpdatedQuantity] = useState(props.quantity)
 
     function RemoveItem() {
@@ -24,12 +24,13 @@ const CartItem = (props) => {
             type: "updateCart",
             id: props.productId,
             method: deliveryMethod.deliveryMethod,
+            tableId:table,
         });
     }
 
     useEffect(() => {
         updateCart().then(r => r)
-    }, [deliveryMethod])
+    }, [deliveryMethod,table])
 
     async function update() {
         dispatch({

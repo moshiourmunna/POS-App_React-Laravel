@@ -4,6 +4,7 @@ export const initialState = {
     state: 0,
     quantity: 1,
     deliveryMethod: '',
+    table: 0,
     filterDay: 'Today',
     category: {title: 0},
     query: 'all',
@@ -42,6 +43,7 @@ const reducer = (state, action) => {
                 basket: state.basket.map(item => item.productId === action.id ? {
                     ...item,
                     deliveryMethod: action.method,
+                    tableID: action.tableId,
                 } : item),
             };
 
@@ -94,6 +96,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 deliveryMethod: action.item
+            }
+            case "setTable":
+            return {
+                ...state,
+                table: action.item
             }
         case "SetFilterMethod":
             return {

@@ -7,6 +7,7 @@ import {useNavigate} from "react-router";
 import {toast} from 'react-toastify';
 import {useReactToPrint} from "react-to-print";
 import ReceiptCard from "../card/receiptCard";
+import TableSelector from "../tableSelector";
 
 class ComponentToPrint extends React.Component {
     render() {
@@ -18,11 +19,11 @@ class ComponentToPrint extends React.Component {
 
 const Pay = () => {
 
-    const [{basket}, dispatch] = useStateValue()
+    const [{basket, table, deliveryMethod}, dispatch] = useStateValue()
     let user = localStorage.getItem('user')
     let navigate = useNavigate()
     const [loading, setLoading] = useState(false)
-
+    console.log('bas', basket)
     const componentRef = useRef();
 
     const handlePrint = useReactToPrint({
@@ -52,9 +53,7 @@ const Pay = () => {
                     }
                 })
                 .catch(e => {
-                    if (e.response.status === 500) {
-                        toast.error('OOPs! Please Add An Order Note')
-                    }
+                    toast.error(e.response.statusText)
                 })
         } else {
             toast.warning('Please, Log In First')
@@ -83,12 +82,16 @@ const Pay = () => {
             </div>
             <br/>
             <hr/>
-            <p style={{padding: '10px', marginLeft: '5px'}}>Order Type</p>
-
-            <div style={{margin: '0% 0 10px 25%'}}>
-                <DeliveryMethod/>
+            <div style={{marginLeft: '.4em'}}>
+                {
+                    (deliveryMethod.deliveryMethod === 'Dine In') &&
+                    <div>
+                        <p>Table No</p>
+                        <TableSelector/>
+                    </div>
+                }
             </div>
-
+            <br/>
             <div className='confirmPay'>
                 <div onClick={() => dispatch({type: 'SetModal', item: false})}
                 >
@@ -103,12 +106,12 @@ const Pay = () => {
                         loading={loading}
                         normal={true}
                         name={'Confirm Payment'}
-                        cancel={false}
+                        cancel={deliveryMethod.deliveryMethod === 'Dine In' ? table !== 0 ? false : true : false}
                     />
                 </div>
             </div>
-            <div style={{display:'none'}}>
-                <ComponentToPrint ref={componentRef} />
+            <div style={{display: 'none'}}>
+                <ComponentToPrint ref={componentRef}/>
             </div>
         </div>
     )

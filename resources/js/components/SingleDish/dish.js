@@ -14,7 +14,7 @@ import {IoMdCloseCircle} from 'react-icons/io';
 
 const Dish = (props) => {
 
-    const [{basket, deliveryMethod}, dispatch] = useStateValue();
+    const [{basket, deliveryMethod,table}, dispatch] = useStateValue();
     const [quantity, setQuantity] = useState(1)
     const [allReadyAdded, setAllReadyAdded] = useState([])
     const [loading, setLoading] = useState(false)
@@ -64,6 +64,7 @@ const Dish = (props) => {
                         stock: props.data.stock,
                         deliveryMethod: deliveryMethod.deliveryMethod,
                         orderNote: '',
+                        tableID: table,
                         orderID:props.orderID,
                         discount: discount
                     },

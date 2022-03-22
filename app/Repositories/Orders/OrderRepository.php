@@ -8,6 +8,7 @@ use App\Models\Discount;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Table;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 
@@ -26,6 +27,12 @@ class OrderRepository implements OrderInterface
         $order = new Order();
         $order->user_id = auth()->user()->id;
         $order->id = $payload[0]['orderID'];
+        if($payload[0]['orderID']!==0){
+            $order->tableID = $payload[0]['tableID'];
+        }
+        else{
+            $order->tableID = 0;
+        }
         $order->save();
 
         foreach ($payload as $element) {
@@ -33,15 +40,16 @@ class OrderRepository implements OrderInterface
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $element["productId"];
             $orderItem->quantity = $element["quantity"];
-            if($element["orderNote"]!==''){
+            if ($element["orderNote"] !== '') {
                 $orderItem->instruction = $element["orderNote"];
-            }
-            else{
+            } else {
                 $orderItem->instruction = '';
             }
             $orderItem->discount = $element["discount"];
             $orderItem->delivery_method = $element["deliveryMethod"];
             $orderItem->save();
+
+            Table::where('no', $element["tableID"])->update(['status' => 0]);
 
             Product::where('id', $element["productId"])
                 ->increment('sold', $element["quantity"]);
@@ -57,7 +65,15 @@ class OrderRepository implements OrderInterface
 
     public function update($request, int $id)
     {
-        return $this->model::where('id', $id)->update(['status' => $request->status]);
+        $order = $this->model::where('id', $id)->update(['status' => $request->status]);
+        if ($request->status === 'delivered') {
+            Table::where('no', $request->tableID)->update(['status' => 1]);
+        }
+        else{
+            Table::where('no', $request->tableID)->update(['status' => 0]);
+        }
+
+        return $order;
     }
 
     public function delete($id)
@@ -75,11 +91,11 @@ class OrderRepository implements OrderInterface
     public function OrderInfoWithFilter($status, $userId): array
     {
         $getOrderInfo = $this->model::wherehas('orderItems')
-            ->when($status !== 'all' || $userId !== 'all', function ($q) use ($status,$userId) {
+            ->when($status !== 'all' || $userId !== 'all', function ($q) use ($status, $userId) {
                 if ($status !== 'all') {
                     return $q->where('status', $status);
                 }
-                if($userId!=='all'){
+                if ($userId !== 'all') {
                     return $q->where('user_id', $userId);
                 }
             })
@@ -147,11 +163,11 @@ class OrderRepository implements OrderInterface
         foreach ($orders as $order) {
             foreach ($order->orderItems as $orderItem) {
                 if ($orderItem->created_at >= Carbon::now()->subDays(1)) {
-                    $totalPaymentLastWeek[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity*$orderItem->products->price);
+                    $totalPaymentLastWeek[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity * $orderItem->products->price);
                     $orderedDishesLastWeek[] = $orderItem->quantity;
                 }
                 if ($orderItem->created_at < now()->subDays(1) && $orderItem->created_at > now()->subDays(2)) {
-                    $totalPaymentPastWeek[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity*$orderItem->products->price);
+                    $totalPaymentPastWeek[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity * $orderItem->products->price);
                     $orderedDishesPastWeek[] = $orderItem->quantity;
                 }
 
@@ -166,7 +182,7 @@ class OrderRepository implements OrderInterface
                     }
                 }
 
-                $totalPayment[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity*$orderItem->products->price);
+                $totalPayment[] = ($orderItem->quantity * $orderItem->products->price) - (($orderItem->discount / 100) * $orderItem->quantity * $orderItem->products->price);
                 $orderedDishes[] = $orderItem->quantity;
                 $customers[] = $order->users;
             }
@@ -213,8 +229,15 @@ class OrderRepository implements OrderInterface
         ];
 
     }
-    public function latestOrder(){
-       return $this->model::select('id')->where('user_id', auth()->user()->id)->latest('created_at')->first();
+
+    public function latestOrder()
+    {
+        return $this->model::select('id')->where('user_id', auth()->user()->id)->latest('created_at')->first();
+    }
+
+    public function tables()
+    {
+        return Table::select('no')->where('status', 1)->get();
     }
 
     public function createDiscount($request)

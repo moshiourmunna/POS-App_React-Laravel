@@ -16,6 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->integer('tableID')->nullable();
             $table->enum('status', ['processing','sent','delivered'])->nullable();
             $table->string('shipped_at')->nullable();
             $table->timestamps();

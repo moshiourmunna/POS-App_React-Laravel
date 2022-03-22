@@ -17,6 +17,7 @@ const orderReportsMapper = (props) => {
         e.preventDefault()
         const Data = new FormData();
         Data.append('status', updatedStatus);
+        Data.append('tableID', props.tableID);
         setLoading(true)
 
         await Api().post(`/updateOrder/${props.orderId}`, Data)
