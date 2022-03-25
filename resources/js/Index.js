@@ -1,5 +1,6 @@
 import './App.css';
 import React from "react";
+import '../js/style/modal.scss';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import Home from "./views/home/Home";
 import Sidebar from "./components/sidebar";

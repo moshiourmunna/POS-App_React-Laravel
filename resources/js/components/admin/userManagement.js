@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useRef, useState} from "react";
 import Api from "../../api/api";
 
 const UserManagement = (props) => {
@@ -16,9 +16,7 @@ const UserManagement = (props) => {
 
     return (
         <div className='users'>
-
             <p>{props.email}</p>
-
             <form onSubmit={updateUser}>
                 <select value={updatedRole}
                         onChange={

@@ -11,6 +11,8 @@ import Api from "../../api/api";
 import AddProducts from "../modal/addProducts";
 import {toast} from "react-toastify";
 import {IoMdCloseCircle} from 'react-icons/io';
+import Modal from '../modal/modal';
+import useModal from "../modal/useModal";
 
 const Dish = (props) => {
 
@@ -18,24 +20,25 @@ const Dish = (props) => {
     const [quantity, setQuantity] = useState(1)
     const [allReadyAdded, setAllReadyAdded] = useState([])
     const [loading, setLoading] = useState(false)
-    const [toggle, setToggle] = useState(false)
+    // const [toggle, setToggle] = useState(false)
     const [error, setError] = useState('')
     const [discount, setDiscount] = useState(0)
     const user = JSON.parse(localStorage.getItem('user'));
     let admin = user?.admin;
     const modalRef = useRef();
+    const {toggle, visible} = useModal();
 
-    useEffect(() => {
-        document.addEventListener('mousedown', (e) => {
-            if (!modalRef.current?.contains(e.target)) {
-                setToggle(false)
-            }
-        })
-    }, []);
+    // useEffect(() => {
+    //     document.addEventListener('mousedown', (e) => {
+    //         if (!modalRef.current?.contains(e.target)) {
+    //             setToggle(false)
+    //         }
+    //     })
+    // }, []);
 
-    function editSubmission() {
-        setToggle(!toggle)
-    }
+    // function editSubmission() {
+    //     setToggle(!toggle)
+    // }
 
     useEffect(() => {
         const res = basket.filter(b => {
@@ -112,21 +115,23 @@ const Dish = (props) => {
 
     return (
         <div className='dish' onClick={addToCart}>
-            {
-                (toggle) &&
-                <div className='editProduct'>
-                    <p onClick={editSubmission}><IoMdCloseCircle size='2.5em'/></p>
-                    <div ref={modalRef} className='modal-content'>
-                        <AddProducts
-                            data={props.data}
-                            category={props.data.categories}
-                        />
-                    </div>
-                </div>
-            }
+            <Modal visible={visible} toggle={toggle} component={
+                <AddProducts data={props.data} category={props.data.categories}/>}
+            />
+            {/*{*/}
+            {/*    (toggle) &&*/}
+            {/*    <div className='editProduct'>*/}
+            {/*        <p onClick={editSubmission}><IoMdCloseCircle size='2.5em'/></p>*/}
+            {/*        <div ref={modalRef} className='modal-content'>*/}
+            {/*            <AddProducts*/}
+            {/*                data={props.data}*/}
+            {/*                category={props.data.categories}*/}
+            {/*            />*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*}*/}
             {
                 (props.data) ?
-                    (!toggle) &&
                     <div className={(props.Admin) ? 'adminDesign' : 'userDesign'}>
 
                         <div className={(props.data.discounts && !props.Admin)?'coupon':'opacityNone'}>
@@ -143,7 +148,7 @@ const Dish = (props) => {
 
                         <div className={(props.Admin) ? 'editDish' : 'hidden'}>
                             <button
-                                onClick={editSubmission}
+                                onClick={toggle}
                             >
                                 <FiEdit3 size='2.5em'/>
                             </button>

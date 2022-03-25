@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from "react";
-import DeliveryMethod from "../deliveryMethod";
 import Button from "../button/Button";
 import {useStateValue} from "../../states/StateProvider";
 import Api from "../../api/api";
@@ -46,6 +45,10 @@ const Pay = () => {
                         dispatch({
                             type: 'SetModal',
                             item: false
+                        })
+                        dispatch({
+                            type: "setTable",
+                            item:0
                         })
 
                     } else {

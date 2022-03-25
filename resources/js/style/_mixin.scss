@@ -18,6 +18,19 @@
     transform: translate(-50%, -50%);
 }
 
+@mixin button($background,$color){
+    border-color: $darkTheme;
+    border-style: solid;
+    border-width: thin;
+    width: 100%;
+    padding: 14px;
+    font-size: 1vw;
+    background: $background;
+    border-radius: 8px;
+    color: $color;
+    box-shadow: 0 8px 24px rgba(146, 136, 224, 0.3);
+}
+
 @mixin dishContainer($color) {
     z-index: -1;
     position: relative;

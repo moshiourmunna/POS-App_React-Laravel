@@ -4,7 +4,6 @@ import {useStateValue} from "../../states/StateProvider";
 import PaymentPopUp from "./payment";
 import {MdKeyboardBackspace} from "react-icons/md";
 import PropTypes from "prop-types";
-import Home from "../../views/home/Home";
 import AddProducts from "./addProducts";
 
 const ModalContent = (props) => {
@@ -23,15 +22,18 @@ const ModalContent = (props) => {
             backgroundColor: 'rgba(31,29,43,0.75)'
         },
         content: {
-            position:'relative',
-            marginLeft:'13%',
-            marginTop:'1%',
-            height:'100vh',
-            width:'fit-content',
-            transform: 'translate(5%, -8%)',
+            marginLeft:'10rem',
+            paddingRight:'5rem',
+            width:'80%',
+            height:'fit-content',
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
             backgroundColor: '#1F1D2BFF',
             overflow: 'scroll',
-            borderStyle:'none'
+            borderStyle:'none',
+            scrollbarWidth:'none',
         },
     };
 

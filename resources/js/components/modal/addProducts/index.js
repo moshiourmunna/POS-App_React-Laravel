@@ -140,6 +140,7 @@ const AddProducts = (props) => {
                             title: 2
                         },
                     })
+
             } else {
                 toast.error('OOOPS...Something Went Wrong')
             }
@@ -160,6 +161,7 @@ const AddProducts = (props) => {
             setDiscount(props.data.discount_id)
             setStatus(props.data.published)
             setDescription(props.data.description)
+            setUrl(props.data.image)
         }
         if (props?.category) {
             setCategory(props.category[0].id)
@@ -209,10 +211,18 @@ const AddProducts = (props) => {
     }
 
     useEffect(() => {
-        if (File && title && price && stock && category && status) {
-            setReady(true)
+        if(props.data){
+            if (Url && title && price && stock && category) {
+                setReady(true)
+            }
         }
-    }, [File, title, price, stock,status,category]);
+        else{
+            if (File && title && price && stock && category) {
+                setReady(true)
+            }
+        }
+
+    }, [Url, title, price, stock,category]);
 
 
     return (

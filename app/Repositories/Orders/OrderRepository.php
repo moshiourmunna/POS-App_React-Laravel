@@ -120,7 +120,6 @@ class OrderRepository implements OrderInterface
     {
         return Product::select('id', 'title', 'sold', 'image')
             ->orderBy('sold', 'DESC')
-            ->limit(3)
             ->get();
     }
 
@@ -129,7 +128,6 @@ class OrderRepository implements OrderInterface
         return Product::where('updated_at', '>', Carbon::now()->subDays(1))
             ->select('id', 'title', 'sold', 'image')
             ->orderBy('sold', 'DESC')
-            ->limit(3)
             ->get();
     }
 

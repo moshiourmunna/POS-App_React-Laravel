@@ -6,6 +6,9 @@ import MostOrdered from "../../../components/admin/mostOrdered"
 import Api from "../../../api/api"
 import {BeatLoader} from "react-spinners"
 import UserManagement from "../../../components/admin/userManagement";
+import Modal from "../../../components/modal/modal";
+import useModal from "../../../components/modal/useModal";
+import Button from "../../../components/button/Button";
 
 const Dashboard = () => {
 
@@ -20,9 +23,12 @@ const Dashboard = () => {
     const [customersStat, setCustomersStat] = useState(0)
     const [loading, setLoading] = useState(true)
     const [loadingMostOrdered, setLoadingMostOrdered] = useState(true)
-    const [filter, setFilter] = useState('today')
+    const [filter, setFilter] = useState('all')
     const [uniqueCustomers, setUniqueCustomer] = useState([])
     const [users, setUsers] = useState([])
+    const {toggle, toggle2, visible, visible2} = useModal();
+    let User=JSON.parse(localStorage.getItem('user'));
+    let ownEmail=User?.user.email
 
     const getMostOrdered = useCallback(
         async () => {
@@ -92,9 +98,12 @@ const Dashboard = () => {
             <div className='dashboardFlex'>
                 <div className='dashboardLeft'>
                     <div className='businessCardsFlex'>
-                        <BusinessSummary data={revenue} stat={revenueStat} money loading={loading} title={'Total Revenue'}/>
-                        <BusinessSummary data={orderedDishCount} stat={dishCountStat} order loading={loading} title={'Total Dish Ordered'}/>
-                        <BusinessSummary  data={uniqueCustomers.length} stat={customersStat} loading={loading} title={'Total Customer'}/>
+                        <BusinessSummary data={revenue} stat={revenueStat} money loading={loading}
+                                         title={'Total Revenue'}/>
+                        <BusinessSummary data={orderedDishCount} stat={dishCountStat} order loading={loading}
+                                         title={'Total Dish Ordered'}/>
+                        <BusinessSummary data={uniqueCustomers.length} stat={customersStat} loading={loading}
+                                         title={'Total Customer'}/>
                     </div>
                     <div className='orderSummery'>
                         <OrderReport customers={uniqueCustomers}/>
@@ -124,37 +133,53 @@ const Dashboard = () => {
                                     <BeatLoader size={20} color={'#a2a2a2'}/>
                                 </div>
                                 :
-                                (mostOrdered.length===0)?
-                                    <div style={{height:'28vh', textAlign:'center'}}>
-                                        <h2 style={{paddingTop:'25%', color:'#EA7C69'}}>
+                                (mostOrdered.length === 0) ?
+                                    <div style={{height: '28vh', textAlign: 'center'}}>
+                                        <h2 style={{paddingTop: '25%', color: '#EA7C69'}}>
                                             No Orders Were Made Today!!
                                         </h2>
                                     </div>
                                     :
-                                mostOrdered.map((data) => (
-                                    <MostOrdered
-                                        loading={loadingMostOrdered}
-                                        key={data.id}
-                                        title={data.title}
-                                        sold={data.sold}
-                                        image={data.image}
-                                    />
-                                ))
+                                    mostOrdered.slice(0, 3).map((data) => (
+                                        <MostOrdered
+                                            loading={loadingMostOrdered}
+                                            key={data.id}
+                                            title={data.title}
+                                            sold={data.sold}
+                                            image={data.image}
+                                        />
+                                    ))
                         }
-
                         <br/>
-                        <hr/>
-                        {/*<Button name='View All' cancel={true} admin={true}/>*/}
+                        <div onClick={toggle}>
+                            <Button name='View All' cancel={false} dark={true} normal={true}/>
+                        </div>
+                        <Modal visible={visible} toggle={toggle} component={
+                            mostOrdered.map((data) => (
+                                <MostOrdered
+                                    loading={loading}
+                                    key={data.id}
+                                    title={data.title}
+                                    sold={data.sold}
+                                    image={data.image}
+                                />
+                            ))}/>
                     </div>
                     <div className='orderTypesCard'>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <h1>User</h1>
                             <h1>Role</h1>
                         </div>
+                        {
+                        (loading) ?
+                        <div style={{height: '15.1vh', marginTop: '35%', marginLeft: '30%'}}>
+                            <BeatLoader size={20} color={'#a2a2a2'}/>
+                        </div>
+                        :
                         <div>
                             {
-                                users.map((user)=>(
-                                    (user.email!=='posAdmin@gmail.com')&&
+                                users.slice(0, 3).map((user) => (
+                                    (user.email !== ownEmail) &&
                                     <UserManagement
                                         key={user.id}
                                         userId={user.id}
@@ -163,7 +188,26 @@ const Dashboard = () => {
                                     />
                                 ))
                             }
+                            <div onClick={toggle2}>
+                                <Button name='View All' cancel={false} dark={true} normal={true}/>
+                            </div>
                         </div>
+                        }
+                        <Modal
+                            visible={visible2}
+                            toggle={toggle2}
+                            component={
+                            users.map((user) => (
+                                (user.email !== ownEmail) &&
+                                <UserManagement
+                                    key={user.id}
+                                    userId={user.id}
+                                    email={user.email}
+                                    role={user.role}
+                                />
+                            ))}/>
+                        </div>
+                       <div>
                     </div>
                 </div>
             </div>

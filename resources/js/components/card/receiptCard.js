@@ -5,7 +5,7 @@ import '../../style/userPages/receipt.scss';
 
 const ReceiptCard = (props) => {
 
-    const [{basket}, dispatch] = useStateValue()
+    const [{basket,table}, dispatch] = useStateValue()
 
     return (
             <div className='receiptBox'>
@@ -23,6 +23,10 @@ const ReceiptCard = (props) => {
                         ))
                     }
                 </div>
+                {
+                    (table!==0)&&
+                    <p>TABLE NO: {table}</p>
+                }
                 <p>TOTAL: ${getBasketTotal(basket ? basket : []).toFixed(2)}</p>
             </div>
     )

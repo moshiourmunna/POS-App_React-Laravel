@@ -133,31 +133,29 @@
             padding: 7%;
             margin: 3%;
             border-radius: 1vh;
+            height: 33vh;
 
             h1 {
                 padding-top: 5%;
             }
-
-            .users {
-                display: flex;
-                justify-content: space-between;
-                padding: 2vh 0 2vh 0;
-                select{
-                    background-color: $body-bg1;
-                    color: $pasteColor;
-                }
-                p {
-                    padding: 2vh 0 2vh 0;
-                    font-size: 1vw;
-                    max-width: 8vw;
-                    color: $secondaryColor;
-                }
-            }
-
         }
     }
 }
-
+.users {
+    display: flex;
+    justify-content: space-between;
+    padding: 2vh 0 2vh 0;
+    select{
+        background-color: $body-bg1;
+        color: $pasteColor;
+    }
+    p {
+        padding: 2vh 0 2vh 0;
+        font-size: 1.1vw;
+        max-width: 8vw;
+        color: $offWhite;
+    }
+}
 
 table {
     border-collapse: collapse;

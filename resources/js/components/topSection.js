@@ -11,6 +11,8 @@ import {useStateValue} from "../states/StateProvider";
 import '../style/adminPages/editCategory.scss';
 import '../style/topSection.scss';
 import {toast} from "react-toastify";
+import useModal from "./modal/useModal";
+import Modal from "./modal/modal";
 
 const TopSection = (props) => {
 
@@ -21,6 +23,7 @@ const TopSection = (props) => {
     const [categoryDiv, setCategoryDiv] = useState(false);
     const [categories, setCategories] = useState([]);
     const [{state,query}] = useStateValue();
+    const { toggle2, visible2} = useModal();
 
     const getCategories = useCallback(
         async () => {
@@ -53,7 +56,7 @@ const TopSection = (props) => {
                     :
                     <div>
                         <div className='rightSide'>
-                            <button onClick={() => setCategoryDiv(!categoryDiv)}>
+                            <button onClick={toggle2}>
                                 <span style={{margin: '.2vw'}}>
                                     <RiListSettingsLine/>
                                 </span>
@@ -65,10 +68,8 @@ const TopSection = (props) => {
                                 }
                             </button>
                         </div>
+                        <Modal toggle={toggle2} visible={visible2} component={ <CategoryDetails/>} className='categoryPage'/>
                         <h3>Products Management</h3>
-                        <div className={(categoryDiv) ? 'categoryPage' : 'hide'}>
-                            <CategoryDetails/>
-                        </div>
                     </div>
             }
             <div className='header'>

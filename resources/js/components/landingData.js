@@ -41,7 +41,7 @@ const LandingData = (props) => {
 
         return () => clearTimeout(delayQuery)
 
-    }, [query, category.title])
+    }, [query, category.title, state])
 
     return (
         <div>

@@ -2,9 +2,10 @@
 @import "resources/js/style/mixin";
 
 .add-page {
-    margin: 15% 0 0 0;
+    margin: 5% 0 0 0;
     text-align: center;
-    height: 700px;
+    min-height: 85vh;
+    max-height: fit-content;
 
     h1 {
         color: $appWhite;
@@ -21,7 +22,7 @@
         display: grid;
         grid-template-columns: auto auto;
         grid-gap: 20px;
-        width: 66vw;
+        width: auto;
         align-items: center;
 
         textarea{

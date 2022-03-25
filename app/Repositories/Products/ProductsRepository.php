@@ -87,7 +87,6 @@ class ProductsRepository implements ProductsInterface
             'discount' => 'required|numeric|max:40',
             'stock' => 'required|numeric',
             'price' => 'required|numeric|regex:/^\d*(\.\d{2})?$/',
-            'file' => 'image|mimes:jpeg,jpg,png|required|max:10000',
             'status' => 'required|string|max:50',
         ],
             [
@@ -95,7 +94,6 @@ class ProductsRepository implements ProductsInterface
                 'discount.required' => ':attribute can not be blank',
                 'stock.required' => ':attribute can not be blank Or non integer',
                 'price.required' => ':attribute has to be a float of point 2',
-                'file.required' => '',
                 'status.required' => 'please select a :attribute',
             ]);
 
@@ -109,7 +107,7 @@ class ProductsRepository implements ProductsInterface
 
             $success = $image->move($upload_path, $image_full_name);
         } else {
-            $image_url = '';
+            $image_url = $product->image;
         }
 
         $data = [
