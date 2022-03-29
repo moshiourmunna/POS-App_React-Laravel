@@ -6,8 +6,8 @@ import MostOrdered from "../../../components/admin/mostOrdered"
 import Api from "../../../api/api"
 import {BeatLoader} from "react-spinners"
 import UserManagement from "../../../components/admin/userManagement";
-import Modal from "../../../components/modal/modal";
-import useModal from "../../../components/modal/useModal";
+import Modal from "../../../hooks/modal";
+import useModal from "../../../hooks/useModal";
 import Button from "../../../components/button/Button";
 
 const Dashboard = () => {

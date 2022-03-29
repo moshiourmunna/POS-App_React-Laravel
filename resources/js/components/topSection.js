@@ -11,8 +11,8 @@ import {useStateValue} from "../states/StateProvider";
 import '../style/adminPages/editCategory.scss';
 import '../style/topSection.scss';
 import {toast} from "react-toastify";
-import useModal from "./modal/useModal";
-import Modal from "./modal/modal";
+import useModal from "../hooks/useModal";
+import Modal from "../hooks/modal";
 
 const TopSection = (props) => {
 

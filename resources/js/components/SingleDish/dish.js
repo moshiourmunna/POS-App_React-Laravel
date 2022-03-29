@@ -11,8 +11,8 @@ import Api from "../../api/api";
 import AddProducts from "../modal/addProducts";
 import {toast} from "react-toastify";
 import {IoMdCloseCircle} from 'react-icons/io';
-import Modal from '../modal/modal';
-import useModal from "../modal/useModal";
+import Modal from '../../hooks/modal';
+import useModal from "../../hooks/useModal";
 
 const Dish = (props) => {
 

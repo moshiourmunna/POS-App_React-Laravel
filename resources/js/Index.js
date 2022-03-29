@@ -13,6 +13,8 @@ import {ToastContainer} from "react-toastify";
 import NotFound from "./views/notFound";
 import Discount from "./views/Admin/discount";
 import Orders from "./views/orders";
+import Inventory from "./views/Admin/inventory";
+import LandingData from "./components/landingData";
 
 function App() {
 
@@ -22,27 +24,33 @@ function App() {
     return (
         <div className="App">
 
-        <Router>
-            <Sidebar/>
-            <Routes>
+            <Router>
+                <Sidebar/>
+                <Routes>
 
-                <Route path='*' exact={true} element={<NotFound/>} />
+                    <Route path='*' exact={true} element={<NotFound/>}/>
 
-                {/*Protected Routes*/}
-                <Route path="/Settings" element={admin ? <Settings/> : <Navigate to="/"/>}/>
-                <Route path="/dashboard" element={admin ? <Dashboard/> : <Navigate to="/"/>}/>
-                <Route exact path="/" element={!admin ? <Home/> : <Navigate to="/dashboard"/>}/>
-                <Route exact path="/discount" element={admin ? <Discount/> : <Navigate to="/"/>}/>
-                {/*Protected Routes*/}
+                    {/*Protected Routes*/}
+                    <Route path="/settings"
+                           element={admin ? <Settings element={<LandingData admin={true}/>}/> : <Navigate to="/"/>}
+                    />
+                    <Route path="/inventory"
+                           element={admin ? <Settings element={<Inventory/>}/> : <Navigate to="/"/>}
+                    />
+                    <Route path="/dashboard" element={admin ? <Dashboard/> : <Navigate to="/"/>}/>
+                    <Route exact path="/" element={!admin ? <Home/> : <Navigate to="/dashboard"/>}/>
+                    <Route exact path="/orders" element={!admin ? <Orders/> : <Navigate to="/dashboard"/>}/>
+                    <Route exact path="/discount" element={admin ? <Discount/> : <Navigate to="/"/>}/>
+                    <Route exact path="/inventory" element={admin ? <Inventory/> : <Navigate to="/"/>}/>
+                    {/*Protected Routes*/}
 
-                <Route path='/orders' element={<Orders/>}/>
-                <Route path='/register' element={<Register/>}/>
-                <Route path='/login' element={<Login/>}/>
-            </Routes>
-        </Router>
+                    <Route path='/register' element={<Register/>}/>
+                    <Route path='/login' element={<Login/>}/>
+                </Routes>
+            </Router>
 
             <ToastContainer/>
-    </div>
+        </div>
     );
 }
 

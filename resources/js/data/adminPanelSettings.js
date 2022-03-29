@@ -8,8 +8,8 @@ const AdminPanelSettings=[
     },    {
         id:1,
         header:'Your Restaurant',
-        title:'Dark and Light mode, Font size',
-        route:'/restaurant',
+        title:'Manage Your Inventory, and Stocks',
+        route:'/inventory',
         icon:''
     },    {
         id:2,

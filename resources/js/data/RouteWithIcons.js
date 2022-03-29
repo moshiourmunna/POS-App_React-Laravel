@@ -40,6 +40,13 @@ const Routes = [
 ];
 
 const AdminRoutes = [
+    // {
+    //     id:1,
+    //     icon: <RestaurantIcon color={'#EA7C69'} width={'56'} height={'55'}/>,
+    //     path: '/inventory',
+    //     activeIcon: <RestaurantIcon color={'white'} width={'56'} height={'55'}/>,
+    //     pathName:'Your Restaurant'
+    // },
     {
         id:2,
         icon: <DiscountIcon color={'#EA7C69'} width={'30'} height={'25'}/>,

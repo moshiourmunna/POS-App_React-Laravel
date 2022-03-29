@@ -1,12 +1,11 @@
 import React from "react";
 import '../../../style/adminPages/settings.scss';
 import '../../../style/rowColumnStyle.scss';
-import LandingData from "../../../components/landingData";
 import ModalContent from "../../../components/modal";
 import SettingsOptions from "./partial/settingsOptions";
 
 
-const Settings = () => {
+const Settings = (props) => {
     return (
         <div className='settingsContainer'>
             <h2>Settings</h2>
@@ -15,7 +14,7 @@ const Settings = () => {
                     <SettingsOptions/>
                 </div>
                 <div className='settingsRightSide'>
-                    <LandingData admin={true}/>
+                    {props.element}
                 </div>
                 <ModalContent addProducts={true}/>
             </div>

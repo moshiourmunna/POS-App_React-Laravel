@@ -5,6 +5,8 @@
     margin-left: 92px;
     background: $body-bg2;
     text-align: left;
+    height: 100vh;
+    overflow: hidden;
 
     h2 {
         font-size: 2vw;
@@ -38,7 +40,7 @@
         .orderSummery {
             border-radius: 1vh;
             margin: 3%;
-            padding: 3%;
+            padding: 3% 3% 0 3%;
             background: $body-bg1;
 
             .orderReports {
@@ -83,7 +85,7 @@
                 }
 
                 .orderInfo {
-                    height: 46vh;
+                    height: 53vh;
                     overflow: scroll;
                     scrollbar-width: none;
 
