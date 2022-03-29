@@ -1,23 +1,24 @@
 import React from "react";
-import {Link, NavLink, useLocation} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import '../../style/sidebarCard.scss';
 import ReactTooltip from 'react-tooltip';
 
 const SidebarCard = (props) => {
 
     const url = useLocation();
+    const basePath=url.pathname.split('/')[1]
 
     return (
-        <div className={(url.pathname === props.path) ? 'sidebarActiveColor' : 'sidebarInactiveColor'}>
-            <div className={(url.pathname === props.path) ? 'inActiveIcon' : 'activeIcon'}>
+        <div className={(props.path.split('/')[1] === basePath) ? 'sidebarActiveColor' : 'sidebarInactiveColor'}>
+            <div className={(props.path.split('/')[1] === basePath) ? 'inActiveIcon' : 'activeIcon'}>
                 {
-                    (url.pathname !== props.path) ?
+                    ( props.path.split('/')[1] === basePath) ?
                         <NavLink to={props.path} data-tip={props.name}>
-                            {props.icon}
+                            {props.activeIcon}
                         </NavLink>
                         :
                         <NavLink to={props.path} data-tip={props.name}>
-                            {props.activeIcon}
+                            {props.icon}
                         </NavLink>
                 }
             </div>

@@ -34,7 +34,7 @@ function App() {
                     <Route path="/settings"
                            element={admin ? <Settings element={<LandingData admin={true}/>}/> : <Navigate to="/"/>}
                     />
-                    <Route path="/inventory"
+                    <Route path="/settings/inventory"
                            element={admin ? <Settings element={<Inventory/>}/> : <Navigate to="/"/>}
                     />
                     <Route path="/dashboard" element={admin ? <Dashboard/> : <Navigate to="/"/>}/>

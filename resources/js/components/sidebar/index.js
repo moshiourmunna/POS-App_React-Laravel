@@ -34,7 +34,7 @@ const sidebar = () => {
                 maxWidth: '60px',
                 borderRadius: '8px'
             }}>
-                <div onClick={()=>navigate('/inventory')}
+                <div onClick={()=>navigate('/settings/inventory')}
                      style={{margin: '12px 0 0 12px',cursor:'pointer'}} data-tip='Your Restaurant'
                 >
                     <RestaurantIcon/>
