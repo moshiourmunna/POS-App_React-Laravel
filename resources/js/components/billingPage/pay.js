@@ -50,7 +50,13 @@ const Pay = () => {
                             type: "setTable",
                             item:0
                         })
-
+                        dispatch(
+                            {
+                                type: "setState",
+                                item: {
+                                    title: 22
+                                },
+                            })
                     } else {
                         toast.error('OOps! Something Went Wrong')
                     }
@@ -99,9 +105,9 @@ const Pay = () => {
                 <div onClick={() => dispatch({type: 'SetModal', item: false})}
                 >
                     <Button
-                        order={true}
+                        normal={true}
                         name={'Cancel'}
-                        cancel={false}
+                        dark={true}
                     />
                 </div>
                 <div onClick={() => placeOrder()}>

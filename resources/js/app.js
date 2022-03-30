@@ -4,6 +4,7 @@ import './index.css';
 import reducer, {initialState} from "./states/reducer";
 import {StateProvider} from './states/StateProvider';
 import Index from "./Index";
+require('./bootstrap');
 
 ReactDOM.render(
     <React.StrictMode>

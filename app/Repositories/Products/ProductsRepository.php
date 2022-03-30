@@ -6,7 +6,9 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Str;
 
@@ -20,6 +22,9 @@ class ProductsRepository implements ProductsInterface
         $this->model = $product;
     }
 
+    /**
+     * @throws Exception
+     */
     public function save(Request $request)
     {
         $validator = $request->validate([
@@ -63,13 +68,12 @@ class ProductsRepository implements ProductsInterface
         $product->save();
 
         $product->categories()->sync([$request->category]);
+        cache()->forget('products');
 
-        $response = [
+        return [
             'product' => $product,
             'validator' => $validator
         ];
-
-        return $response;
     }
 
     private function slugify($name): string
@@ -77,6 +81,9 @@ class ProductsRepository implements ProductsInterface
         return \Str::slug($name);
     }
 
+    /**
+     * @throws Exception
+     */
     public function update(Request $request, int $id): array
     {
         $product = Product::findOrFail($id);
@@ -121,11 +128,10 @@ class ProductsRepository implements ProductsInterface
             'image' => $image_url,
         ];
 
-        // Category
 //        $product->categories()->detach();
         $product->categories()->sync([$request->category]);
-
         $product->update($data);
+        cache()->forget('products');
 
         return ['product' => $product, 'previouslyPublished' => $isPublishedBefore];
     }
@@ -157,23 +163,31 @@ class ProductsRepository implements ProductsInterface
         });
     }
 
+    /**
+     * @throws Exception
+     */
     public function publishedProducts($category, $query)
     {
-        return $this->baseQuery($category)
-            ->select('id', 'title', 'published', 'image', 'price', 'stock', 'discount_id')
-            ->with('categories')
-            ->with(['discounts' => function ($q) {
+
+        $products = cache()->remember('products', 60 * 60 * 24, function () use ($category, $query) {
+            return $this->baseQuery($category)
+                ->select('id', 'title', 'published', 'image', 'price', 'stock', 'discount_id')
+                ->with('categories')
+                ->with(['discounts' => function ($q) {
                     $q->where('published', 0);
-            }])
-            ->when($query, function ($q) use ($query) {
-                if($query!=='all' && $query!==null){
-                    $q->where('title', 'like', "%$query%");
-                }
-            })
-            ->latest()
-            ->get();
-
+                }])
+                ->when($query, function ($q) use ($query) {
+                    if ($query !== 'all' && $query !== null) {
+                        $q->where('title', 'like', "%$query%");
+                    }
+                })
+                ->latest()
+                ->get();
+        });
+        if (Cache::has('products')) {
+            return Cache::get('products');
+        } else {
+            return $products;
+        }
     }
-
-
 }

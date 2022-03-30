@@ -2,6 +2,7 @@ export const initialState = {
     basket: [],
     user: {},
     state: 0,
+    showNotification:false,
     quantity: 1,
     deliveryMethod: '',
     table: 0,
@@ -86,6 +87,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 state: action.item
+            }
+            case "setShowNotification":
+            return {
+                ...state,
+                showNotification: action.item
             }
         case "setQuantity":
             return {

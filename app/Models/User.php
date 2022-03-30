@@ -78,6 +78,11 @@ class User extends Authenticatable
         return $type;
     }
 
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'user.'.$this->id;
+    }
+
 //    public function getAuthIdentifier()
 //    {
 //        return $this->getKey();

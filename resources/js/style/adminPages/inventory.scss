@@ -2,6 +2,21 @@
 @import '../../style/mixin';
 
 .inventory{
-    height: 100vh;
-    background-color: $body-bg2;
+    padding: 1rem;
+    h1{
+        font-size: 2rem;
+        color: $offWhite;
+    }
+    .inventoryCard{
+
+        p{
+            color: $offWhite;
+        }
+        .title{
+            color: $secondaryColor;
+        }
+        .ingredients{
+            color: $theme;
+        }
+    }
 }

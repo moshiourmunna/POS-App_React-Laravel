@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('slug')->unique();
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
+            $table->text('inventories_id')->nullable();
             $table->float('price')->nullable();
             $table->integer('stock')->nullable();
             $table->boolean('published')->default(1);

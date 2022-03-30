@@ -1,5 +1,5 @@
 import './App.css';
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import '../js/style/modal.scss';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import Home from "./views/home/Home";
@@ -9,17 +9,51 @@ import Dashboard from "./views/Admin/dashboard";
 import Login from "./views/forms/login";
 import Register from "./views/forms/register";
 import 'react-toastify/dist/ReactToastify.css';
-import {ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import NotFound from "./views/notFound";
 import Discount from "./views/Admin/discount";
 import Orders from "./views/orders";
 import Inventory from "./views/Admin/inventory";
 import LandingData from "./components/landingData";
+import Api from "./api/api";
+import {useStateValue} from "./states/StateProvider";
 
 function App() {
 
     const user = JSON.parse(localStorage.getItem('user'));
     let admin = user?.admin;
+    const [{showNotification, state}] = useStateValue();
+
+    const getNotification = useCallback(
+        async () => {
+            await Api().get('/notification')
+                .then(res => {
+                    res.data.map(notification => {
+                        (showNotification && admin) &&
+                        console.log('noti: ', res.data)
+                        toast.warning(notification.message, {
+                            position: "top-right",
+                            hideProgressBar: true,
+                            progress: 1,
+                        });
+                    })
+                })
+                .catch(e => console.log('error', e));
+
+            (showNotification) &&
+            Api().get('/mailNotification')
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(e => console.log('error', e))
+        },
+        [state],
+    );
+
+
+    useEffect(async () => {
+        getNotification().then(r => r)
+    }, [getNotification]);
 
     return (
         <div className="App">

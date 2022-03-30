@@ -101,7 +101,7 @@ const Dish = (props) => {
                                 title: 1
                             },
                         })
-                    toast(`${props.data.title} Deleted Successfully`)
+                    toast.success(`${props.data.title} Deleted Successfully`)
                     setLoading(false)
                 })
                 .catch(e => {

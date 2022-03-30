@@ -11,8 +11,9 @@ const settingsOptionsCard = (props) => {
         <div className={(url.pathname===props.route)?'settingsOptionsActive':'settingsOptions'}>
             <Link to={props.route}>
                 <div className='flex-settingsOptions'>
-                    <RestaurantIcon width={'24'} height={'24'} color={'gray'}/>
-                    <div>
+                    {/*<RestaurantIcon width={'24'} height={'24'} color={'gray'}/>*/}
+                    {props.icon}
+                    <div className={(props.route==='/settings/inventory')? 'margin':''}>
                         <h3>{props.header}</h3>
                         <p>{props.title}</p>
                     </div>

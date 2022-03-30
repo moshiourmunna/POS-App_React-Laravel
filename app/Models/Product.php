@@ -24,6 +24,7 @@ class Product extends Model
         'stock',
         'published',
         'discount_id',
+        'inventories_id',
         'sold'
     ];
     /**
@@ -57,6 +58,11 @@ class Product extends Model
     public function discounts(): BelongsTo
     {
         return $this->belongsTo(Discount::class,'discount_id','id');
+    }
+
+    public function inventories(): BelongsToMany
+    {
+        return $this->belongsToMany(Inventory::class, 'products_ingredients', 'inventories_id', 'product_id')->withPivot('id');
     }
 
 }

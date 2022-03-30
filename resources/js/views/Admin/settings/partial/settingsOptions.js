@@ -12,6 +12,7 @@ const settingsOptions = () => {
                         header={settings.header}
                         title={settings.title}
                         route={settings.route}
+                        icon={settings.icon}
                     />
                 ))
             }

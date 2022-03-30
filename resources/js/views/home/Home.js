@@ -6,6 +6,8 @@ import FullCart from "../../components/cart/fullCart";
 import '../../style/rowColumnStyle.scss';
 import PropTypes from "prop-types";
 import LandingData from "../../components/landingData";
+import Api from "../../api/api";
+import {toast} from "react-toastify";
 
 const Home = () => {
 
@@ -15,6 +17,7 @@ const Home = () => {
     useEffect(() => {
         setState(!state)
     }, [basket,quantity]);
+
 
     return (
         <div className='home-Container'>
