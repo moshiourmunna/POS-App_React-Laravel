@@ -1,6 +1,23 @@
 @import "resources/js/style/variables";
 @import "resources/js/style/mixin";
-
+.checkbox{
+    width: 30vw;
+    margin: 5rem;
+    .checkboxItem{
+        padding: 1rem;
+        color: $theme;
+        font-size: 1.5rem;
+    }
+}
+.openButton{
+    //background-color:inherit;
+    background-color: rgba(#9288E0FF,.1);
+    cursor: pointer;
+    width: 96%;
+    font-size: 1.2rem;
+    margin-left: 2%;
+    color: $offWhite;
+}
 .add-page {
     margin: 5% 0 0 0;
     text-align: center;

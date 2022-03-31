@@ -5,14 +5,21 @@ import Api from "../../../api/api";
 import {useNavigate} from "react-router";
 import {useStateValue} from "../../../states/StateProvider";
 import {toast} from "react-toastify";
+import {DeliveryMethods} from "../../../data/deliveryMethods";
+import Modal from "../../../hooks/modal";
+import useModal from "../../../hooks/useModal";
+import Button from "../../button/Button";
+import {IoIosArrowDropdown} from "react-icons/io";
 
 const AddProducts = (props) => {
 
+    const [selected, setSelected] = useState([])
+    const {toggle, visible} = useModal();
     const navigate = useNavigate()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
-    const [ingredients, setIngredients] = useState('')
+    const [ingredients, setIngredients] = useState([])
     const [category, setCategory] = useState()
     const [stock, setStock] = useState('')
     const [discount, setDiscount] = useState('')
@@ -24,6 +31,7 @@ const AddProducts = (props) => {
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [inventory, setInventories] = useState([]);
     const ref = useRef();
     const disabled = '';
     const [{}, dispatch] = useStateValue();
@@ -57,6 +65,16 @@ const AddProducts = (props) => {
     useEffect(() => {
         getDiscounts().then(r => r)
     }, [getDiscounts]);
+
+    useEffect(async () => {
+        await Api().get('/inventories')
+            .then(res => {
+                console.log('inve',res.data)
+                setInventories(res.data)
+            })
+    }, []);
+
+
 
 
     async function upload() {
@@ -170,7 +188,7 @@ const AddProducts = (props) => {
             setCategory(props.category[0].id)
         }
         if (props?.inventory) {
-            setIngredients(props.inventory.map(i=>i.name))
+            setIngredients(props.inventory.map(i => i.name))
         }
     }, []);
 
@@ -214,19 +232,26 @@ const AddProducts = (props) => {
 
     useEffect(() => {
         console.log('edit data: ', props.data)
-        if(props.data){
+        if (props.data) {
             if (Url && title && price && stock && category && ingredients) {
                 setReady(true)
             }
-        }
-        else{
+        } else {
             if (File && title && price && stock && category && ingredients) {
                 setReady(true)
             }
         }
 
-    }, [Url, title, price, stock,category,ingredients]);
+    }, [Url, title, price, stock, category, ingredients]);
 
+    function handleChange(e) {
+        setSelected([...selected,e.target.value])
+    }
+
+    function saveSelectedHandler() {
+        setIngredients(selected)
+        toggle()
+    }
 
     return (
         <div className='add-page'>
@@ -280,6 +305,40 @@ const AddProducts = (props) => {
                     </option>
                 </select>
 
+                <button className='openButton' onClick={toggle}>
+                    Choose Ingredients
+                    <span>  <IoIosArrowDropdown/></span>
+                </button>
+
+                   <Modal
+                    visible={visible}
+                    toggle={toggle}
+                    component={
+                       <div className='checkbox'>
+                        {
+                            inventory.map((x) =>(
+                                <div key={x.id}>
+                                    <input
+                                        onChange={handleChange}
+                                        type="checkbox"
+                                        id="selected"
+                                        name="selected"
+                                        value={x}/>
+                                    <span className='checkboxItem'>{x}</span>
+                                </div>
+                            ))
+                        }
+                        <div style={{marginTop:'2rem'}} onClick={saveSelectedHandler}>
+                            <Button
+                                name='Save'
+                                normal={true}
+                                dark={true}
+                            />
+                        </div>
+                    </div>
+                   }
+                   />
+
                 <select
                     className={(errors?.category) ? 'select_red' : 'select'}
                     id='status'
@@ -326,11 +385,12 @@ const AddProducts = (props) => {
                 <input
                     className={(errors?.ingredients) ? 'input_red' : 'input'}
                     type='text'
+                    disabled
                     placeholder={
                         (errors?.ingredients) ?
                             errors?.ingredients
                             :
-                            "* Product Ingredients, Comma (,) seperated"
+                            "* Product Ingredients, Not Editable"
                     }
                     name='stock'
                     value={

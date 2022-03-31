@@ -37,6 +37,7 @@ Route::group([
     Route::post('/updateUser/{id}/{role}', [UserController::class, 'update']);
 
     Route::get('/productsWithInventory', [InventoryController::class, 'index']);
+    Route::get('/inventories', [InventoryController::class, 'show']);
 
     Route::get('/getOrderInfo/{statusFilter}/{customerFilter}', [OrderController::class, 'index']);
     Route::post('/updateOrder/{id}', [OrderController::class, 'update']);
