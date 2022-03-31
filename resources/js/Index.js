@@ -34,10 +34,9 @@ function App() {
                         console.log('noti: ', res.data)
                         toast.warning(notification.message, {
                             position: "bottom-left",
-                            hideProgressBar: true,
                             closeOnClick:true,
-                            onClick:event => sendMail(`${event.target.innerText}, Buy `),
-                            progress: 1,
+                            autoClose:100000,
+                            onClick:event => console.log(event.target.innerText),
                         });
                     })
                 })
@@ -46,17 +45,11 @@ function App() {
         [],
     );
 
+
+
     useEffect(async () => {
         getNotification().then(r => r)
     }, [getNotification]);
-
-    async function sendMail(info){
-        await Api().post(`/mailNotification/${info}`)
-            .then(res => {
-                toast.success('Alert Sent To Kitchen')
-            })
-            .catch(e => console.log('error', e))
-    }
 
 
 

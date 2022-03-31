@@ -44,6 +44,7 @@ class notifyStuffs extends Notification
         return [
         'name' => $this->details['greeting'],
         'email' => $this->details['body'],
+        'instruction' => $this->details['instruction'],
     ];
     }
 }

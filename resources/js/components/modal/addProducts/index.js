@@ -12,13 +12,13 @@ const AddProducts = (props) => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
+    const [ingredients, setIngredients] = useState('')
     const [category, setCategory] = useState()
     const [stock, setStock] = useState('')
     const [discount, setDiscount] = useState('')
     const [discounts, setDiscounts] = useState([])
     const [status, setStatus] = useState(0)
     const [File, setFile] = useState('');
-    const [res, setResponse] = useState('');
     const [Url, setUrl] = useState('');
     const [ready, setReady] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -70,6 +70,7 @@ const AddProducts = (props) => {
         Data.append('description', description);
         Data.append('status', status);
         Data.append('category', category);
+        Data.append('ingredients', ingredients);
 
         await Api().post('/store', Data)
             .then((response) => {
@@ -120,6 +121,7 @@ const AddProducts = (props) => {
         Data.append('description', description);
         Data.append('status', status);
         Data.append('category', category);
+        Data.append('ingredients', ingredients);
 
         await Api().post(`/update/` + props.data.id, Data
         ).then((response) => {
@@ -161,10 +163,14 @@ const AddProducts = (props) => {
             setDiscount(props.data.discount_id)
             setStatus(props.data.published)
             setDescription(props.data.description)
+            setIngredients(props.data.ingredients)
             setUrl(props.data.image)
         }
         if (props?.category) {
             setCategory(props.category[0].id)
+        }
+        if (props?.inventory) {
+            setIngredients(props.inventory.map(i=>i.name))
         }
     }, []);
 
@@ -183,14 +189,10 @@ const AddProducts = (props) => {
         setPrice(e.target.value)
         errors.price = ''
     }
-    const descriptionHandler = (e) => {
-        setDescription(e.target.value)
-        errors.description = ''
-    }
 
-    const discountHandler = (e) => {
-        setDiscount(e.target.value)
-        errors.discount = ''
+    const ingredientsHandler = (e) => {
+        setIngredients(e.target.value)
+        errors.ingredients = ''
     }
 
     const fileHandler = async (e) => {
@@ -211,18 +213,19 @@ const AddProducts = (props) => {
     }
 
     useEffect(() => {
+        console.log('edit data: ', props.data)
         if(props.data){
-            if (Url && title && price && stock && category) {
+            if (Url && title && price && stock && category && ingredients) {
                 setReady(true)
             }
         }
         else{
-            if (File && title && price && stock && category) {
+            if (File && title && price && stock && category && ingredients) {
                 setReady(true)
             }
         }
 
-    }, [Url, title, price, stock,category]);
+    }, [Url, title, price, stock,category,ingredients]);
 
 
     return (
@@ -319,6 +322,24 @@ const AddProducts = (props) => {
                             ''
                     }
                     onChange={(e) => stockHandler(e)}/>
+
+                <input
+                    className={(errors?.ingredients) ? 'input_red' : 'input'}
+                    type='text'
+                    placeholder={
+                        (errors?.ingredients) ?
+                            errors?.ingredients
+                            :
+                            "* Product Ingredients, Comma (,) seperated"
+                    }
+                    name='stock'
+                    value={
+                        !(errors?.ingredients) ?
+                            ingredients
+                            :
+                            ''
+                    }
+                    onChange={(e) => ingredientsHandler(e)}/>
 
                 <select
                     className={(errors?.discount) ? 'select_red' : 'select'}

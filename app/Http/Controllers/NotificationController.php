@@ -50,11 +50,11 @@ class NotificationController extends Controller
 
             'greeting' => 'You are running out of stocks',
 
-            'body' => $info,
+            'body' => $inventories,
 
             'thanks' => 'Thank you for using POS APP!',
 
-            'instruction' => 'Restock',
+            'instruction' => "$info",
 
             'actionURL' => url('/settings/inventory'),
 

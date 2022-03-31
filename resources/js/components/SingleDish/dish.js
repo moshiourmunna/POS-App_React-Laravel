@@ -116,7 +116,7 @@ const Dish = (props) => {
     return (
         <div className='dish' onClick={addToCart}>
             <Modal visible={visible} toggle={toggle} component={
-                <AddProducts data={props.data} category={props.data.categories}/>}
+                <AddProducts data={props.data} category={props.data.categories} inventory={props.data.inventories}/>}
             />
             {/*{*/}
             {/*    (toggle) &&*/}

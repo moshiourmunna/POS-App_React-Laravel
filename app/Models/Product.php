@@ -62,7 +62,7 @@ class Product extends Model
 
     public function inventories(): BelongsToMany
     {
-        return $this->belongsToMany(Inventory::class, 'products_ingredients', 'inventories_id', 'product_id')->withPivot('id');
+        return $this->belongsToMany(Inventory::class, 'products_ingredients', 'product_id', 'inventories_id')->withPivot('id');
     }
 
 }

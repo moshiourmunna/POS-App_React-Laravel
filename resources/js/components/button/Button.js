@@ -22,7 +22,7 @@ const Button = (props) => {
             {
                  (props.normal) ?
                 <button
-                disabled={!props.cancel? disabled : !disabled}
+                disabled={props.cancel}
                 className={ props.dark? 'button-dim-enabled':!props.cancel &&!props.dark? 'button-glow' : 'button-dim'}
                 >
                     {

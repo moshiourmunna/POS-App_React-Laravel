@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Products;
 
+use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -30,6 +31,7 @@ class ProductsRepository implements ProductsInterface
         $validator = $request->validate([
             'title' => 'required|string|unique:products,title|max:50',
             'discount' => 'required|numeric|max:40',
+            'ingredients' => 'required',
             'stock' => 'required|numeric',
             'price' => 'required|numeric|regex:/^\d*(\.\d{2})?$/',
             'file' => 'image|mimes:jpeg,jpg,png|required|max:10000',
@@ -39,6 +41,7 @@ class ProductsRepository implements ProductsInterface
                 'title.required' => ':attribute can not be blank',
                 'discount.required' => ':attribute can not be blank',
                 'stock.required' => ':attribute can not be blank Or non integer',
+                'ingredients.required' => ':attribute can not be blank',
                 'price.required' => ':attribute has to be a float of point 2',
                 'file.required' => '',
                 'status.required' => 'please select a :attribute',
@@ -68,6 +71,15 @@ class ProductsRepository implements ProductsInterface
         $product->save();
 
         $product->categories()->sync([$request->category]);
+        $newIngredients = explode(',', $request->input('ingredients'));
+        $ingredientIDs=[];
+
+        foreach ($newIngredients as $ingredients) {
+            $ingredient = Inventory::firstOrCreate(['name' => $ingredients, 'stock'=>20,'threshold'=>5]);
+            $ingredientIDs[] = $ingredient->id;
+        }
+        $product->inventories()->sync($ingredientIDs);
+
         cache()->forget('products');
 
         return [
@@ -93,6 +105,7 @@ class ProductsRepository implements ProductsInterface
             'title' => 'required|string|max:50',
             'discount' => 'required|numeric|max:40',
             'stock' => 'required|numeric',
+            'ingredients' => 'required',
             'price' => 'required|numeric|regex:/^\d*(\.\d{2})?$/',
             'status' => 'required|string|max:50',
         ],
@@ -102,6 +115,7 @@ class ProductsRepository implements ProductsInterface
                 'stock.required' => ':attribute can not be blank Or non integer',
                 'price.required' => ':attribute has to be a float of point 2',
                 'status.required' => 'please select a :attribute',
+                'ingredients.required' => ':attribute can not be blank',
             ]);
 
 
@@ -130,6 +144,17 @@ class ProductsRepository implements ProductsInterface
 
 //        $product->categories()->detach();
         $product->categories()->sync([$request->category]);
+
+        $newIngredients = explode(',', $request->input('ingredients'));
+        $ingredientIDs=[];
+
+        foreach ($newIngredients as $ingredients) {
+            $ingredient = Inventory::firstOrCreate(['name' => $ingredients, 'stock'=>20,'threshold'=>5]);
+            $ingredientIDs[] = $ingredient->id;
+        }
+        $product->inventories()->detach();
+        $product->inventories()->sync($ingredientIDs);
+
         $product->update($data);
         cache()->forget('products');
 
@@ -173,6 +198,7 @@ class ProductsRepository implements ProductsInterface
             return $this->baseQuery($category)
                 ->select('id', 'title', 'published', 'image', 'price', 'stock', 'discount_id')
                 ->with('categories')
+                ->with('inventories')
                 ->with(['discounts' => function ($q) {
                     $q->where('published', 0);
                 }])
