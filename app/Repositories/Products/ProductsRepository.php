@@ -67,26 +67,24 @@ class ProductsRepository implements ProductsInterface
         $product->stock = $request->stock;
         $product->price = $request->price;
         $product->slug = $this->slugify($request->title);
-//        $product->sold = $request->price->increment();
         $product->save();
 
         $product->categories()->sync([$request->category]);
         $newIngredients = explode(',', $request->input('ingredients'));
-        $ingredientIDs=[];
-
+        $ingredientIDs = [];
         foreach ($newIngredients as $ingredients) {
-            $ingredient = Inventory::firstOrCreate(['name' => $ingredients, 'stock'=>20,'threshold'=>5]);
+            $ingredient = Inventory::firstorcreate(['name' => $ingredients, 'product_id' => $product->id]);
             $ingredientIDs[] = $ingredient->id;
         }
-        $product->inventories()->sync($ingredientIDs);
 
-        cache()->forget('products');
+        $product->inventories()->sync($ingredientIDs);
 
         return [
             'product' => $product,
             'validator' => $validator
         ];
     }
+
 
     private function slugify($name): string
     {
@@ -146,17 +144,16 @@ class ProductsRepository implements ProductsInterface
         $product->categories()->sync([$request->category]);
 
         $newIngredients = explode(',', $request->input('ingredients'));
-        $ingredientIDs=[];
+        $ingredientIDs = [];
 
         foreach ($newIngredients as $ingredients) {
-            $ingredient = Inventory::firstOrCreate(['name' => $ingredients, 'stock'=>20,'threshold'=>5]);
+            $ingredient = Inventory::firstorcreate(['name' => $ingredients]);
             $ingredientIDs[] = $ingredient->id;
         }
         $product->inventories()->detach();
         $product->inventories()->sync($ingredientIDs);
 
         $product->update($data);
-        cache()->forget('products');
 
         return ['product' => $product, 'previouslyPublished' => $isPublishedBefore];
     }
@@ -194,7 +191,7 @@ class ProductsRepository implements ProductsInterface
     public function publishedProducts($category, $query)
     {
 
-        $products = cache()->remember('products', 60 * 60 * 24, function () use ($category, $query) {
+        return cache()->remember('products', 60 * 60 * 24, function () use ($category, $query) {
             return $this->baseQuery($category)
                 ->select('id', 'title', 'published', 'image', 'price', 'stock', 'discount_id')
                 ->with('categories')
@@ -210,10 +207,5 @@ class ProductsRepository implements ProductsInterface
                 ->latest()
                 ->get();
         });
-        if (Cache::has('products')) {
-            return Cache::get('products');
-        } else {
-            return $products;
-        }
     }
 }

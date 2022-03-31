@@ -35,6 +35,7 @@ function App() {
                         toast.warning(notification.message, {
                             position: "bottom-left",
                             closeOnClick:true,
+                            hideProgressBar:true,
                             autoClose:100000,
                             onClick:event => console.log(event.target.innerText),
                         });

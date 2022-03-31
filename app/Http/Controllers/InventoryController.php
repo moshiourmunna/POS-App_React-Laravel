@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
 class InventoryController extends Controller
@@ -24,7 +25,7 @@ class InventoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -35,7 +36,7 @@ class InventoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -45,19 +46,26 @@ class InventoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
+     * @return Collection|Inventory[]
      */
-    public function show(Inventory $inventory)
+    public function show()
     {
-        //
+        $products= Inventory::all();
+        $p=[];
+
+        foreach ($products as $product){
+            if(!in_array($product->name,$p)){
+                $p[]=$product->name;
+            }
+        }
+        return $p;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
+     * @param Inventory $inventory
+     * @return Response
      */
     public function edit(Inventory $inventory)
     {
@@ -68,8 +76,8 @@ class InventoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
+     * @param Inventory $inventory
+     * @return Response
      */
     public function update(Request $request, Inventory $inventory)
     {
@@ -79,8 +87,8 @@ class InventoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
+     * @param Inventory $inventory
+     * @return Response
      */
     public function destroy(Inventory $inventory)
     {

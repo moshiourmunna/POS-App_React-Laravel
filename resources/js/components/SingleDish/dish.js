@@ -147,9 +147,7 @@ const Dish = (props) => {
                         </div>
 
                         <div className={(props.Admin) ? 'editDish' : 'hidden'}>
-                            <button
-                                onClick={toggle}
-                            >
+                            <button onClick={toggle}>
                                 <FiEdit3 size='2.5em'/>
                             </button>
                             <button
