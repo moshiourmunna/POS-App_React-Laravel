@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Discount;
 use App\Models\Inventory;
+use App\Models\User;
+use App\Notifications\notifyStuffs;
 use App\Repositories\Products\ProductsRepository;
 use Exception;
 use Illuminate\Http\Request;

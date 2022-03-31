@@ -26,34 +26,39 @@ function App() {
 
     const getNotification = useCallback(
         async () => {
+            (admin)&&
             await Api().get('/notification')
                 .then(res => {
                     res.data.map(notification => {
-                        (showNotification && admin) &&
+                        (showNotification) &&
                         console.log('noti: ', res.data)
                         toast.warning(notification.message, {
-                            position: "top-right",
+                            position: "bottom-left",
                             hideProgressBar: true,
+                            closeOnClick:true,
+                            onClick:event => sendMail(`${event.target.innerText}, Buy `),
                             progress: 1,
                         });
                     })
                 })
                 .catch(e => console.log('error', e));
-
-            (showNotification) &&
-            Api().get('/mailNotification')
-                .then(res => {
-                    console.log(res)
-                })
-                .catch(e => console.log('error', e))
         },
-        [state],
+        [],
     );
-
 
     useEffect(async () => {
         getNotification().then(r => r)
     }, [getNotification]);
+
+    async function sendMail(info){
+        await Api().post(`/mailNotification/${info}`)
+            .then(res => {
+                toast.success('Alert Sent To Kitchen')
+            })
+            .catch(e => console.log('error', e))
+    }
+
+
 
     return (
         <div className="App">
@@ -83,7 +88,17 @@ function App() {
                 </Routes>
             </Router>
 
-            <ToastContainer/>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick={false}
+                rtl
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 }

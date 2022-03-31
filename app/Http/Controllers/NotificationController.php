@@ -6,6 +6,7 @@ use App\Models\Inventory;
 use App\Models\Notification;
 use App\Models\User;
 use App\Notifications\NotifyAdmin;
+use App\Notifications\notifyStuffs;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
@@ -40,16 +41,16 @@ class NotificationController extends Controller
     }
 
 
-    public function sendNotification()
+    public function sendNotification($info)
     {
         $inventories = Inventory::with('products')->get();
-        $users = User::all();
+        $users = User::where('role', 1)->get();
 
         $details = [
 
             'greeting' => 'You are running out of stocks',
 
-            'body' => $inventories,
+            'body' => $info,
 
             'thanks' => 'Thank you for using POS APP!',
 
@@ -59,12 +60,9 @@ class NotificationController extends Controller
 
         ];
 
-        foreach ($inventories as $key => $inventory) {
-            if ($inventory->stock < $inventory->threshold) {
-                foreach ($users as $user) {
-                    $user->notify(new NotifyAdmin($details));
-                }
-            }
+        foreach ($users as $user) {
+            $user->notify(new notifyStuffs($details));
         }
+
     }
 }

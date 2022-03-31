@@ -3,11 +3,12 @@ import '../../../style/adminPages/inventory.scss'
 import Api from "../../../api/api";
 import {toast, ToastContainer} from "react-toastify";
 import {useStateValue} from "../../../states/StateProvider";
+import Button from "../../../components/button/Button";
 
 const Inventory = () => {
 
     const [data, setData] = useState([])
-    const [showNotification, setShowNotification] = useState(false)
+    const [loading, setLoading] = useState(false)
     const user = JSON.parse(localStorage.getItem('user'));
     let admin = user?.admin;
     const [{state}, dispatch] = useStateValue();
@@ -62,13 +63,14 @@ const Inventory = () => {
                     </div>
                 ))
             }
-            <ToastContainer
-                position="top-right"
-                autoClose={false}
-                closeOnClick
-                pauseOnFocusLoss
-                draggable
-            />
+            {/*<div onClick={sendMail}>*/}
+            {/*    <Button*/}
+            {/*        name={'Send Mail'}*/}
+            {/*        dark={true}*/}
+            {/*        normal={true}*/}
+            {/*        loading={loading}*/}
+            {/*    />*/}
+            {/*</div>*/}
         </div>
     )
 }

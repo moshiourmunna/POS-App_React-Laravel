@@ -30,7 +30,7 @@ Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
 
-    Route::get('/mailNotification', [NotificationController::class, 'sendNotification']);
+    Route::post('/mailNotification/{info}', [NotificationController::class, 'sendNotification']);
     Route::get('/notification', [FrontEndController::class, 'sendNotification']);
 
     Route::get('/getUsers', [UserController::class, 'show']);
